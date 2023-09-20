@@ -32,3 +32,11 @@ button:focus {
   outline: none;
   border-color: #1280EE;
 }
+
+#selectedElementInfo {
+  font-size: 1em;
+  font-weight: bold;
+  padding: "3px";
+  margin-bottom: 1em;
+  color: white;
+}
