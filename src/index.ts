@@ -23,7 +23,11 @@ document.getElementById("lorem").onsubmit = async (event) => {
 
   const el = await webflow.getSelectedElement();
 
+  console.log("webflor form: ", webflow);
+
   if (!(el.type === "FormWrapper" || el.type === "FormForm")) {
     displayFormSelectionError(el);
   } else displayCorrectSelection(el);
 };
+
+console.log("webflow api: ", webflow);

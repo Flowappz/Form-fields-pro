@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm install && tsc -p tsconfig.json && webflow extension bundle",
-    "dev": "npm install && concurrently -r \"webflow extension serve\" \"tsc -p tsconfig.json --watch --preserveWatchOutput\""
+    "dev": "webflow extension serve"
   },
   "devDependencies": {
     "@webflow/designer-extension-typings": "*",
