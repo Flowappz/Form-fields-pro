@@ -4,12 +4,26 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "npm install && tsc -p tsconfig.json && webflow extension bundle",
-    "dev": "webflow extension serve"
+    "build": "npm install && tsc && vite build && webflow extension bundle",
+    "test": "tsc && vite build --watch",
+    "dev": "npm install && concurrently -r \"webflow extension serve\" \"tsc && vite build --watch\""
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
     "@webflow/designer-extension-typings": "*",
     "concurrently": "*",
-    "typescript": "*"
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "typescript": "*",
+    "vite": "^4.4.5"
   }
 }
