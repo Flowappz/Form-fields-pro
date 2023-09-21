@@ -1,6 +1,5 @@
 /node_modules/
 
-public/**.js
-public/assets
+public/
 
 dist/
