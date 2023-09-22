@@ -10,6 +10,7 @@
     <div id="root"></div>
     <script type="text/javascript">
       window._myWebflow = webflow;
+      window._myWebflow.setExtensionSize("large");
       console.log("\nInline script: webflow => ", webflow);
       console.log("\nInline script: MY WEBFLOW => ", window._myWebflow);
       window._myWebflow.getSiteInfo().then((res) => console.log("site info: ", res))
