@@ -8,7 +8,7 @@ type props = {
 export default function Home({ selectedElement }: PropsWithChildren<props>) {
   return (
     <div className="home-container p-50">
-      <div className="d-flex flex-align-center p-20" style={{ width: "70%" }}>
+      <div className="d-flex flex-align-center p-20" style={{ minWidth: "50%" }}>
         <h1 className="text-decoration-underline">Form Fields Pro</h1>
       </div>
       <div className="d-flex flex-align-center p-20">
