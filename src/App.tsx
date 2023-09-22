@@ -5,10 +5,7 @@ import "./App.css";
 
 declare global {
   interface Window {
-    _myWebflow: {
-      getSiteInfo(): Promise<any>;
-      getSelectedElement(): Promise<any>;
-    };
+    _myWebflow: typeof webflow;
   }
 }
 
