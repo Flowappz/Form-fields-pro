@@ -1,4 +1,5 @@
 import "./App.css";
+import Home from "./views/Home";
 
 declare global {
   interface Window {
@@ -7,7 +8,7 @@ declare global {
 }
 
 function App() {
-  return <h1>Form Fields Pro</h1>;
+  return <Home />;
 }
 
 export default App;
