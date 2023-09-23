@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
+import * as webflowService from "../services/webflowService";
 
-export default function CustomDropdown() {
+export default function CustomDropdown({ form }: PropsWithChildren<{ form: FormFormElement | FormWrapperElement | null }>) {
   const [dropdownLabel, setDropdownLabel] = useState("");
   const [item, setItem] = useState("");
   const [items, setItems] = useState<string[]>([]);
@@ -8,6 +9,16 @@ export default function CustomDropdown() {
   const handleAddItem = () => {
     setItems([item, ...items]);
     setItem("");
+  };
+
+  const handleInsert = async () => {
+    if (form) {
+      await webflowService.insertDropdownToForm({
+        label: dropdownLabel,
+        items,
+        form,
+      });
+    }
   };
 
   return (
@@ -18,6 +29,7 @@ export default function CustomDropdown() {
       <input type="text" value={dropdownLabel} onChange={(e) => setDropdownLabel(e.target.value)} />
 
       <br />
+      <label style={{ display: "block" }}>Enter items</label>
       <input type="text" value={item} onChange={(e) => setItem(e.target.value)} />
       <button onClick={handleAddItem}>Add item</button>
 
@@ -28,6 +40,10 @@ export default function CustomDropdown() {
           <li key={i}>{i}</li>
         ))}
       </ul>
+
+      <button onClick={handleInsert} style={{ marginTop: "15px" }}>
+        Insert dropdown
+      </button>
     </div>
   );
 }

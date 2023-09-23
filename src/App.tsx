@@ -16,6 +16,7 @@ enum Views {
 
 function App() {
   const [selectedelement, setSelectedElement] = useState<AnyElement | null>(null);
+  const [formElement, setFormElement] = useState<FormFormElement | FormWrapperElement | null>(null);
   const [view, setView] = useState(Views.HOME);
 
   useEffect(function listenToElementSelectonChange() {
@@ -26,6 +27,7 @@ function App() {
     function changeView() {
       if (selectedelement?.type === "FormForm" || selectedelement?.type === "FormWrapper") {
         setView(Views.CUSTOM_DROPDOWN);
+        setFormElement(selectedelement);
       }
     },
     [selectedelement]
@@ -33,7 +35,7 @@ function App() {
 
   switch (view) {
     case Views.CUSTOM_DROPDOWN:
-      return <CustomDropdown />;
+      return <CustomDropdown form={formElement} />;
     default:
       return <Home selectedElement={selectedelement} />;
   }
