@@ -17,20 +17,8 @@ const dropdownLabelStyle = async (): Promise<Style> => {
   style = window._myWebflow.createStyle(styleNames.DROPDOWN_LABEL);
   style.setProperties({
     "font-weight": "bold",
-    display: "inline-block",
+    display: "block",
     "margin-bottom": "5px",
-  });
-
-  return style;
-};
-
-const dropdownWrapperStyle = async (): Promise<Style> => {
-  let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_WRAPPER);
-  if (style) return style;
-
-  style = window._myWebflow.createStyle(styleNames.DROPDOWN_WRAPPER);
-  style.setProperties({
-    position: "relative",
   });
 
   return style;
@@ -61,31 +49,42 @@ const createLabelElement = async (label: string): Promise<DOMElement> => {
 export const insertDropdownToForm = async ({ label, items, form }: DropdownParams) => {
   const labelElement = await createLabelElement(label);
 
-  const dropdownSelector = window._myWebflow.createDOM("p");
+  const dropdownSelectorWrapper = window._myWebflow.createDOM("div");
+  dropdownSelectorWrapper.setAttribute("class", "w-dropdown-toggle");
+
+  const dropdownSelector = window._myWebflow.createDOM("div");
   dropdownSelector.setTextContent("Select an item");
+
+  const dropdownSelectorIcon = window._myWebflow.createDOM("div");
+  dropdownSelectorIcon.setAttribute("class", "w-icon-dropdown-toggle");
+
+  dropdownSelectorWrapper.setChildren([dropdownSelectorIcon, dropdownSelector]);
 
   const dropdownDiv = window._myWebflow.createDOM("div");
   const dropdownDivStyle = await dropdownListStyle();
   dropdownDiv.setStyles([dropdownDivStyle]);
 
   const list = window._myWebflow.createDOM("ul");
+  list.setAttribute("class", "w-dropdown-list");
+
   const listItems = items.map((item) => {
     const listItem = window._myWebflow.createDOM("li");
     listItem.setTextContent(item);
+    listItem.setAttribute("class", "w-dropdown-link");
     return listItem;
   });
 
   list.setChildren(listItems);
-  dropdownDiv.setChildren([list]);
 
   const wrapperDiv = window._myWebflow.createDOM("div");
-  const wrapperStyle = await dropdownWrapperStyle();
-  wrapperDiv.setStyles([wrapperStyle]);
+  wrapperDiv.setAttribute("class", "w-dropdown");
 
-  wrapperDiv.setChildren([labelElement, dropdownSelector, dropdownDiv]);
+  wrapperDiv.setChildren([labelElement, dropdownSelectorWrapper, list]);
+
+  const lineBreak = window._myWebflow.createDOM("br");
 
   const existingChilds = form.getChildren();
 
-  form.setChildren([...existingChilds, wrapperDiv]);
+  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
   await form.save();
 };
