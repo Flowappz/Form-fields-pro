@@ -84,12 +84,21 @@ const createDropdown = async ({ label, items }: { label: string; items: string[]
   return wrapperDiv;
 };
 
+const createHiddenInput = (): DOMElement => {
+  const input = window._myWebflow.createDOM("input");
+  input.setAttribute("type", "hidden");
+  input.setAttribute("id", "formFieldsDropdown");
+
+  return input;
+};
+
 export const insertDropdownToForm = async ({ label, items, form }: DropdownParams) => {
   const dropdownDiv = await createDropdown({ label, items });
+  const input = createHiddenInput();
   const lineBreak = window._myWebflow.createDOM("br");
 
   const existingChilds = form.getChildren();
 
-  form.setChildren([...existingChilds, lineBreak, dropdownDiv]);
+  form.setChildren([...existingChilds, lineBreak, dropdownDiv, input]);
   await form.save();
 };
