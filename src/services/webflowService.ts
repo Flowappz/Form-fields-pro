@@ -46,7 +46,7 @@ const createLabelElement = async (label: string): Promise<DOMElement> => {
   return element;
 };
 
-export const insertDropdownToForm = async ({ label, items, form }: DropdownParams) => {
+const createDropdown = async ({ label, items }: { label: string; items: string[] }): Promise<DOMElement> => {
   const labelElement = await createLabelElement(label);
 
   const dropdownSelectorWrapper = window._myWebflow.createDOM("div");
@@ -81,10 +81,15 @@ export const insertDropdownToForm = async ({ label, items, form }: DropdownParam
 
   wrapperDiv.setChildren([labelElement, dropdownSelectorWrapper, list]);
 
+  return wrapperDiv;
+};
+
+export const insertDropdownToForm = async ({ label, items, form }: DropdownParams) => {
+  const dropdownDiv = await createDropdown({ label, items });
   const lineBreak = window._myWebflow.createDOM("br");
 
   const existingChilds = form.getChildren();
 
-  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  form.setChildren([...existingChilds, lineBreak, dropdownDiv]);
   await form.save();
 };
