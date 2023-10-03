@@ -69,6 +69,8 @@ const createDropdown = async ({ label, inputName, items }: { label: string; inpu
 
   const list = window._myWebflow.createDOM("ul");
   list.setAttribute("class", "w-dropdown-list");
+  list.setAttribute("form-field-dropdown-item-list", "true");
+  list.setAttribute("dropdown-name", inputName);
 
   const listItems = items.map((item) => {
     const listItem = window._myWebflow.createDOM("li");
