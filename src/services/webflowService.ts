@@ -47,7 +47,7 @@ const createLabelElement = async (label: string): Promise<DOMElement> => {
   return element;
 };
 
-const createDropdown = async ({ label, items }: { label: string; items: string[] }): Promise<DOMElement> => {
+const createDropdown = async ({ label, inputName, items }: { label: string; inputName: string; items: string[] }): Promise<DOMElement> => {
   const labelElement = await createLabelElement(label);
 
   const dropdownSelectorWrapper = window._myWebflow.createDOM("div");
@@ -55,6 +55,8 @@ const createDropdown = async ({ label, items }: { label: string; items: string[]
 
   const dropdownSelector = window._myWebflow.createDOM("div");
   dropdownSelector.setTextContent("Select an item");
+  dropdownSelector.setAttribute("form-field-dropdown-toggler", "");
+  dropdownSelector.setAttribute("dropdown-name", inputName);
 
   const dropdownSelectorIcon = window._myWebflow.createDOM("div");
   dropdownSelectorIcon.setAttribute("class", "w-icon-dropdown-toggle");
@@ -70,8 +72,13 @@ const createDropdown = async ({ label, items }: { label: string; items: string[]
 
   const listItems = items.map((item) => {
     const listItem = window._myWebflow.createDOM("li");
+
     listItem.setTextContent(item);
     listItem.setAttribute("class", "w-dropdown-link");
+    listItem.setAttribute("form-field-dropdown-item", "");
+    listItem.setAttribute("input-field", inputName);
+    listItem.setAttribute("input-data", item);
+
     return listItem;
   });
 
@@ -95,7 +102,7 @@ const createHiddenInput = (inputName: string): DOMElement => {
 };
 
 export const insertDropdownToForm = async ({ label, items, inputName, form }: DropdownParams) => {
-  const dropdownDiv = await createDropdown({ label, items });
+  const dropdownDiv = await createDropdown({ label, inputName, items });
   const input = createHiddenInput(inputName);
   const lineBreak = window._myWebflow.createDOM("br");
 
