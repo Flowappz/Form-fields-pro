@@ -55,7 +55,7 @@ const createDropdown = async ({ label, inputName, items }: { label: string; inpu
 
   const dropdownSelector = window._myWebflow.createDOM("div");
   dropdownSelector.setTextContent("Select an item");
-  dropdownSelector.setAttribute("form-field-dropdown-toggler", "");
+  dropdownSelector.setAttribute("form-field-dropdown-toggler", "true");
   dropdownSelector.setAttribute("dropdown-name", inputName);
 
   const dropdownSelectorIcon = window._myWebflow.createDOM("div");
@@ -75,7 +75,7 @@ const createDropdown = async ({ label, inputName, items }: { label: string; inpu
 
     listItem.setTextContent(item);
     listItem.setAttribute("class", "w-dropdown-link");
-    listItem.setAttribute("form-field-dropdown-item", "");
+    listItem.setAttribute("form-field-dropdown-item", "true");
     listItem.setAttribute("input-field", inputName);
     listItem.setAttribute("input-data", item);
 
@@ -96,7 +96,7 @@ const createHiddenInput = (inputName: string): DOMElement => {
   const input = window._myWebflow.createDOM("input");
   input.setAttribute("type", "hidden");
   input.setAttribute("name", inputName);
-  input.setAttribute("form-field-dropdown-input", "");
+  input.setAttribute("form-field-dropdown-input", "true");
 
   return input;
 };
