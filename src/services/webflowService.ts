@@ -2,6 +2,7 @@ type DropdownParams = {
   label: string;
   items: string[];
   form: FormFormElement | FormWrapperElement;
+  inputName: string;
 };
 
 enum styleNames {
@@ -84,17 +85,18 @@ const createDropdown = async ({ label, items }: { label: string; items: string[]
   return wrapperDiv;
 };
 
-const createHiddenInput = (): DOMElement => {
+const createHiddenInput = (inputName: string): DOMElement => {
   const input = window._myWebflow.createDOM("input");
   input.setAttribute("type", "hidden");
-  input.setAttribute("id", "formFieldsDropdown");
+  input.setAttribute("name", inputName);
+  input.setAttribute("form-field-dropdown-input", "");
 
   return input;
 };
 
-export const insertDropdownToForm = async ({ label, items, form }: DropdownParams) => {
+export const insertDropdownToForm = async ({ label, items, inputName, form }: DropdownParams) => {
   const dropdownDiv = await createDropdown({ label, items });
-  const input = createHiddenInput();
+  const input = createHiddenInput(inputName);
   const lineBreak = window._myWebflow.createDOM("br");
 
   const existingChilds = form.getChildren();
