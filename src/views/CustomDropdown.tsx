@@ -3,6 +3,7 @@ import * as webflowService from "../services/webflowService";
 
 export default function CustomDropdown({ form }: PropsWithChildren<{ form: FormFormElement | FormWrapperElement | null }>) {
   const [dropdownLabel, setDropdownLabel] = useState("");
+  const [fieldName, setFieldName] = useState("");
   const [item, setItem] = useState("");
   const [items, setItems] = useState<string[]>([]);
 
@@ -16,6 +17,7 @@ export default function CustomDropdown({ form }: PropsWithChildren<{ form: FormF
       await webflowService.insertDropdownToForm({
         label: dropdownLabel,
         items,
+        inputName: fieldName,
         form,
       });
     }
@@ -27,6 +29,11 @@ export default function CustomDropdown({ form }: PropsWithChildren<{ form: FormF
         Enter the dropdown title
       </label>
       <input type="text" value={dropdownLabel} onChange={(e) => setDropdownLabel(e.target.value)} />
+
+      <label htmlFor="dropdownFieldName" style={{ display: "block" }}>
+        Enter the dropdown field name
+      </label>
+      <input type="text" value={fieldName} onChange={(e) => setFieldName(e.target.value)} />
 
       <br />
       <label style={{ display: "block" }}>Enter items</label>
