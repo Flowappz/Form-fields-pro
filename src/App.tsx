@@ -1,49 +1,86 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import Home from "./views/Home";
+import CustomDropdown from "./views/CustomDropdown";
+import axios from "axios";
 
 declare global {
   interface Window {
-    _myWebflow: {
-      getSiteInfo(): Promise<any>;
-      getSelectedElement(): Promise<any>;
-    };
+    _myWebflow: typeof webflow;
   }
 }
 
+enum Views {
+  HOME,
+  CUSTOM_DROPDOWN,
+}
+
+interface IPushScriptApiResponse {
+  data: {
+    siteId: string;
+    status: "OK";
+    script: {
+      id: string;
+      displayName: string;
+      version: string;
+      location: "header" | "footer";
+      attributes: { [key: string]: string };
+    };
+  };
+}
+
 function App() {
-  const [count, setCount] = useState(0);
-  const [selectedElement, setSelectedElement] = useState<any>(null);
+  const [selectedelement, setSelectedElement] = useState<AnyElement | null>(null);
+  const [formElement, setFormElement] = useState<FormFormElement | FormWrapperElement | null>(null);
+  const [view, setView] = useState(Views.HOME);
 
-  useEffect(() => {
-    window._myWebflow.getSiteInfo().then((res) => console.log("site info: ", res, "count is ", count));
+  useEffect(function listenToElementSelectonChange() {
+    window._myWebflow.subscribe("selectedelement", (element) => setSelectedElement(element));
+  }, []);
 
-    window._myWebflow.getSelectedElement().then((res) => setSelectedElement(res));
-  }, [count]);
+  useEffect(function pushCustomDropdownScript() {
+    const pushScript = async () => {
+      try {
+        const { siteId } = await window._myWebflow.getSiteInfo();
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button style={{ color: "gold" }}>Selected el type is {selectedElement?.type}</button>
+        const { data } = await axios.post<IPushScriptApiResponse>(
+          `${import.meta.env.VITE_DATA_CLIENT_URL}/app/attach-custom-script`,
+          {
+            siteId,
+            scriptName: "dropdown",
+          },
+          {
+            headers: {
+              Authorization: `Basic ${import.meta.env.VITE_BASIC_AUTH_TOKEN}`,
+            },
+          }
+        );
 
-        <button onClick={() => setCount((count) => count + 1)}>Select an element</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+        console.log("\n\nSuccessfully attached custom dropdown script: ", data, "\n\n");
+      } catch (err) {
+        console.log("Error pushing custom dropdown script", err);
+      }
+    };
+
+    pushScript();
+  }, []);
+
+  useEffect(
+    function changeView() {
+      if (selectedelement?.type === "FormForm" || selectedelement?.type === "FormWrapper") {
+        setView(Views.CUSTOM_DROPDOWN);
+        setFormElement(selectedelement);
+      }
+    },
+    [selectedelement]
   );
+
+  switch (view) {
+    case Views.CUSTOM_DROPDOWN:
+      return <CustomDropdown form={formElement} />;
+    default:
+      return <Home selectedElement={selectedelement} />;
+  }
 }
 
 export default App;
