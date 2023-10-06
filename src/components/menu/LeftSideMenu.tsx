@@ -8,25 +8,25 @@ export default function LeftSideMenu() {
       </div>
 
       <div className="py-2 flex justify-between items-center border-t-[1.5px] border-t-[#363636] bg-[#212121] p-3">
-        <div className="leading-[1.1rem]">
+        <div className="leading-[1.15rem]">
           <h3 className="font-bold text-[0.82rem]">Dropdown</h3>
-          <p className="text-[0.8rem] text-[#ABABAB]">Custom dropdown menu</p>
+          <p className="text-[0.8rem] font-light text-[#ABABAB]">Custom dropdown menu</p>
         </div>
         <ChevronRightIcon />
       </div>
 
       <div className="py-2 flex justify-between items-center border-t-[1.5px] border-t-[#363636] p-3">
-        <div className="leading-[1.1rem]">
+        <div className="leading-[1.15rem]">
           <h3 className="font-bold text-[0.82rem]">Dropdown</h3>
-          <p className="text-[0.8rem] text-[#ABABAB]">Custom dropdown menu</p>
+          <p className="text-[0.8rem] font-light text-[#ABABAB]">Custom dropdown menu</p>
         </div>
         <ChevronRightIcon />
       </div>
 
       <div className="py-2 flex justify-between items-center border-t-[1.5px] border-t-[#363636] p-3">
-        <div className="leading-[1.1rem]">
+        <div className="leading-[1.15rem]">
           <h3 className="font-bold text-[0.82rem]">URL Picker</h3>
-          <p className="text-[0.8rem] text-[#FFC700]">Coming soon</p>
+          <p className="text-[0.8rem] font-light text-[#FFC700]">Coming soon</p>
         </div>
         <ChevronRightIcon />
       </div>
