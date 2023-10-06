@@ -5,6 +5,7 @@ import CustomDropdown from "./views/CustomDropdown";
 import axios from "axios";
 import LeftSideMenu from "./components/menu/LeftSideMenu";
 import { MenuId, MenuItem } from "./config/menu";
+import EmptyState from "./views/EmptyState";
 
 declare global {
   interface Window {
@@ -91,7 +92,9 @@ function App() {
       <div className="col-span-4 h-full border-r-[1.5px] border-r-[#363636] overflow-y-auto overscroll-none">
         <LeftSideMenu selectedMenuId={selectedMenuId} onClick={(id) => setSelectedMenuId(id)} />
       </div>
-      <div className="col-span-8 h-full p-3"></div>
+      <div className="col-span-8 h-full p-3">
+        <EmptyState />
+      </div>
     </div>
   );
 }
