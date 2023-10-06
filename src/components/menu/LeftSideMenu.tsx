@@ -1,5 +1,5 @@
 import ChevronRightIcon from "../../icons/ChevronRight";
-import { MENU_ITEMS, type MenuItem } from "../../config/menu";
+import { MENU_ITEMS, type MenuId, type MenuItem } from "../../config/menu";
 import React, { PropsWithChildren } from "react";
 
 const NotAvailableMenuItem: React.FC<PropsWithChildren<{ item: MenuItem }>> = ({ item }) => {
@@ -17,7 +17,7 @@ const NotAvailableMenuItem: React.FC<PropsWithChildren<{ item: MenuItem }>> = ({
 
 interface IMenuItemComponentProps extends PropsWithChildren {
   item: MenuItem;
-  onClick: (id: string) => void;
+  onClick: (id: MenuId) => void;
 }
 
 const AvailableMenuItem: React.FC<IMenuItemComponentProps> = ({ item, onClick }) => {
@@ -38,7 +38,7 @@ const AvailableMenuItem: React.FC<IMenuItemComponentProps> = ({ item, onClick })
 };
 
 interface MenuProps extends PropsWithChildren {
-  onClick: (id: string) => void;
+  onClick: (id: MenuId) => void;
 }
 
 export default function LeftSideMenu({ onClick }: MenuProps) {
