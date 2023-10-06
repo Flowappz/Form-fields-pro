@@ -17,7 +17,7 @@ const NotAvailableMenuItem: React.FC<PropsWithChildren<{ item: MenuItem }>> = ({
 
 interface IMenuItemComponentProps extends PropsWithChildren {
   item: MenuItem;
-  onClick: (id: string) => {};
+  onClick: (id: string) => void;
 }
 
 const AvailableMenuItem: React.FC<IMenuItemComponentProps> = ({ item, onClick }) => {
@@ -38,7 +38,7 @@ const AvailableMenuItem: React.FC<IMenuItemComponentProps> = ({ item, onClick })
 };
 
 interface MenuProps extends PropsWithChildren {
-  onClick: (id: string) => {};
+  onClick: (id: string) => void;
 }
 
 export default function LeftSideMenu({ onClick }: MenuProps) {
