@@ -75,12 +75,14 @@ function App() {
     [selectedelement]
   );
 
-  switch (view) {
-    case Views.CUSTOM_DROPDOWN:
-      return <CustomDropdown form={formElement} />;
-    default:
-      return <Home selectedElement={selectedelement} />;
-  }
+  // switch (view) {
+  //   case Views.CUSTOM_DROPDOWN:
+  //     return <CustomDropdown form={formElement} />;
+  //   default:
+  //     return <Home selectedElement={selectedelement} />;
+  // }
+
+  return <div className="bg-[#404040] h-screen"></div>;
 }
 
 export default App;
