@@ -60,12 +60,12 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "",
     available: false,
   },
-  {
-    id: "date_range_picker",
-    label: "Date range picker",
-    description: "",
-    available: false,
-  },
+  // {
+  //   id: "date_range_picker",
+  //   label: "Date range picker",
+  //   description: "",
+  //   available: false,
+  // },
   {
     id: "url_picker",
     label: "URL picker",

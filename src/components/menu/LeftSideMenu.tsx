@@ -7,8 +7,8 @@ const NotAvailableMenuItem: React.FC<PropsWithChildren<{ item: MenuItem }>> = ({
   return (
     <div className="py-2 flex justify-between items-center border-t-[1.5px] border-t-[#363636] p-3">
       <div className="leading-[1.15rem]">
-        <h3 className="font-bold text-[0.82rem]">{label}</h3>
-        <p className="text-[0.79rem] font-light text-[#FFC700]">Coming soon</p>
+        <h3 className="font-semibold text-[0.82rem]">{label}</h3>
+        <p className="text-[0.75rem] font-light text-[#FFC700]">Coming soon</p>
       </div>
       <ChevronRightIcon />
     </div>
@@ -20,8 +20,8 @@ const AvailableMenuItem: React.FC<PropsWithChildren<{ item: MenuItem }>> = ({ it
   return (
     <div className="py-2 flex justify-between items-center border-t-[1.5px] border-t-[#363636] bg-[#212121] p-3">
       <div className="leading-[1.15rem]">
-        <h3 className="font-bold text-[0.82rem]">{label}</h3>
-        <p className="text-[0.8rem] font-light text-[#ABABAB]">{description}</p>
+        <h3 className="font-semibold text-[0.82rem]">{label}</h3>
+        <p className="text-[0.77rem] font-light text-[#ABABAB]">{description}</p>
       </div>
       <ChevronRightIcon />
     </div>
@@ -31,7 +31,7 @@ const AvailableMenuItem: React.FC<PropsWithChildren<{ item: MenuItem }>> = ({ it
 export default function LeftSideMenu() {
   return (
     <>
-      <div className="p-[0.45rem] py-[0.65rem]">
+      <div className="p-[0.45rem] py-2">
         <input type="text" placeholder="Search" className="w-full px-[0.3rem] bg-[#2B2B2B] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none" />
       </div>
 
