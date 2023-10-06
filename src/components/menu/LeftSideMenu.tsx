@@ -17,15 +17,18 @@ const NotAvailableMenuItem: React.FC<PropsWithChildren<{ item: MenuItem }>> = ({
 
 interface IMenuItemComponentProps extends PropsWithChildren {
   item: MenuItem;
+  selected: boolean;
   onClick: (id: MenuId) => void;
 }
 
-const AvailableMenuItem: React.FC<IMenuItemComponentProps> = ({ item, onClick }) => {
+const AvailableMenuItem: React.FC<IMenuItemComponentProps> = ({ item, selected, onClick }) => {
   const { id, label, description } = item;
 
   return (
     <div
-      className="py-2 flex justify-between items-center border-t-[1.5px] border-t-[#363636] bg-[#212121] p-3"
+      className={`py-2 flex justify-between items-center border-t-[1.5px] border-t-[#363636] p-3 ${
+        selected && "bg-[#212121]"
+      }`}
       onClick={() => onClick(id)}
     >
       <div className="leading-[1.15rem]">
@@ -42,7 +45,7 @@ interface MenuProps extends PropsWithChildren {
   selectedMenuId: MenuId | null;
 }
 
-export default function LeftSideMenu({ onClick }: MenuProps) {
+export default function LeftSideMenu({ selectedMenuId, onClick }: MenuProps) {
   return (
     <>
       <div className="p-[0.45rem] py-2">
@@ -55,7 +58,7 @@ export default function LeftSideMenu({ onClick }: MenuProps) {
 
       {MENU_ITEMS.map((item) =>
         item.available ? (
-          <AvailableMenuItem key={item.id} item={item} onClick={onClick} />
+          <AvailableMenuItem key={item.id} item={item} selected={item.id === selectedMenuId} onClick={onClick} />
         ) : (
           <NotAvailableMenuItem key={item.id} item={item} />
         )

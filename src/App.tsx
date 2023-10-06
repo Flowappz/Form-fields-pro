@@ -4,6 +4,7 @@ import Home from "./views/Home";
 import CustomDropdown from "./views/CustomDropdown";
 import axios from "axios";
 import LeftSideMenu from "./components/menu/LeftSideMenu";
+import { MenuId, MenuItem } from "./config/menu";
 
 declare global {
   interface Window {
@@ -34,6 +35,8 @@ function App() {
   const [selectedelement, setSelectedElement] = useState<AnyElement | null>(null);
   const [formElement, setFormElement] = useState<FormFormElement | FormWrapperElement | null>(null);
   const [view, setView] = useState(Views.HOME);
+
+  const [selectedMenuId, setSelectedMenuId] = useState<MenuId | null>(null);
 
   useEffect(function listenToElementSelectonChange() {
     window._myWebflow.subscribe("selectedelement", (element) => setSelectedElement(element));
@@ -86,7 +89,7 @@ function App() {
   return (
     <div className="bg-[#404040] h-screen grid grid-cols-12 text-[#D9D9D9]">
       <div className="col-span-4 h-full border-r-[1.5px] border-r-[#363636] overflow-y-auto overscroll-none">
-        <LeftSideMenu />
+        <LeftSideMenu selectedMenuId={selectedMenuId} onClick={(id) => setSelectedMenuId(id)} />
       </div>
       <div className="col-span-8 h-full p-3"></div>
     </div>
