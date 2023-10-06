@@ -1,11 +1,4 @@
-export type MenuItem = {
-  id: string;
-  label: string;
-  description: string;
-  available: boolean;
-};
-
-export const MENU_ITEMS: MenuItem[] = [
+export const MENU_ITEMS = [
   {
     id: "dropdown",
     label: "Dropdown",
@@ -72,4 +65,7 @@ export const MENU_ITEMS: MenuItem[] = [
     description: "",
     available: false,
   },
-];
+] as const;
+
+export type MenuId = (typeof MENU_ITEMS)[number]["id"];
+export type MenuItem = (typeof MENU_ITEMS)[number];
