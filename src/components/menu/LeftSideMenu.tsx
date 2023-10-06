@@ -39,6 +39,7 @@ const AvailableMenuItem: React.FC<IMenuItemComponentProps> = ({ item, onClick })
 
 interface MenuProps extends PropsWithChildren {
   onClick: (id: MenuId) => void;
+  selectedMenuId: MenuId | null;
 }
 
 export default function LeftSideMenu({ onClick }: MenuProps) {
