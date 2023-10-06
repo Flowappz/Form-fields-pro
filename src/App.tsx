@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./views/Home";
 import CustomDropdown from "./views/CustomDropdown";
 import axios from "axios";
+import LeftSideMenu from "./components/menu/LeftSideMenu";
 
 declare global {
   interface Window {
@@ -84,8 +85,10 @@ function App() {
 
   return (
     <div className="bg-[#404040] h-screen grid grid-cols-12 text-[#D9D9D9]">
-      <div className="col-span-4 h-full border-r-2 border-r-[#363636]">Menu</div>
-      <div className="col-span-8 h-full">Content</div>
+      <div className="col-span-4 h-full border-r-[1.5px] border-r-[#363636] overflow-y-auto overscroll-none">
+        <LeftSideMenu />
+      </div>
+      <div className="col-span-8 h-full p-3"></div>
     </div>
   );
 }
