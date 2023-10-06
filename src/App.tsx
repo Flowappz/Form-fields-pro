@@ -82,7 +82,12 @@ function App() {
   //     return <Home selectedElement={selectedelement} />;
   // }
 
-  return <div className="bg-[#404040] h-screen"></div>;
+  return (
+    <div className="bg-[#404040] h-screen grid grid-cols-12 text-[#D9D9D9]">
+      <div className="col-span-4 h-full border-r-2 border-r-[#363636]">Menu</div>
+      <div className="col-span-8 h-full">Content</div>
+    </div>
+  );
 }
 
 export default App;
