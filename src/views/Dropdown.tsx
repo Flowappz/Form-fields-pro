@@ -34,9 +34,11 @@ export default function Dropdown() {
           </div>
         </div>
 
-        <button className="w-full bg-[#5E5E5E] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm">
-          Add item
-        </button>
+        <div className="border-b-[1.25px] border-b-[#363636] pb-[0.5rem]">
+          <button className="w-full bg-[#5E5E5E] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm">
+            Add item
+          </button>
+        </div>
       </div>
     </div>
   );
