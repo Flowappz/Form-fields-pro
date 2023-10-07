@@ -26,7 +26,7 @@ const AvailableMenuItem: React.FC<IMenuItemComponentProps> = ({ item, selected, 
 
   return (
     <div
-      className={`py-2 flex justify-between items-center border-t-[1.5px] border-t-[#363636] p-3 ${
+      className={`py-2 cursor-pointer flex justify-between items-center border-t-[1.5px] border-t-[#363636] p-3 ${
         selected && "bg-[#212121]"
       }`}
       onClick={() => onClick(id)}
