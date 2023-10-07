@@ -5,7 +5,7 @@ import React, { PropsWithChildren } from "react";
 const NotAvailableMenuItem: React.FC<PropsWithChildren<{ item: MenuItem }>> = ({ item }) => {
   const { label } = item;
   return (
-    <div className="py-2 flex justify-between items-center border-t-[1.5px] border-t-[#363636] p-3">
+    <div className="py-2 flex justify-between items-center border-t-[1.25px] border-t-[#363636] p-3">
       <div className="leading-[1.15rem]">
         <h3 className="font-semibold text-[0.82rem]">{label}</h3>
         <p className="text-[0.75rem] font-light text-[#FFC700]">Coming soon</p>
@@ -26,7 +26,7 @@ const AvailableMenuItem: React.FC<IMenuItemComponentProps> = ({ item, selected, 
 
   return (
     <div
-      className={`py-2 cursor-pointer flex justify-between items-center border-t-[1.5px] border-t-[#363636] p-3 ${
+      className={`py-2 cursor-pointer flex justify-between items-center border-t-[1.25px] border-t-[#363636] p-3 ${
         selected && "bg-[#212121]"
       }`}
       onClick={() => onClick(id)}

@@ -6,6 +6,7 @@ import { type MenuId } from "./config/menu";
 import EmptyState from "./views/EmptyState";
 import { AppContext } from "./contexts/AppContext";
 import NoFormSelectedState from "./views/NoFormSelectedState";
+import Dropdown from "./views/Dropdown";
 
 declare global {
   interface Window {
@@ -68,13 +69,14 @@ function App() {
 
   return (
     <div className="bg-[#404040] h-screen grid grid-cols-12 text-[#D9D9D9]">
-      <div className="col-span-4 h-full border-r-[1.5px] border-r-[#363636] overflow-y-auto overscroll-none">
+      <div className="col-span-4 h-full border-r-[1.25px] border-r-[#363636] overflow-y-auto overscroll-none">
         <LeftSideMenu selectedMenuId={selectedMenuId} onClick={(id) => setSelectedMenuId(id)} />
       </div>
-      <div className="col-span-8 h-full p-3 relative">
+      <div className="col-span-8 h-full p-2 relative">
         <AppContext.Provider value={{ form: formElement }}>
-          <EmptyState />
+          {/* <EmptyState /> */}
           <NoFormSelectedState />
+          <Dropdown />
         </AppContext.Provider>
       </div>
     </div>
