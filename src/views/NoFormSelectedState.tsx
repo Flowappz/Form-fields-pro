@@ -1,8 +1,13 @@
+import { useAppContext } from "../contexts/AppContext";
 import PinIcon from "../icons/Pin";
 
 export default function NoFormSelectedState() {
+  const { form } = useAppContext();
+
+  if (form) return null;
+
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <div className="w-full h-full flex items-center justify-center absolute top-0 left-0">
       <div className="w-3/4 bg-red-500 flex flex-col items-center p-[0.75rem] pb-[1.3rem] rounded">
         <PinIcon color="white" />
 
