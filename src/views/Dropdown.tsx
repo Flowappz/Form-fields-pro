@@ -1,4 +1,5 @@
 import TextInput from "../components/form/TextInput";
+import CloseDefaultIcon from "../icons/CloseDefault";
 
 export default function Dropdown() {
   return (
@@ -11,6 +12,19 @@ export default function Dropdown() {
       <div className="border-b-[#363636] border-b-[1.25px]">
         <TextInput label="Label" />
         <TextInput label="Field name" />
+      </div>
+
+      <div className="mt-[0.3rem]">
+        <p className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB]">Sub Items</p>
+
+        <div className="flex gap-1 justify-between items-center">
+          <div className="flex-1">
+            <TextInput placeholder="1000$" />
+          </div>
+          <div className="bg-[#5E5E5E] box-border mb-2 p-1 border-[#363636] border-[1px] rounded-sm cursor-pointer">
+            <CloseDefaultIcon />
+          </div>
+        </div>
       </div>
     </div>
   );
