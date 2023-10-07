@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Home from "./views/Home";
-import CustomDropdown from "./views/CustomDropdown";
 import axios from "axios";
 import LeftSideMenu from "./components/menu/LeftSideMenu";
-import { MenuId, MenuItem } from "./config/menu";
+import { type MenuId } from "./config/menu";
 import EmptyState from "./views/EmptyState";
 
 declare global {
   interface Window {
     _myWebflow: typeof webflow;
   }
-}
-
-enum Views {
-  HOME,
-  CUSTOM_DROPDOWN,
 }
 
 interface IPushScriptApiResponse {
@@ -34,8 +27,6 @@ interface IPushScriptApiResponse {
 
 function App() {
   const [selectedelement, setSelectedElement] = useState<AnyElement | null>(null);
-  const [formElement, setFormElement] = useState<FormFormElement | FormWrapperElement | null>(null);
-  const [view, setView] = useState(Views.HOME);
 
   const [selectedMenuId, setSelectedMenuId] = useState<MenuId | null>(null);
 
@@ -69,23 +60,6 @@ function App() {
 
     pushScript();
   }, []);
-
-  useEffect(
-    function changeView() {
-      if (selectedelement?.type === "FormForm" || selectedelement?.type === "FormWrapper") {
-        setView(Views.CUSTOM_DROPDOWN);
-        setFormElement(selectedelement);
-      }
-    },
-    [selectedelement]
-  );
-
-  // switch (view) {
-  //   case Views.CUSTOM_DROPDOWN:
-  //     return <CustomDropdown form={formElement} />;
-  //   default:
-  //     return <Home selectedElement={selectedelement} />;
-  // }
 
   return (
     <div className="bg-[#404040] h-screen grid grid-cols-12 text-[#D9D9D9]">
