@@ -25,6 +25,18 @@ export default function Dropdown() {
             <CloseDefaultIcon />
           </div>
         </div>
+        <div className="flex gap-1 justify-between items-center">
+          <div className="flex-1">
+            <TextInput placeholder="1000$" />
+          </div>
+          <div className="bg-[#5E5E5E] box-border mb-2 p-1 border-[#363636] border-[1px] rounded-sm cursor-pointer">
+            <CloseDefaultIcon />
+          </div>
+        </div>
+
+        <button className="w-full bg-[#5E5E5E] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm">
+          Add item
+        </button>
       </div>
     </div>
   );
