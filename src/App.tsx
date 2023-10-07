@@ -4,6 +4,7 @@ import axios from "axios";
 import LeftSideMenu from "./components/menu/LeftSideMenu";
 import { type MenuId } from "./config/menu";
 import EmptyState from "./views/EmptyState";
+import { AppContext } from "./contexts/AppContext";
 
 declare global {
   interface Window {
@@ -61,13 +62,18 @@ function App() {
     pushScript();
   }, []);
 
+  const formElement =
+    selectedelement?.type === "FormForm" || selectedelement?.type === "FormWrapper" ? selectedelement : null;
+
   return (
     <div className="bg-[#404040] h-screen grid grid-cols-12 text-[#D9D9D9]">
       <div className="col-span-4 h-full border-r-[1.5px] border-r-[#363636] overflow-y-auto overscroll-none">
         <LeftSideMenu selectedMenuId={selectedMenuId} onClick={(id) => setSelectedMenuId(id)} />
       </div>
       <div className="col-span-8 h-full p-3">
-        <EmptyState />
+        <AppContext.Provider value={{ form: formElement }}>
+          <EmptyState />
+        </AppContext.Provider>
       </div>
     </div>
   );
