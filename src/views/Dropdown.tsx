@@ -39,6 +39,12 @@ export default function Dropdown() {
             Add item
           </button>
         </div>
+
+        <div className="mt-2">
+          <button className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm">
+            Insert field
+          </button>
+        </div>
       </div>
     </div>
   );
