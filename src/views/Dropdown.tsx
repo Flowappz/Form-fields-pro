@@ -4,6 +4,7 @@ import CloseDefaultIcon from "../icons/CloseDefault";
 
 export default function Dropdown() {
   const [dropdownLabel, setDropdownLabel] = useState("");
+  const [inputFieldName, setInputFieldName] = useState("");
 
   return (
     <div className="h-full px-20">
@@ -14,7 +15,7 @@ export default function Dropdown() {
 
       <div className="border-b-[#363636] border-b-[1.25px]">
         <TextInput label="Label" value={dropdownLabel} name="label" onChange={setDropdownLabel} />
-        <TextInput label="Field name" />
+        <TextInput label="Field name" name="input" value={inputFieldName} onChange={setInputFieldName} />
       </div>
 
       <div className="mt-[0.3rem]">
