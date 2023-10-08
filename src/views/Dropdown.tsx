@@ -7,6 +7,13 @@ export default function Dropdown() {
   const [inputFieldName, setInputFieldName] = useState("");
   const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
 
+  const handleDropdownItemChange = (idx: number, val: string) => {
+    const items = [...dropdownItems];
+    items[idx] = val;
+
+    setDropdownItems(items);
+  };
+
   const handleDropdownItemRemove = (idx: number) => {
     const items = dropdownItems.filter((item, i) => {
       item;
@@ -31,7 +38,12 @@ export default function Dropdown() {
         <p className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB]">Sub Items</p>
 
         {dropdownItems.map((item, idx) => (
-          <RemovableTextInput key={idx} value={item} onRemove={() => handleDropdownItemRemove(idx)} />
+          <RemovableTextInput
+            key={idx}
+            value={item}
+            onChange={(val) => handleDropdownItemChange(idx, val)}
+            onRemove={() => handleDropdownItemRemove(idx)}
+          />
         ))}
 
         <div className="border-b-[1.25px] border-b-[#363636] pb-[0.5rem]">
