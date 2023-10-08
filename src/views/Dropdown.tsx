@@ -72,8 +72,20 @@ export default function Dropdown() {
       </div>
 
       <div className="border-b-[#363636] border-b-[1.25px]">
-        <TextInput label="Label" value={dropdownLabel} name="label" onChange={setDropdownLabel} />
-        <TextInput label="Field name" name="input" value={inputFieldName} onChange={setInputFieldName} />
+        <TextInput
+          label="Label"
+          value={dropdownLabel}
+          name="label"
+          onChange={setDropdownLabel}
+          error={errors.dropdownLabel}
+        />
+        <TextInput
+          label="Field name"
+          name="input"
+          value={inputFieldName}
+          onChange={setInputFieldName}
+          error={errors.inputFieldName}
+        />
       </div>
 
       <div className="mt-[0.3rem]">
@@ -95,6 +107,7 @@ export default function Dropdown() {
           >
             Add item
           </button>
+          {errors.dropdownItems && <span className="text-red-400 text-[0.74rem]">{errors.dropdownItems}</span>}
         </div>
 
         <div className="mt-2">
