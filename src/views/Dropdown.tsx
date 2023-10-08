@@ -2,6 +2,8 @@ import { useState } from "react";
 import TextInput from "../components/form/TextInput";
 import RemovableTextInput from "../components/form/RemovableTextInput";
 import { ZodError, z } from "zod";
+import { useAppContext } from "../contexts/AppContext";
+import * as webflowService from "../services/webflowService";
 
 const inputSchema = z.object({
   dropdownLabel: z.string().min(1, "Please enter a label"),
@@ -14,6 +16,8 @@ const inputSchema = z.object({
 });
 
 export default function Dropdown() {
+  const { form } = useAppContext();
+
   const [dropdownLabel, setDropdownLabel] = useState("");
   const [inputFieldName, setInputFieldName] = useState("");
   const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
@@ -44,6 +48,8 @@ export default function Dropdown() {
       });
 
       setErrors({});
+
+      return true;
     } catch (err) {
       if (err instanceof ZodError) {
         const errorsByField: { [x: string]: string } = {};
@@ -60,8 +66,15 @@ export default function Dropdown() {
     }
   };
 
-  const handleDropdownInsert = () => {
-    validateDate();
+  const handleDropdownInsert = async () => {
+    if (validateDate() && form) {
+      await webflowService.insertDropdownToForm({
+        form,
+        label: dropdownLabel,
+        inputName: inputFieldName,
+        items: dropdownItems,
+      });
+    }
   };
 
   return (
