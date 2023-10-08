@@ -97,6 +97,7 @@ export default function Dropdown() {
             value={item}
             onChange={(val) => handleDropdownItemChange(idx, val)}
             onRemove={() => handleDropdownItemRemove(idx)}
+            error={errors[`dropdownItems.${idx}`]}
           />
         ))}
 
