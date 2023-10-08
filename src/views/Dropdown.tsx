@@ -1,6 +1,17 @@
 import { useState } from "react";
 import TextInput from "../components/form/TextInput";
 import RemovableTextInput from "../components/form/RemovableTextInput";
+import { z } from "zod";
+
+const inputSchema = z.object({
+  dropdownLabel: z.string().min(1, "Please enter a label"),
+  inputFieldName: z.string().min(1, "Please enter the input name"),
+  dropdownItems: z
+    .string()
+    .min(1, "Please enter dropdown item value")
+    .array()
+    .min(1, "Please add at least one dropdown item!"),
+});
 
 export default function Dropdown() {
   const [dropdownLabel, setDropdownLabel] = useState("");
@@ -30,7 +41,7 @@ export default function Dropdown() {
       </div>
 
       <div className="border-b-[#363636] border-b-[1.25px]">
-        <TextInput label="Label" value={dropdownLabel} name="label" onChange={setDropdownLabel} />
+        <TextInput label="Label" value={dropdownLabel} name="label" onChange={setDropdownLabel} error={errorMessage} />
         <TextInput label="Field name" name="input" value={inputFieldName} onChange={setInputFieldName} />
       </div>
 
