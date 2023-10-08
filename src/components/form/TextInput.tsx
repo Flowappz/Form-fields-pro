@@ -1,4 +1,4 @@
-interface TextInputProps {
+export interface TextInputProps {
   label?: string;
   placeholder?: string;
   name?: string;
