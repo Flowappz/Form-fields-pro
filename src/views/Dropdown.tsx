@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TextInput from "../components/form/TextInput";
 import RemovableTextInput from "../components/form/RemovableTextInput";
-import { z } from "zod";
+import { ZodError, z } from "zod";
 
 const inputSchema = z.object({
   dropdownLabel: z.string().min(1, "Please enter a label"),
@@ -18,6 +18,8 @@ export default function Dropdown() {
   const [inputFieldName, setInputFieldName] = useState("");
   const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
 
+  const [errors, setErrors] = useState<any>({});
+
   const handleDropdownItemChange = (idx: number, val: string) => {
     const items = [...dropdownItems];
     items[idx] = val;
@@ -33,6 +35,35 @@ export default function Dropdown() {
     setDropdownItems(items);
   };
 
+  const validateDate = () => {
+    try {
+      inputSchema.parse({
+        dropdownLabel,
+        inputFieldName,
+        dropdownItems,
+      });
+
+      setErrors({});
+    } catch (err) {
+      if (err instanceof ZodError) {
+        const errorsByField: { [x: string]: string } = {};
+
+        for (let issue of err.errors) {
+          const { path, message } = issue;
+          const field = path.length === 1 ? path[0] : path.join(".");
+
+          errorsByField[field] = message;
+        }
+
+        setErrors(errorsByField);
+      }
+    }
+  };
+
+  const handleDropdownInsert = () => {
+    validateDate();
+  };
+
   return (
     <div className="h-full px-20">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
@@ -41,7 +72,7 @@ export default function Dropdown() {
       </div>
 
       <div className="border-b-[#363636] border-b-[1.25px]">
-        <TextInput label="Label" value={dropdownLabel} name="label" onChange={setDropdownLabel} error={errorMessage} />
+        <TextInput label="Label" value={dropdownLabel} name="label" onChange={setDropdownLabel} />
         <TextInput label="Field name" name="input" value={inputFieldName} onChange={setInputFieldName} />
       </div>
 
@@ -67,7 +98,10 @@ export default function Dropdown() {
         </div>
 
         <div className="mt-2">
-          <button className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm">
+          <button
+            className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
+            onClick={handleDropdownInsert}
+          >
             Insert field
           </button>
         </div>
