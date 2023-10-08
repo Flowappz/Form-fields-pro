@@ -9,13 +9,14 @@ export default function RemovableTextInput({
   label,
   name = "",
   value,
+  placeholder = "1000$",
   onChange = () => {},
   onRemove,
 }: RemovableTextInputProps) {
   return (
     <div className="flex gap-1 justify-between items-center">
       <div className="flex-1">
-        <TextInput placeholder="1000$" label={label} name={name} value={value} onChange={onChange} />
+        <TextInput placeholder={placeholder} label={label} name={name} value={value} onChange={onChange} />
       </div>
       <div
         className="bg-[#5E5E5E] box-border mb-2 p-1 border-[#363636] border-[1px] rounded-sm cursor-pointer"
