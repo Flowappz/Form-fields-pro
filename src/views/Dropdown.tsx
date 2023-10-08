@@ -1,7 +1,10 @@
+import { useState } from "react";
 import TextInput from "../components/form/TextInput";
 import CloseDefaultIcon from "../icons/CloseDefault";
 
 export default function Dropdown() {
+  const [dropdownLabel, setDropdownLabel] = useState("");
+
   return (
     <div className="h-full px-20">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
@@ -10,7 +13,7 @@ export default function Dropdown() {
       </div>
 
       <div className="border-b-[#363636] border-b-[1.25px]">
-        <TextInput label="Label" />
+        <TextInput label="Label" value={dropdownLabel} name="label" onChange={setDropdownLabel} />
         <TextInput label="Field name" />
       </div>
 
