@@ -71,7 +71,7 @@ function App() {
   const formElement =
     selectedelement?.type === "FormForm" || selectedelement?.type === "FormWrapper" ? selectedelement : null;
 
-
+  const SelectedView = selectedMenuId ? VIEWS[selectedMenuId] : EmptyState;
   return (
     <div className="bg-[#404040] h-screen grid grid-cols-12 text-[#D9D9D9]">
       <div className="col-span-4 h-full border-r-[1.25px] border-r-[#363636] overflow-y-auto overscroll-none">
@@ -80,6 +80,7 @@ function App() {
       <div className="col-span-8 h-full p-2 relative">
         <AppContext.Provider value={{ form: formElement }}>
           <NoFormSelectedState />
+          {SelectedView && <SelectedView />}
         </AppContext.Provider>
       </div>
     </div>
