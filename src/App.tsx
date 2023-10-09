@@ -28,6 +28,10 @@ interface IPushScriptApiResponse {
   };
 }
 
+const VIEWS: { [x: string]: React.FC } = {
+  dropdown: Dropdown,
+};
+
 function App() {
   const [selectedelement, setSelectedElement] = useState<AnyElement | null>(null);
 
@@ -67,6 +71,7 @@ function App() {
   const formElement =
     selectedelement?.type === "FormForm" || selectedelement?.type === "FormWrapper" ? selectedelement : null;
 
+
   return (
     <div className="bg-[#404040] h-screen grid grid-cols-12 text-[#D9D9D9]">
       <div className="col-span-4 h-full border-r-[1.25px] border-r-[#363636] overflow-y-auto overscroll-none">
@@ -74,9 +79,7 @@ function App() {
       </div>
       <div className="col-span-8 h-full p-2 relative">
         <AppContext.Provider value={{ form: formElement }}>
-          {/* <EmptyState /> */}
           <NoFormSelectedState />
-          <Dropdown />
         </AppContext.Provider>
       </div>
     </div>
