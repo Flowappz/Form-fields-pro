@@ -121,7 +121,7 @@ const createDropdownSelector = (inputName: string) => {
 };
 
 const createSearchableDropdownSelector = (inputName: string) => {
-  const input = createInputElement(inputName, "text");
+  const input = searchableDropdownInputElement(inputName);
 
   const selectorDiv = window._myWebflow.createDOM("div");
   selectorDiv.setAttribute("form-field-dropdown-toggler", "true");
@@ -190,6 +190,13 @@ const createInputElement = (name: string, type: "text" | "hidden"): DOMElement =
 
 const hiddenDropdownInputElement = (inputName: string): DOMElement => {
   const input = createInputElement(inputName, "hidden");
+  input.setAttribute("form-field-dropdown-input", "true");
+
+  return input;
+};
+
+const searchableDropdownInputElement = (inputName: string): DOMElement => {
+  const input = createInputElement(inputName, "text");
   input.setAttribute("form-field-dropdown-input", "true");
 
   return input;
