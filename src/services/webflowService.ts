@@ -120,6 +120,17 @@ const createDropdownSelector = (inputName: string) => {
   return selectorDiv;
 };
 
+const createSearchableDropdownSelector = (inputName: string) => {
+  const input = createInputElement(inputName, "text");
+
+  const selectorDiv = window._myWebflow.createDOM("div");
+  selectorDiv.setAttribute("form-field-dropdown-toggler", "true");
+  selectorDiv.setAttribute("dropdown-name", inputName);
+  selectorDiv.setChildren([input]);
+
+  return selectorDiv;
+};
+
 const createDropdownSelectorIcon = () => {
   const iconDiv = window._myWebflow.createDOM("div");
   iconDiv.setAttribute("class", "w-icon-dropdown-toggle");
@@ -192,3 +203,4 @@ export const insertDropdownToForm = async ({ label, items, inputName, form }: Dr
   form.setChildren([...existingChilds, lineBreak, dropdownDiv, input]);
   await form.save();
 };
+
