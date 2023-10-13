@@ -138,9 +138,9 @@ const createDropdownSelectorIcon = () => {
   return iconDiv;
 };
 
-const createDropdownTogglerContent = (inputName: string) => {
+const createDropdownTogglerContent = (inputName: string, searchable = false) => {
   const icon = createDropdownSelectorIcon();
-  const selector = createDropdownSelector(inputName);
+  const selector = searchable ? createSearchableDropdownSelector(inputName) : createDropdownSelector(inputName);
 
   const dropdownSelectorWrapper = window._myWebflow.createDOM("div");
   dropdownSelectorWrapper.setAttribute("class", "w-dropdown-toggle");
@@ -149,9 +149,9 @@ const createDropdownTogglerContent = (inputName: string) => {
   return dropdownSelectorWrapper;
 };
 
-const createDropdownToggler = async (label: string, inputName: string) => {
+const createDropdownToggler = async (label: string, inputName: string, searchable = false) => {
   const labelElement = await createLabelElement(label);
-  const togglerContent = createDropdownTogglerContent(inputName);
+  const togglerContent = createDropdownTogglerContent(inputName, searchable);
 
   const div = window._myWebflow.createDOM("div");
   div.setAttribute("class", "w-dropdown");
@@ -164,12 +164,14 @@ const createDropdown = async ({
   label,
   inputName,
   items,
+  searchable = false,
 }: {
   label: string;
   inputName: string;
   items: string[];
+  searchable?: boolean;
 }): Promise<DOMElement> => {
-  const dropdownToggler = await createDropdownToggler(label, inputName);
+  const dropdownToggler = await createDropdownToggler(label, inputName, searchable);
   const dropdownList = await createDropdownList(inputName, items);
 
   const dropdownWrapper = await createDropdownWrapper();
