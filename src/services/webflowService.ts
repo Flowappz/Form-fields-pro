@@ -206,3 +206,13 @@ export const insertDropdownToForm = async ({ label, items, inputName, form }: Dr
   await form.save();
 };
 
+
+export const insertSearchableDropdownToForm = async ({ label, items, inputName, form }: DropdownParams) => {
+  const dropdownDiv = await createDropdown({ label, inputName, items, searchable: true });
+  const lineBreak = window._myWebflow.createDOM("br");
+
+  const existingChilds = form.getChildren();
+
+  form.setChildren([...existingChilds, lineBreak, dropdownDiv]);
+  await form.save();
+};
