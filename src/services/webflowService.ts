@@ -111,25 +111,40 @@ const createDropdownWrapper = async () => {
   return div;
 };
 
-const createDropdownToggler = async (label: string, inputName: string) => {
-  const labelElement = await createLabelElement(label);
+const createDropdownSelector = (inputName: string) => {
+  const selectorDiv = window._myWebflow.createDOM("div");
+  selectorDiv.setTextContent("Select an item");
+  selectorDiv.setAttribute("form-field-dropdown-toggler", "true");
+  selectorDiv.setAttribute("dropdown-name", inputName);
+
+  return selectorDiv;
+};
+
+const createDropdownSelectorIcon = () => {
+  const iconDiv = window._myWebflow.createDOM("div");
+  iconDiv.setAttribute("class", "w-icon-dropdown-toggle");
+
+  return iconDiv;
+};
+
+const createDropdownTogglerContent = (inputName: string) => {
+  const icon = createDropdownSelectorIcon();
+  const selector = createDropdownSelector(inputName);
 
   const dropdownSelectorWrapper = window._myWebflow.createDOM("div");
   dropdownSelectorWrapper.setAttribute("class", "w-dropdown-toggle");
+  dropdownSelectorWrapper.setChildren([icon, selector]);
 
-  const dropdownSelector = window._myWebflow.createDOM("div");
-  dropdownSelector.setTextContent("Select an item");
-  dropdownSelector.setAttribute("form-field-dropdown-toggler", "true");
-  dropdownSelector.setAttribute("dropdown-name", inputName);
+  return dropdownSelectorWrapper;
+};
 
-  const dropdownSelectorIcon = window._myWebflow.createDOM("div");
-  dropdownSelectorIcon.setAttribute("class", "w-icon-dropdown-toggle");
-
-  dropdownSelectorWrapper.setChildren([dropdownSelectorIcon, dropdownSelector]);
+const createDropdownToggler = async (label: string, inputName: string) => {
+  const labelElement = await createLabelElement(label);
+  const togglerContent = createDropdownTogglerContent(inputName);
 
   const div = window._myWebflow.createDOM("div");
   div.setAttribute("class", "w-dropdown");
-  div.setChildren([labelElement, dropdownSelectorWrapper]);
+  div.setChildren([labelElement, togglerContent]);
 
   return div;
 };
@@ -145,8 +160,8 @@ const createDropdown = async ({
 }): Promise<DOMElement> => {
   const dropdownToggler = await createDropdownToggler(label, inputName);
   const dropdownList = await createDropdownList(inputName, items);
-  const dropdownWrapper = await createDropdownWrapper();
 
+  const dropdownWrapper = await createDropdownWrapper();
   dropdownWrapper.setChildren([dropdownToggler, dropdownList]);
 
   return dropdownWrapper;
