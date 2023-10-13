@@ -103,6 +103,14 @@ const createDropdownList = async (inputName: string, items: string[]) => {
   return listWrapper;
 };
 
+const createDropdownWrapper = async () => {
+  const div = window._myWebflow.createDOM("div");
+  const dropdownDivStyle = await dropdownWrapperStyle();
+  div.setStyles([dropdownDivStyle]);
+
+  return div;
+};
+
 const createDropdown = async ({
   label,
   inputName,
@@ -134,9 +142,7 @@ const createDropdown = async ({
 
   div.setChildren([labelElement, dropdownSelectorWrapper]);
 
-  const dropdownWrapper = window._myWebflow.createDOM("div");
-  const dropdownDivStyle = await dropdownWrapperStyle();
-  dropdownWrapper.setStyles([dropdownDivStyle]);
+  const dropdownWrapper = await createDropdownWrapper();
 
   dropdownWrapper.setChildren([div, dropdownList]);
 
