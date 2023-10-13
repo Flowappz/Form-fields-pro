@@ -7,6 +7,7 @@ import EmptyState from "./views/EmptyState";
 import { AppContext } from "./contexts/AppContext";
 import NoFormSelectedState from "./views/NoFormSelectedState";
 import Dropdown from "./views/Dropdown";
+import SearchableDropdown from "./views/SearchableDropdown";
 
 declare global {
   interface Window {
@@ -28,8 +29,9 @@ interface IPushScriptApiResponse {
   };
 }
 
-const VIEWS: { [x: string]: React.FC } = {
+const VIEWS: { [id in MenuId]?: React.FC } = {
   dropdown: Dropdown,
+  searchable_dropdown: SearchableDropdown,
 };
 
 function App() {
