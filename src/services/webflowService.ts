@@ -124,6 +124,14 @@ const createDropdown = async ({
   return dropdownWrapper;
 };
 
+const createInputElement = (name: string, type: "text" | "hidden"): DOMElement => {
+  const input = window._myWebflow.createDOM("input");
+  input.setAttribute("type", type);
+  input.setAttribute("name", name);
+
+  return input;
+};
+
 const createHiddenInput = (inputName: string): DOMElement => {
   const input = window._myWebflow.createDOM("input");
   input.setAttribute("type", "hidden");
