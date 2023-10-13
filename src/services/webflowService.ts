@@ -62,6 +62,24 @@ const createLabelElement = async (label: string): Promise<DOMElement> => {
   return element;
 };
 
+const createDropdownListItems = (inputName: string, items: string[]) => {
+  const listItems: DOMElement[] = [];
+
+  for (let item of items) {
+    const el = window._myWebflow.createDOM("li");
+
+    el.setTextContent(item);
+    el.setAttribute("class", "w-dropdown-link");
+    el.setAttribute("form-field-dropdown-item", "true");
+    el.setAttribute("input-field", inputName);
+    el.setAttribute("input-data", item);
+
+    listItems.push(el);
+  }
+
+  return listItems;
+};
+
 const createDropdown = async ({
   label,
   inputName,
@@ -95,17 +113,7 @@ const createDropdown = async ({
   list.setAttribute("form-field-dropdown-item-list", "true");
   list.setAttribute("dropdown-name", inputName);
 
-  const listItems = items.map((item) => {
-    const listItem = window._myWebflow.createDOM("li");
-
-    listItem.setTextContent(item);
-    listItem.setAttribute("class", "w-dropdown-link");
-    listItem.setAttribute("form-field-dropdown-item", "true");
-    listItem.setAttribute("input-field", inputName);
-    listItem.setAttribute("input-data", item);
-
-    return listItem;
-  });
+  const listItems = createDropdownListItems(inputName, items);
 
   list.setChildren(listItems);
   listWrapper.setChildren([list]);
