@@ -111,15 +111,7 @@ const createDropdownWrapper = async () => {
   return div;
 };
 
-const createDropdown = async ({
-  label,
-  inputName,
-  items,
-}: {
-  label: string;
-  inputName: string;
-  items: string[];
-}): Promise<DOMElement> => {
+const createDropdownToggler = async (label: string, inputName: string) => {
   const labelElement = await createLabelElement(label);
 
   const dropdownSelectorWrapper = window._myWebflow.createDOM("div");
@@ -135,16 +127,27 @@ const createDropdown = async ({
 
   dropdownSelectorWrapper.setChildren([dropdownSelectorIcon, dropdownSelector]);
 
-  const dropdownList = await createDropdownList(inputName, items);
-
   const div = window._myWebflow.createDOM("div");
   div.setAttribute("class", "w-dropdown");
-
   div.setChildren([labelElement, dropdownSelectorWrapper]);
 
+  return div;
+};
+
+const createDropdown = async ({
+  label,
+  inputName,
+  items,
+}: {
+  label: string;
+  inputName: string;
+  items: string[];
+}): Promise<DOMElement> => {
+  const dropdownToggler = await createDropdownToggler(label, inputName);
+  const dropdownList = await createDropdownList(inputName, items);
   const dropdownWrapper = await createDropdownWrapper();
 
-  dropdownWrapper.setChildren([div, dropdownList]);
+  dropdownWrapper.setChildren([dropdownToggler, dropdownList]);
 
   return dropdownWrapper;
 };
