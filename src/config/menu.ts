@@ -9,7 +9,7 @@ export const MENU_ITEMS = [
     id: "searchable_dropdown",
     label: "Searchable dropdown",
     description: "Dropdown input with search option",
-    available: false,
+    available: true,
   },
   {
     id: "date_picker",
