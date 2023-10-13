@@ -68,12 +68,12 @@ export default function SearchableDropdown() {
 
   const handleDropdownInsert = async () => {
     if (validateDate() && form) {
-      // await webflowService.insertDropdownToForm({
-      //   form,
-      //   label: dropdownLabel,
-      //   inputName: inputFieldName,
-      //   items: dropdownItems,
-      // });
+      await webflowService.insertSearchableDropdownToForm({
+        form,
+        label: dropdownLabel,
+        inputName: inputFieldName,
+        items: dropdownItems,
+      });
     }
   };
 
