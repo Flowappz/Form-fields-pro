@@ -80,6 +80,29 @@ const createDropdownListItems = (inputName: string, items: string[]) => {
   return listItems;
 };
 
+const createDropdownListWrapper = async () => {
+  const div = window._myWebflow.createDOM("div");
+  const listStyle = await dropdownListStyle();
+  div.setStyles([listStyle]);
+
+  return div;
+};
+
+const createDropdownList = async (inputName: string, items: string[]) => {
+  const list = window._myWebflow.createDOM("ul");
+  list.setAttribute("class", "w-dropdown-list");
+  list.setAttribute("form-field-dropdown-item-list", "true");
+  list.setAttribute("dropdown-name", inputName);
+
+  const listItems = createDropdownListItems(inputName, items);
+  list.setChildren(listItems);
+
+  const listWrapper = await createDropdownListWrapper();
+  listWrapper.setChildren([list]);
+
+  return listWrapper;
+};
+
 const createDropdown = async ({
   label,
   inputName,
@@ -104,19 +127,7 @@ const createDropdown = async ({
 
   dropdownSelectorWrapper.setChildren([dropdownSelectorIcon, dropdownSelector]);
 
-  const listWrapper = window._myWebflow.createDOM("div");
-  const listStyle = await dropdownListStyle();
-  listWrapper.setStyles([listStyle]);
-
-  const list = window._myWebflow.createDOM("ul");
-  list.setAttribute("class", "w-dropdown-list");
-  list.setAttribute("form-field-dropdown-item-list", "true");
-  list.setAttribute("dropdown-name", inputName);
-
-  const listItems = createDropdownListItems(inputName, items);
-
-  list.setChildren(listItems);
-  listWrapper.setChildren([list]);
+  const dropdownList = await createDropdownList(inputName, items);
 
   const div = window._myWebflow.createDOM("div");
   div.setAttribute("class", "w-dropdown");
@@ -127,7 +138,7 @@ const createDropdown = async ({
   const dropdownDivStyle = await dropdownWrapperStyle();
   dropdownWrapper.setStyles([dropdownDivStyle]);
 
-  dropdownWrapper.setChildren([div, listWrapper]);
+  dropdownWrapper.setChildren([div, dropdownList]);
 
   return dropdownWrapper;
 };
