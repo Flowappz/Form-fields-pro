@@ -132,10 +132,8 @@ const createInputElement = (name: string, type: "text" | "hidden"): DOMElement =
   return input;
 };
 
-const createHiddenInput = (inputName: string): DOMElement => {
-  const input = window._myWebflow.createDOM("input");
-  input.setAttribute("type", "hidden");
-  input.setAttribute("name", inputName);
+const hiddenDropdownInputElement = (inputName: string): DOMElement => {
+  const input = createInputElement(inputName, "hidden");
   input.setAttribute("form-field-dropdown-input", "true");
 
   return input;
@@ -143,7 +141,7 @@ const createHiddenInput = (inputName: string): DOMElement => {
 
 export const insertDropdownToForm = async ({ label, items, inputName, form }: DropdownParams) => {
   const dropdownDiv = await createDropdown({ label, inputName, items });
-  const input = createHiddenInput(inputName);
+  const input = hiddenDropdownInputElement(inputName);
   const lineBreak = window._myWebflow.createDOM("br");
 
   const existingChilds = form.getChildren();
