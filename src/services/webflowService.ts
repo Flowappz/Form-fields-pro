@@ -125,6 +125,7 @@ const createSearchableDropdownSelector = (inputName: string) => {
 
   const selectorDiv = window._myWebflow.createDOM("div");
   selectorDiv.setAttribute("form-field-dropdown-toggler", "true");
+  selectorDiv.setAttribute("form-field-searchable-dropdown-toggler", "true");
   selectorDiv.setAttribute("dropdown-name", inputName);
   selectorDiv.setChildren([input]);
 
