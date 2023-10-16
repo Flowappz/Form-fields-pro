@@ -2,7 +2,7 @@ export interface TextInputProps {
   label?: string;
   placeholder?: string;
   name?: string;
-  value?: string;
+  value?: string | number;
   type?: "text" | "number";
   onChange?: (val: string) => void;
   error?: string;
