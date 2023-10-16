@@ -9,6 +9,7 @@ import NoFormSelectedState from "./views/NoFormSelectedState";
 import Dropdown from "./views/Dropdown";
 import SearchableDropdown from "./views/SearchableDropdown";
 import NumberSlider from "./views/NumberSlider";
+import NumberRangePicker from "./views/NumberRangePicker";
 
 declare global {
   interface Window {
@@ -34,6 +35,7 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
   dropdown: Dropdown,
   searchable_dropdown: SearchableDropdown,
   number_picker_slider: NumberSlider,
+  number_range_picker: NumberRangePicker,
 };
 
 function App() {
