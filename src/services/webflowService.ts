@@ -241,4 +241,21 @@ export const insertNumberSliderToForm = async ({
   minRange,
   defaultValue,
   form,
-}: NumberSliderParams) => {};
+}: NumberSliderParams) => {
+  const labelElement = await createLabelElement(label);
+  const lineBreak = window._myWebflow.createDOM("br");
+
+  const inputElement = window._myWebflow.createDOM("input");
+  inputElement.setAttribute("name", inputName);
+  inputElement.setAttribute("type", "range");
+  inputElement.setAttribute("max", String(maxRange));
+  inputElement.setAttribute("min", String(minRange));
+  inputElement.setAttribute("defaultValue", String(defaultValue));
+
+  const wrapperDiv = window._myWebflow.createDOM("div");
+  wrapperDiv.setChildren([labelElement, inputElement]);
+
+  const existingChilds = form.getChildren();
+  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  await form.save();
+};
