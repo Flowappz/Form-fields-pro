@@ -44,6 +44,36 @@ export default function NumberRangePicker() {
 
   const [errors, setErrors] = useState<any>({});
 
+  const validateData = () => {
+    try {
+      inputSchema({ max: maxRange as number, min: minRange as number }).parse({
+        label,
+        inputName,
+        maxRange,
+        minRange,
+        defaultMaxValue,
+        defaultMinValue,
+      });
+
+      setErrors({});
+
+      return true;
+    } catch (err) {
+      if (err instanceof ZodError) {
+        const errorsByField: { [x: string]: string } = {};
+
+        for (let issue of err.errors) {
+          const { path, message } = issue;
+          const field = path.length === 1 ? path[0] : path.join(".");
+
+          errorsByField[field] = message;
+        }
+
+        setErrors(errorsByField);
+      }
+    }
+  };
+
   return (
     <div className="h-full px-20">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
@@ -96,7 +126,7 @@ export default function NumberRangePicker() {
         <div className="mt-2">
           <button
             className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
-            // onClick={validateData}
+            onClick={validateData}
           >
             Insert field
           </button>
