@@ -2,6 +2,38 @@ import { useState } from "react";
 import TextInput from "../components/form/TextInput";
 import { ZodError, z } from "zod";
 
+
+const inputSchema = ({ max, min }: { max: number; min: number }) =>
+  z.object({
+    label: z.string().min(1, "Please enter a label"),
+    inputName: z.string().min(1, "Please enter the input name"),
+
+    maxRange: z
+      .number({
+        invalid_type_error: "Please enter a max range value",
+      })
+      .gt(min, "Max range should be greater than minimum range value"),
+    minRange: z
+      .number({
+        invalid_type_error: "Please enter a max range value",
+      })
+      .lt(max, "Min range should be less than maximum range value"),
+
+    defaultMaxValue: z
+      .number({
+        invalid_type_error: "Please enter a default max range value",
+      })
+      .gte(min, "Default max value should be greater than or equal to minimum range value")
+      .lte(max, "Default max value should be less than or equal to max range value"),
+
+    defaultMinValue: z
+      .number({
+        invalid_type_error: "Please enter a default min value",
+      })
+      .gte(min, "Default min value should be greater than or equal to minimum range value")
+      .lte(max, "Default min value should be less than or equal to max range value"),
+  });
+
 export default function NumberRangePicker() {
   const [label, setLabel] = useState("");
   const [inputName, setInputName] = useState("");
