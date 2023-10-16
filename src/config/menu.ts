@@ -27,7 +27,7 @@ export const MENU_ITEMS = [
     id: "number_picker_slider",
     label: "Number picker slider",
     description: "",
-    available: false,
+    available: true,
   },
   {
     id: "number_range_picker",
