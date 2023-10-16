@@ -5,6 +5,15 @@ type DropdownParams = {
   inputName: string;
 };
 
+type NumberSliderParams = {
+  label: string;
+  inputName: string;
+  maxRange: number;
+  minRange: number;
+  defaultValue: number;
+  form: FormFormElement | FormWrapperElement;
+};
+
 enum styleNames {
   DROPDOWN_LABEL = "dropdown-label",
   DROPDOWN_WRAPPER = "dropdown-wrapper",
@@ -224,3 +233,12 @@ export const insertSearchableDropdownToForm = async ({ label, items, inputName, 
   form.setChildren([...existingChilds, lineBreak, dropdownDiv]);
   await form.save();
 };
+
+export const insertNumberSliderToForm = async ({
+  label,
+  inputName,
+  maxRange,
+  minRange,
+  defaultValue,
+  form,
+}: NumberSliderParams) => {};
