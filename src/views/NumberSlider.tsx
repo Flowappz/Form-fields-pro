@@ -1,6 +1,8 @@
 import { useState } from "react";
 import TextInput from "../components/form/TextInput";
 import { ZodError, z } from "zod";
+import { useAppContext } from "../contexts/AppContext";
+import * as webflowService from "../services/webflowService";
 
 const inputSchema = ({ max, min }: { max: number; min: number }) =>
   z.object({
@@ -27,6 +29,8 @@ const inputSchema = ({ max, min }: { max: number; min: number }) =>
   });
 
 export default function NumberSlider() {
+  const { form } = useAppContext();
+
   const [label, setLabel] = useState("");
   const [inputName, setInputName] = useState("");
   const [maxRange, setMaxRange] = useState<number | string>("");
@@ -61,6 +65,19 @@ export default function NumberSlider() {
 
         setErrors(errorsByField);
       }
+    }
+  };
+
+  const handleInsert = async () => {
+    if (validateData() && form) {
+      await webflowService.insertNumberSliderToForm({
+        form,
+        label,
+        inputName,
+        maxRange: Number(maxRange),
+        minRange: Number(minRange),
+        defaultValue: Number(defaultValue),
+      });
     }
   };
 
@@ -109,7 +126,7 @@ export default function NumberSlider() {
         <div className="mt-2">
           <button
             className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
-            onClick={validateData}
+            onClick={handleInsert}
           >
             Insert field
           </button>
