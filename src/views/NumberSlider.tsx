@@ -25,6 +25,12 @@ export default function NumberSlider() {
           // onChange={setInputFieldName}
           // error={errors.inputFieldName}
         />
+
+        <TextInput label="Max range" name="maxRange" type="number" />
+
+        <TextInput label="Min range" name="minRange" type="number" />
+
+        <TextInput label="Default value" name="defaultValue" type="number" />
       </div>
 
       <div className="mt-[0.3rem]">
