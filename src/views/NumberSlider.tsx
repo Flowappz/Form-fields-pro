@@ -1,6 +1,13 @@
+import { useState } from "react";
 import TextInput from "../components/form/TextInput";
 
 export default function NumberSlider() {
+  const [label, setLabel] = useState("");
+  const [inputName, setInputName] = useState("");
+  const [maxRange, setMaxRange] = useState("");
+  const [minRange, setMinRange] = useState("");
+  const [defaultValue, setDefaultValue] = useState("");
+
   return (
     <div className="h-full px-20">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
@@ -13,24 +20,30 @@ export default function NumberSlider() {
       <div className="border-b-[#363636] border-b-[1.25px]">
         <TextInput
           label="Label"
-          // value={dropdownLabel}
+          value={label}
           name="label"
-          // onChange={setDropdownLabel}
+          onChange={setLabel}
           // error={errors.dropdownLabel}
         />
         <TextInput
           label="Field name"
           name="input"
-          // value={inputFieldName}
-          // onChange={setInputFieldName}
+          value={inputName}
+          onChange={setInputName}
           // error={errors.inputFieldName}
         />
 
-        <TextInput label="Max range" name="maxRange" type="number" />
+        <TextInput label="Max range" name="maxRange" type="number" value={maxRange} onChange={setMaxRange} />
 
-        <TextInput label="Min range" name="minRange" type="number" />
+        <TextInput label="Min range" name="minRange" type="number" value={minRange} onChange={setMinRange} />
 
-        <TextInput label="Default value" name="defaultValue" type="number" />
+        <TextInput
+          label="Default value"
+          name="defaultValue"
+          type="number"
+          value={defaultValue}
+          onChange={setDefaultValue}
+        />
       </div>
 
       <div className="mt-[0.3rem]">
