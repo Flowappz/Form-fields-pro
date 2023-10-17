@@ -34,6 +34,8 @@ interface IPushScriptApiResponse {
 
 enum SCRIPT_NAMES {
   "DROPDOWN" = "dropdown",
+  "DATE_PICKER_LIBRARY" = "date picker library",
+  "DATE_PICKER_SCRIPT" = "date picker script",
 }
 
 const VIEWS: { [id in MenuId]?: React.FC } = {
@@ -78,6 +80,8 @@ function App() {
 
   const pushScriptsToWebflowSite = useCallback(async () => {
     await pushScript(SCRIPT_NAMES.DROPDOWN);
+    await pushScript(SCRIPT_NAMES.DATE_PICKER_LIBRARY);
+    await pushScript(SCRIPT_NAMES.DATE_PICKER_SCRIPT);
   }, []);
 
   useEffect(() => {
