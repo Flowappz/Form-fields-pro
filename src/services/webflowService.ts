@@ -266,7 +266,7 @@ export const insertDatePickerToForm = async ({
   form,
 }: Pick<DropdownParams, "label" | "inputName" | "form">) => {
   const inputElement = createInputElement(inputName, "text");
-  inputElement.setAttribute("id", "datepicker");
+  inputElement.setAttribute("form-fields-pro-date-picker", "true");
 
   const labelElement = await createLabelElement(label);
 
