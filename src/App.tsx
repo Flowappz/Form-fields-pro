@@ -76,8 +76,12 @@ function App() {
     }
   }, []);
 
-  useEffect(function pushCustomDropdownScript() {
-    pushScript(SCRIPT_NAMES.DROPDOWN);
+  const pushScriptsToWebflowSite = useCallback(async () => {
+    await pushScript(SCRIPT_NAMES.DROPDOWN);
+  }, []);
+
+  useEffect(() => {
+    pushScriptsToWebflowSite();
   }, []);
 
   const formElement =
