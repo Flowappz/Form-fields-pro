@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 import LeftSideMenu from "./components/menu/LeftSideMenu";
@@ -32,6 +32,10 @@ interface IPushScriptApiResponse {
   };
 }
 
+enum SCRIPT_NAMES {
+  "DROPDOWN" = "dropdown",
+}
+
 const VIEWS: { [id in MenuId]?: React.FC } = {
   dropdown: Dropdown,
   searchable_dropdown: SearchableDropdown,
@@ -49,31 +53,31 @@ function App() {
     window._myWebflow.subscribe("selectedelement", (element) => setSelectedElement(element));
   }, []);
 
-  useEffect(function pushCustomDropdownScript() {
-    const pushScript = async () => {
-      try {
-        const { siteId } = await window._myWebflow.getSiteInfo();
+  const pushScript = useCallback(async (scriptName: SCRIPT_NAMES) => {
+    try {
+      const { siteId } = await window._myWebflow.getSiteInfo();
 
-        const { data } = await axios.post<IPushScriptApiResponse>(
-          `${import.meta.env.VITE_DATA_CLIENT_URL}/app/attach-custom-script`,
-          {
-            siteId,
-            scriptName: "dropdown",
+      const { data } = await axios.post<IPushScriptApiResponse>(
+        `${import.meta.env.VITE_DATA_CLIENT_URL}/app/attach-custom-script`,
+        {
+          siteId,
+          scriptName,
+        },
+        {
+          headers: {
+            Authorization: `Basic ${import.meta.env.VITE_BASIC_AUTH_TOKEN}`,
           },
-          {
-            headers: {
-              Authorization: `Basic ${import.meta.env.VITE_BASIC_AUTH_TOKEN}`,
-            },
-          }
-        );
+        }
+      );
 
-        console.log("\n\nSuccessfully attached custom dropdown script: ", data, "\n\n");
-      } catch (err) {
-        console.log("Error pushing custom dropdown script", err);
-      }
-    };
+      console.log("\n\nSuccessfully attached script: ", data, "\n\n");
+    } catch (err) {
+      console.log("Error pushing script", err);
+    }
+  }, []);
 
-    pushScript();
+  useEffect(function pushCustomDropdownScript() {
+    pushScript(SCRIPT_NAMES.DROPDOWN);
   }, []);
 
   const formElement =
