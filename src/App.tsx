@@ -10,6 +10,7 @@ import Dropdown from "./views/Dropdown";
 import SearchableDropdown from "./views/SearchableDropdown";
 import NumberSlider from "./views/NumberSlider";
 import NumberRangePicker from "./views/NumberRangePicker";
+import DatePicker from "./views/DatePicker";
 
 declare global {
   interface Window {
@@ -36,6 +37,7 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
   searchable_dropdown: SearchableDropdown,
   number_picker_slider: NumberSlider,
   number_range_picker: NumberRangePicker,
+  date_picker: DatePicker,
 };
 
 function App() {
