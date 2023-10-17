@@ -15,7 +15,7 @@ export const MENU_ITEMS = [
     id: "date_picker",
     label: "Date picker",
     description: "An stylish date picker",
-    available: false,
+    available: true,
   },
   {
     id: "date_range_picker",
