@@ -35,36 +35,30 @@ export const MENU_ITEMS = [
     description: "",
     available: false,
   },
-  {
-    id: "time_zone_picker",
-    label: "Time zone picker",
-    description: "",
-    available: false,
-  },
+  // {
+  //   id: "time_zone_picker",
+  //   label: "Time zone picker",
+  //   description: "",
+  //   available: false,
+  // },
   {
     id: "collect_user_ip",
     label: "Collect user IP",
     description: "",
     available: false,
   },
-  {
-    id: "color_picker",
-    label: "Color Picker",
-    description: "",
-    available: false,
-  },
   // {
-  //   id: "date_range_picker",
-  //   label: "Date range picker",
+  //   id: "color_picker",
+  //   label: "Color Picker",
   //   description: "",
   //   available: false,
   // },
-  {
-    id: "url_picker",
-    label: "URL picker",
-    description: "",
-    available: false,
-  },
+  // {
+  //   id: "url_picker",
+  //   label: "URL picker",
+  //   description: "",
+  //   available: false,
+  // },
 ] as const;
 
 export type MenuId = (typeof MENU_ITEMS)[number]["id"];
