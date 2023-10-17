@@ -259,3 +259,23 @@ export const insertNumberSliderToForm = async ({
   form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
   await form.save();
 };
+
+export const insertDatePickerToForm = async ({
+  label,
+  inputName,
+  form,
+}: Pick<DropdownParams, "label" | "inputName" | "form">) => {
+  const inputElement = createInputElement(inputName, "text");
+  inputElement.setAttribute("id", "datepicker");
+
+  const labelElement = await createLabelElement(label);
+
+  const wrapperDiv = window._myWebflow.createDOM("div");
+  wrapperDiv.setChildren([labelElement, inputElement]);
+
+  const lineBreak = window._myWebflow.createDOM("br");
+
+  const existingChilds = form.getChildren();
+  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  await form.save();
+};
