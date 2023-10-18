@@ -20,8 +20,8 @@ export const MENU_ITEMS = [
   {
     id: "date_range_picker",
     label: "Date range picker",
-    description: "",
-    available: false,
+    description: "Select a range of dates",
+    available: true,
   },
   {
     id: "number_picker_slider",
