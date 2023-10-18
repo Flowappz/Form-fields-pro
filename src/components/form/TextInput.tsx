@@ -2,7 +2,8 @@ export interface TextInputProps {
   label?: string;
   placeholder?: string;
   name?: string;
-  value?: string;
+  value?: string | number;
+  type?: "text" | "number";
   onChange?: (val: string) => void;
   error?: string;
 }
@@ -12,6 +13,7 @@ export default function TextInput({
   placeholder = "Type here...",
   name = "",
   value = "",
+  type = "text",
   onChange = () => {},
   error,
 }: TextInputProps) {
@@ -21,7 +23,7 @@ export default function TextInput({
         <span className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB] m-0 p-0">{label}</span>
       ) : null}
       <input
-        type="text"
+        type={type}
         placeholder={placeholder}
         name={name}
         value={value}

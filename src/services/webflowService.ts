@@ -5,6 +5,15 @@ type DropdownParams = {
   inputName: string;
 };
 
+type NumberSliderParams = {
+  label: string;
+  inputName: string;
+  maxRange: number;
+  minRange: number;
+  defaultValue: number;
+  form: FormFormElement | FormWrapperElement;
+};
+
 enum styleNames {
   DROPDOWN_LABEL = "dropdown-label",
   DROPDOWN_WRAPPER = "dropdown-wrapper",
@@ -222,5 +231,51 @@ export const insertSearchableDropdownToForm = async ({ label, items, inputName, 
   const existingChilds = form.getChildren();
 
   form.setChildren([...existingChilds, lineBreak, dropdownDiv]);
+  await form.save();
+};
+
+export const insertNumberSliderToForm = async ({
+  label,
+  inputName,
+  maxRange,
+  minRange,
+  defaultValue,
+  form,
+}: NumberSliderParams) => {
+  const labelElement = await createLabelElement(label);
+  const lineBreak = window._myWebflow.createDOM("br");
+
+  const inputElement = window._myWebflow.createDOM("input");
+  inputElement.setAttribute("name", inputName);
+  inputElement.setAttribute("type", "range");
+  inputElement.setAttribute("max", String(maxRange));
+  inputElement.setAttribute("min", String(minRange));
+  inputElement.setAttribute("defaultValue", String(defaultValue));
+
+  const wrapperDiv = window._myWebflow.createDOM("div");
+  wrapperDiv.setChildren([labelElement, inputElement]);
+
+  const existingChilds = form.getChildren();
+  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  await form.save();
+};
+
+export const insertDatePickerToForm = async ({
+  label,
+  inputName,
+  form,
+}: Pick<DropdownParams, "label" | "inputName" | "form">) => {
+  const inputElement = createInputElement(inputName, "text");
+  inputElement.setAttribute("form-fields-pro-date-picker", "true");
+
+  const labelElement = await createLabelElement(label);
+
+  const wrapperDiv = window._myWebflow.createDOM("div");
+  wrapperDiv.setChildren([labelElement, inputElement]);
+
+  const lineBreak = window._myWebflow.createDOM("br");
+
+  const existingChilds = form.getChildren();
+  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
   await form.save();
 };

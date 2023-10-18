@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 import LeftSideMenu from "./components/menu/LeftSideMenu";
@@ -8,6 +8,9 @@ import { AppContext } from "./contexts/AppContext";
 import NoFormSelectedState from "./views/NoFormSelectedState";
 import Dropdown from "./views/Dropdown";
 import SearchableDropdown from "./views/SearchableDropdown";
+import NumberSlider from "./views/NumberSlider";
+import NumberRangePicker from "./views/NumberRangePicker";
+import DatePicker from "./views/DatePicker";
 
 declare global {
   interface Window {
@@ -29,9 +32,18 @@ interface IPushScriptApiResponse {
   };
 }
 
+enum SCRIPT_NAMES {
+  "DROPDOWN" = "dropdown",
+  "DATE_PICKER_LIBRARY" = "date picker library",
+  "DATE_PICKER_SCRIPT" = "date picker script",
+}
+
 const VIEWS: { [id in MenuId]?: React.FC } = {
   dropdown: Dropdown,
   searchable_dropdown: SearchableDropdown,
+  number_picker_slider: NumberSlider,
+  number_range_picker: NumberRangePicker,
+  date_picker: DatePicker,
 };
 
 function App() {
@@ -43,31 +55,37 @@ function App() {
     window._myWebflow.subscribe("selectedelement", (element) => setSelectedElement(element));
   }, []);
 
-  useEffect(function pushCustomDropdownScript() {
-    const pushScript = async () => {
-      try {
-        const { siteId } = await window._myWebflow.getSiteInfo();
+  const pushScript = useCallback(async (scriptName: SCRIPT_NAMES) => {
+    try {
+      const { siteId } = await window._myWebflow.getSiteInfo();
 
-        const { data } = await axios.post<IPushScriptApiResponse>(
-          `${import.meta.env.VITE_DATA_CLIENT_URL}/app/attach-custom-script`,
-          {
-            siteId,
-            scriptName: "dropdown",
+      const { data } = await axios.post<IPushScriptApiResponse>(
+        `${import.meta.env.VITE_DATA_CLIENT_URL}/app/attach-custom-script`,
+        {
+          siteId,
+          scriptName,
+        },
+        {
+          headers: {
+            Authorization: `Basic ${import.meta.env.VITE_BASIC_AUTH_TOKEN}`,
           },
-          {
-            headers: {
-              Authorization: `Basic ${import.meta.env.VITE_BASIC_AUTH_TOKEN}`,
-            },
-          }
-        );
+        }
+      );
 
-        console.log("\n\nSuccessfully attached custom dropdown script: ", data, "\n\n");
-      } catch (err) {
-        console.log("Error pushing custom dropdown script", err);
-      }
-    };
+      console.log("\n\nSuccessfully attached script: ", data, "\n\n");
+    } catch (err) {
+      console.log("Error pushing script", err);
+    }
+  }, []);
 
-    pushScript();
+  const pushScriptsToWebflowSite = useCallback(async () => {
+    await pushScript(SCRIPT_NAMES.DROPDOWN);
+    await pushScript(SCRIPT_NAMES.DATE_PICKER_LIBRARY);
+    await pushScript(SCRIPT_NAMES.DATE_PICKER_SCRIPT);
+  }, []);
+
+  useEffect(() => {
+    pushScriptsToWebflowSite();
   }, []);
 
   const formElement =
