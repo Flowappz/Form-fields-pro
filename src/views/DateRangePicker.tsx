@@ -44,6 +44,16 @@ export default function DateRangePicker() {
     }
   };
 
+  const handleInsert = async () => {
+    if (validateData() && form) {
+      await webflowService.insertDateRangePickerToForm({
+        form,
+        label,
+        inputName,
+      });
+    }
+  };
+
   return (
     <div className="h-full px-20">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
@@ -62,7 +72,7 @@ export default function DateRangePicker() {
         <div className="mt-2">
           <button
             className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
-            // onClick={handleInsert}
+            onClick={handleInsert}
           >
             Insert field
           </button>
