@@ -4,6 +4,12 @@ import { ZodError, z } from "zod";
 import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
 
+
+const inputSchema = z.object({
+  label: z.string().min(1, "Please enter a label"),
+  inputName: z.string().min(1, "Please enter the input name"),
+});
+
 export default function DateRangePicker() {
   const { form } = useAppContext();
 
