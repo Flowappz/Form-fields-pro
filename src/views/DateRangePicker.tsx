@@ -15,8 +15,10 @@ export default function DateRangePicker() {
   return (
     <div className="h-full px-20">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
-        <h3 className="font-semibold text-[0.82rem]">Date picker</h3>
-        <p className="text-[0.77rem] font-light text-[#ABABAB]">A beautiful date picker</p>
+        <h3 className="font-semibold text-[0.82rem]">Date range picker</h3>
+        <p className="text-[0.77rem] font-light text-[#ABABAB]">
+          A beautiful date picker to select between multiple dates
+        </p>
       </div>
 
       <div className="border-b-[#363636] border-b-[1.25px]">
