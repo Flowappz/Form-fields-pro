@@ -18,6 +18,32 @@ export default function DateRangePicker() {
 
   const [errors, setErrors] = useState<any>({});
 
+  const validateData = () => {
+    try {
+      inputSchema.parse({
+        label,
+        inputName,
+      });
+
+      setErrors({});
+
+      return true;
+    } catch (err) {
+      if (err instanceof ZodError) {
+        const errorsByField: { [x: string]: string } = {};
+
+        for (let issue of err.errors) {
+          const { path, message } = issue;
+          const field = path.length === 1 ? path[0] : path.join(".");
+
+          errorsByField[field] = message;
+        }
+
+        setErrors(errorsByField);
+      }
+    }
+  };
+
   return (
     <div className="h-full px-20">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
