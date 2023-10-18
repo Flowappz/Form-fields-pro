@@ -34,9 +34,10 @@ interface IPushScriptApiResponse {
 }
 
 enum SCRIPT_NAMES {
-  "DROPDOWN" = "dropdown",
-  "DATE_PICKER_LIBRARY" = "date picker library",
-  "DATE_PICKER_SCRIPT" = "date picker script",
+  DROPDOWN = "dropdown",
+  DATE_PICKER_LIBRARY = "date picker library",
+  DATE_PICKER_SCRIPT = "date picker script",
+  DATE_RANGE_PICKER_SCRIPT = "date range script",
 }
 
 const VIEWS: { [id in MenuId]?: React.FC } = {
@@ -84,6 +85,7 @@ function App() {
     await pushScript(SCRIPT_NAMES.DROPDOWN);
     await pushScript(SCRIPT_NAMES.DATE_PICKER_LIBRARY);
     await pushScript(SCRIPT_NAMES.DATE_PICKER_SCRIPT);
+    await pushScript(SCRIPT_NAMES.DATE_RANGE_PICKER_SCRIPT);
   }, []);
 
   useEffect(() => {
