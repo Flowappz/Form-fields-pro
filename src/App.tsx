@@ -11,6 +11,7 @@ import SearchableDropdown from "./views/SearchableDropdown";
 import NumberSlider from "./views/NumberSlider";
 import NumberRangePicker from "./views/NumberRangePicker";
 import DatePicker from "./views/DatePicker";
+import DateRangePicker from "./views/DateRangePicker";
 
 declare global {
   interface Window {
@@ -33,9 +34,10 @@ interface IPushScriptApiResponse {
 }
 
 enum SCRIPT_NAMES {
-  "DROPDOWN" = "dropdown",
-  "DATE_PICKER_LIBRARY" = "date picker library",
-  "DATE_PICKER_SCRIPT" = "date picker script",
+  DROPDOWN = "dropdown",
+  DATE_PICKER_LIBRARY = "date picker library",
+  DATE_PICKER_SCRIPT = "date picker script",
+  DATE_RANGE_PICKER_SCRIPT = "date range script",
 }
 
 const VIEWS: { [id in MenuId]?: React.FC } = {
@@ -44,6 +46,7 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
   number_picker_slider: NumberSlider,
   number_range_picker: NumberRangePicker,
   date_picker: DatePicker,
+  date_range_picker: DateRangePicker,
 };
 
 function App() {
@@ -82,6 +85,7 @@ function App() {
     await pushScript(SCRIPT_NAMES.DROPDOWN);
     await pushScript(SCRIPT_NAMES.DATE_PICKER_LIBRARY);
     await pushScript(SCRIPT_NAMES.DATE_PICKER_SCRIPT);
+    await pushScript(SCRIPT_NAMES.DATE_RANGE_PICKER_SCRIPT);
   }, []);
 
   useEffect(() => {
