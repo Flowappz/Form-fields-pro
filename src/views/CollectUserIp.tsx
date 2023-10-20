@@ -10,10 +10,34 @@ const inputSchema = z.object({
 
 export default function CollectUserIp() {
   const { form } = useAppContext();
-
   const [inputName, setInputName] = useState("");
 
   const [errors, setErrors] = useState<any>({});
+
+  const validateData = () => {
+    try {
+      inputSchema.parse({
+        inputName,
+      });
+
+      setErrors({});
+
+      return true;
+    } catch (err) {
+      if (err instanceof ZodError) {
+        const errorsByField: { [x: string]: string } = {};
+
+        for (let issue of err.errors) {
+          const { path, message } = issue;
+          const field = path.length === 1 ? path[0] : path.join(".");
+
+          errorsByField[field] = message;
+        }
+
+        setErrors(errorsByField);
+      }
+    }
+  };
 
   return (
     <div className="h-full px-20">
