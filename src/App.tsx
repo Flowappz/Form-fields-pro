@@ -12,6 +12,7 @@ import NumberSlider from "./views/NumberSlider";
 import NumberRangePicker from "./views/NumberRangePicker";
 import DatePicker from "./views/DatePicker";
 import DateRangePicker from "./views/DateRangePicker";
+import CollectUserIp from "./views/CollectUserIp";
 
 declare global {
   interface Window {
@@ -47,6 +48,7 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
   number_range_picker: NumberRangePicker,
   date_picker: DatePicker,
   date_range_picker: DateRangePicker,
+  collect_user_ip: CollectUserIp,
 };
 
 function App() {
