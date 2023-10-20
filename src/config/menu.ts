@@ -44,8 +44,8 @@ export const MENU_ITEMS = [
   {
     id: "collect_user_ip",
     label: "Collect user IP",
-    description: "",
-    available: false,
+    description: "Submit the user IP with data",
+    available: true,
   },
   // {
   //   id: "color_picker",
