@@ -4,6 +4,10 @@ import { ZodError, z } from "zod";
 import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
 
+const inputSchema = z.object({
+  inputName: z.string().min(1, "Please enter the input name"),
+});
+
 export default function CollectUserIp() {
   const { form } = useAppContext();
 
