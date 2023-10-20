@@ -319,4 +319,20 @@ export const insertDateRangePickerToForm = async ({
   await form.save();
 };
 
-export const insertUserIpInputToForm = async ({ inputName, form }: Pick<DropdownParams, "form" | "inputName">) => {};
+export const insertUserIpInputToForm = async ({ inputName, form }: Pick<DropdownParams, "form" | "inputName">) => {
+  const inputElement = createInputElement(inputName, "hidden");
+  inputElement.setAttribute("form-fields-pro-user-ip-input", "true");
+
+  const adminFeedback = window._myWebflow.createDOM("div");
+  adminFeedback.setAttribute("form-fields-pro-user-ip-admin-alert", "true");
+  adminFeedback.setTextContent("Collecting User IP");
+
+  const style = await userIpInputAlertStyle();
+  adminFeedback.setStyles([style]);
+
+  const lineBreak = window._myWebflow.createDOM("br");
+
+  const existingChilds = form.getChildren();
+  form.setChildren([...existingChilds, lineBreak, adminFeedback, inputElement]);
+  await form.save();
+};
