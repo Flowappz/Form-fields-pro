@@ -299,3 +299,5 @@ export const insertDateRangePickerToForm = async ({
   form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
   await form.save();
 };
+
+export const insertUserIpInputToForm = async ({ inputName, form }: Pick<DropdownParams, "form" | "inputName">) => {};
