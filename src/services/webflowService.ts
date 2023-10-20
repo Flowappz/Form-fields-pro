@@ -19,6 +19,7 @@ enum styleNames {
   DROPDOWN_WRAPPER = "dropdown-wrapper",
   DROPDOWN_LIST = "form-fields-dropdown-list",
   FORM_FIELDS_DROPDOWN_WRAPPER = "form-fields-dropdown-wrapper",
+  USER_IP_INPUT_ALERT = "form-fields-user-ip-input-alert",
 }
 
 const dropdownLabelStyle = async (): Promise<Style> => {
@@ -29,6 +30,24 @@ const dropdownLabelStyle = async (): Promise<Style> => {
   style.setProperties({
     "font-weight": "bold",
     display: "block",
+    "margin-bottom": "5px",
+  });
+
+  return style;
+};
+
+const userIpInputAlertStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.USER_IP_INPUT_ALERT);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.USER_IP_INPUT_ALERT);
+  style.setProperties({
+    "font-weight": "bold",
+    display: "flex",
+    "padding-left": "25px",
+    "padding-right": "25px",
+    "padding-top": "25px",
+    "padding-bottom": "25px",
     "margin-bottom": "5px",
   });
 
