@@ -44,10 +44,12 @@ const userIpInputAlertStyle = async (): Promise<Style> => {
   style.setProperties({
     "font-weight": "bold",
     display: "flex",
-    "padding-left": "25px",
-    "padding-right": "25px",
-    "padding-top": "25px",
-    "padding-bottom": "25px",
+    "max-width": "fit-content",
+    "background-color": "#cecece",
+    "padding-left": "15px",
+    "padding-right": "15px",
+    "padding-top": "7.5px",
+    "padding-bottom": "7.5px",
     "margin-bottom": "5px",
   });
 
