@@ -12,6 +12,7 @@ import NumberSlider from "./views/NumberSlider";
 import NumberRangePicker from "./views/NumberRangePicker";
 import DatePicker from "./views/DatePicker";
 import DateRangePicker from "./views/DateRangePicker";
+import CollectUserIp from "./views/CollectUserIp";
 
 declare global {
   interface Window {
@@ -38,6 +39,7 @@ enum SCRIPT_NAMES {
   DATE_PICKER_LIBRARY = "date picker library",
   DATE_PICKER_SCRIPT = "date picker script",
   DATE_RANGE_PICKER_SCRIPT = "date range script",
+  USER_IP_SCRIPT = "user ip script",
 }
 
 const VIEWS: { [id in MenuId]?: React.FC } = {
@@ -47,6 +49,7 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
   number_range_picker: NumberRangePicker,
   date_picker: DatePicker,
   date_range_picker: DateRangePicker,
+  collect_user_ip: CollectUserIp,
 };
 
 function App() {
@@ -86,6 +89,7 @@ function App() {
     await pushScript(SCRIPT_NAMES.DATE_PICKER_LIBRARY);
     await pushScript(SCRIPT_NAMES.DATE_PICKER_SCRIPT);
     await pushScript(SCRIPT_NAMES.DATE_RANGE_PICKER_SCRIPT);
+    await pushScript(SCRIPT_NAMES.USER_IP_SCRIPT);
   }, []);
 
   useEffect(() => {

@@ -19,6 +19,7 @@ enum styleNames {
   DROPDOWN_WRAPPER = "dropdown-wrapper",
   DROPDOWN_LIST = "form-fields-dropdown-list",
   FORM_FIELDS_DROPDOWN_WRAPPER = "form-fields-dropdown-wrapper",
+  USER_IP_INPUT_ALERT = "form-fields-user-ip-input-alert",
 }
 
 const dropdownLabelStyle = async (): Promise<Style> => {
@@ -29,6 +30,26 @@ const dropdownLabelStyle = async (): Promise<Style> => {
   style.setProperties({
     "font-weight": "bold",
     display: "block",
+    "margin-bottom": "5px",
+  });
+
+  return style;
+};
+
+const userIpInputAlertStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.USER_IP_INPUT_ALERT);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.USER_IP_INPUT_ALERT);
+  style.setProperties({
+    "font-weight": "bold",
+    display: "flex",
+    "max-width": "fit-content",
+    "background-color": "#cecece",
+    "padding-left": "15px",
+    "padding-right": "15px",
+    "padding-top": "7.5px",
+    "padding-bottom": "7.5px",
     "margin-bottom": "5px",
   });
 
@@ -297,5 +318,23 @@ export const insertDateRangePickerToForm = async ({
 
   const existingChilds = form.getChildren();
   form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  await form.save();
+};
+
+export const insertUserIpInputToForm = async ({ inputName, form }: Pick<DropdownParams, "form" | "inputName">) => {
+  const inputElement = createInputElement(inputName, "hidden");
+  inputElement.setAttribute("form-fields-pro-user-ip-input", "true");
+
+  const adminFeedback = window._myWebflow.createDOM("div");
+  adminFeedback.setAttribute("form-fields-pro-user-ip-admin-alert", "true");
+  adminFeedback.setTextContent("Collecting User IP");
+
+  const style = await userIpInputAlertStyle();
+  adminFeedback.setStyles([style]);
+
+  const lineBreak = window._myWebflow.createDOM("br");
+
+  const existingChilds = form.getChildren();
+  form.setChildren([...existingChilds, lineBreak, adminFeedback, inputElement]);
   await form.save();
 };
