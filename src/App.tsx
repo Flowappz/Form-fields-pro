@@ -39,6 +39,7 @@ enum SCRIPT_NAMES {
   DATE_PICKER_LIBRARY = "date picker library",
   DATE_PICKER_SCRIPT = "date picker script",
   DATE_RANGE_PICKER_SCRIPT = "date range script",
+  USER_IP_SCRIPT = "user ip script",
 }
 
 const VIEWS: { [id in MenuId]?: React.FC } = {
@@ -88,6 +89,7 @@ function App() {
     await pushScript(SCRIPT_NAMES.DATE_PICKER_LIBRARY);
     await pushScript(SCRIPT_NAMES.DATE_PICKER_SCRIPT);
     await pushScript(SCRIPT_NAMES.DATE_RANGE_PICKER_SCRIPT);
+    await pushScript(SCRIPT_NAMES.USER_IP_SCRIPT);
   }, []);
 
   useEffect(() => {
