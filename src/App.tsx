@@ -86,10 +86,6 @@ function App() {
 
   const pushScriptsToWebflowSite = useCallback(async () => {
     await pushScript(SCRIPT_NAMES.DROPDOWN);
-    await pushScript(SCRIPT_NAMES.DATE_PICKER_LIBRARY);
-    await pushScript(SCRIPT_NAMES.DATE_PICKER_SCRIPT);
-    await pushScript(SCRIPT_NAMES.DATE_RANGE_PICKER_SCRIPT);
-    await pushScript(SCRIPT_NAMES.USER_IP_SCRIPT);
   }, []);
 
   useEffect(() => {

@@ -32,8 +32,8 @@ export const MENU_ITEMS = [
   {
     id: "number_range_picker",
     label: "Number range picker",
-    description: "",
-    available: false,
+    description: "Select between two ranges",
+    available: true,
   },
   // {
   //   id: "time_zone_picker",
