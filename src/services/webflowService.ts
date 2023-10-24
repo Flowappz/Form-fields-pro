@@ -10,7 +10,9 @@ type NumberSliderParams = {
   inputName: string;
   maxRange: number;
   minRange: number;
-  defaultValue: number;
+  defaultValue?: number;
+  defaultMax?: number;
+  defaultMin?: number;
   form: FormFormElement | FormWrapperElement;
 };
 
@@ -244,7 +246,6 @@ export const insertDropdownToForm = async ({ label, items, inputName, form }: Dr
   await form.save();
 };
 
-
 export const insertSearchableDropdownToForm = async ({ label, items, inputName, form }: DropdownParams) => {
   const dropdownDiv = await createDropdown({ label, inputName, items, searchable: true });
   const lineBreak = window._myWebflow.createDOM("br");
@@ -266,12 +267,39 @@ export const insertNumberSliderToForm = async ({
   const labelElement = await createLabelElement(label);
   const lineBreak = window._myWebflow.createDOM("br");
 
-  const inputElement = window._myWebflow.createDOM("input");
-  inputElement.setAttribute("name", inputName);
-  inputElement.setAttribute("type", "range");
-  inputElement.setAttribute("max", String(maxRange));
-  inputElement.setAttribute("min", String(minRange));
-  inputElement.setAttribute("defaultValue", String(defaultValue));
+  const inputElement = createInputElement(inputName, "hidden");
+  inputElement.setAttribute("form-fields-pro-number-slider", "true");
+  inputElement.setAttribute("data-max", String(maxRange));
+  inputElement.setAttribute("data-min", String(minRange));
+  inputElement.setAttribute("data-default", String(defaultValue));
+
+  const wrapperDiv = window._myWebflow.createDOM("div");
+  wrapperDiv.setChildren([labelElement, inputElement]);
+
+  const existingChilds = form.getChildren();
+  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  await form.save();
+};
+
+export const insertNumberRangeSliderToForm = async ({
+  label,
+  inputName,
+  maxRange,
+  minRange,
+  defaultMax,
+  defaultMin,
+  form,
+}: NumberSliderParams) => {
+  const labelElement = await createLabelElement(label);
+  const lineBreak = window._myWebflow.createDOM("br");
+
+  const inputElement = createInputElement(inputName, "hidden");
+  inputElement.setAttribute("form-fields-pro-number-slider", "true");
+  inputElement.setAttribute("data-max", String(maxRange));
+  inputElement.setAttribute("data-min", String(minRange));
+  inputElement.setAttribute("data-max-default", String(defaultMax));
+  inputElement.setAttribute("data-min-default", String(defaultMin));
+  inputElement.setAttribute("allow-range", "true");
 
   const wrapperDiv = window._myWebflow.createDOM("div");
   wrapperDiv.setChildren([labelElement, inputElement]);
