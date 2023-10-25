@@ -21,6 +21,7 @@ enum styleNames {
   DROPDOWN_LABEL = "dropdown-label",
   DROPDOWN_WRAPPER = "dropdown-wrapper",
   DROPDOWN_LIST = "form-fields-dropdown-list",
+  DROPDOWN_TOGGLER = "form-fields-dropdown-toggler",
   FORM_FIELDS_DROPDOWN_WRAPPER = "form-fields-dropdown-wrapper",
   USER_IP_INPUT_ALERT = "form-fields-user-ip-input-alert",
 }
@@ -34,6 +35,49 @@ const dropdownLabelStyle = async (): Promise<Style> => {
     "font-weight": "bold",
     display: "block",
     "margin-bottom": "5px",
+  });
+
+  return style;
+};
+
+const dropdownTogglerStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_TOGGLER);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.DROPDOWN_TOGGLER);
+  style.setProperties({
+    cursor: "pointer",
+    display: "flex",
+    "justify-content": "space-between",
+    "align-items": "center",
+    color: "#333",
+    "vertical-align": "middle",
+    "background-color": "#fff",
+
+    "border-top-color": "#ccc",
+    "border-bottom-color": "#ccc",
+    "border-left-color": "#ccc",
+    "border-right-color": "#ccc",
+
+    "border-top-style": "solid",
+    "border-bottom-style": "solid",
+    "border-left-style": "solid",
+    "border-right-style": "solid",
+
+    "border-top-width": "1px",
+    "border-bottom-width": "1px",
+    "border-left-width": "1px",
+    "border-right-width": "1px",
+
+    "margin-bottom": "10px",
+
+    "padding-top": "8px",
+    "padding-bottom": "8px",
+    "padding-left": "12px",
+    "padding-right": "12px",
+
+    "font-size": "14px",
+    "line-height": "1.42857",
   });
 
   return style;
