@@ -179,6 +179,7 @@ const createDropdownTogglerContent = (inputName: string, searchable = false) => 
   const dropdownSelectorWrapper = window._myWebflow.createDOM("div");
   dropdownSelectorWrapper.setAttribute("class", "w-dropdown-toggle");
   dropdownSelectorWrapper.setAttribute("form-field-dropdown-toggler", "true");
+  dropdownSelectorWrapper.setAttribute("dropdown-name", inputName);
   if (searchable) dropdownSelectorWrapper.setAttribute("form-field-searchable-dropdown-toggler", "true");
 
   dropdownSelectorWrapper.setChildren([icon, selector]);
