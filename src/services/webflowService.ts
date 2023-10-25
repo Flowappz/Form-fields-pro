@@ -146,7 +146,8 @@ const createDropdownWrapper = async () => {
 const createDropdownSelector = (inputName: string) => {
   const selectorDiv = window._myWebflow.createDOM("div");
   selectorDiv.setTextContent("Select an item");
-  selectorDiv.setAttribute("form-field-dropdown-toggler", "true");
+  selectorDiv.setAttribute("form-field-dropdown-toggler-selected-value", "true");
+  // selectorDiv.setAttribute("form-field-dropdown-toggler", "true");
   selectorDiv.setAttribute("dropdown-name", inputName);
 
   return selectorDiv;
@@ -156,8 +157,8 @@ const createSearchableDropdownSelector = (inputName: string) => {
   const input = searchableDropdownInputElement(inputName);
 
   const selectorDiv = window._myWebflow.createDOM("div");
-  selectorDiv.setAttribute("form-field-dropdown-toggler", "true");
-  selectorDiv.setAttribute("form-field-searchable-dropdown-toggler", "true");
+  selectorDiv.setAttribute("form-field-dropdown-toggler-selected-value", "true");
+  // selectorDiv.setAttribute("form-field-searchable-dropdown-toggler", "true");
   selectorDiv.setAttribute("dropdown-name", inputName);
   selectorDiv.setChildren([input]);
 
@@ -177,6 +178,9 @@ const createDropdownTogglerContent = (inputName: string, searchable = false) => 
 
   const dropdownSelectorWrapper = window._myWebflow.createDOM("div");
   dropdownSelectorWrapper.setAttribute("class", "w-dropdown-toggle");
+  dropdownSelectorWrapper.setAttribute("form-field-dropdown-toggler", "true");
+  if (searchable) dropdownSelectorWrapper.setAttribute("form-field-searchable-dropdown-toggler", "true");
+
   dropdownSelectorWrapper.setChildren([icon, selector]);
 
   return dropdownSelectorWrapper;
