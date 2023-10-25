@@ -489,6 +489,20 @@ export const insertDatePickerToForm = async ({
 }: Pick<DropdownParams, "label" | "inputName" | "form">) => {
   const inputElement = createInputElement(inputName, "text");
   inputElement.setAttribute("form-fields-pro-date-picker", "true");
+  // const inputStyle = await dropdownSearchableInputStyle();
+  // inputElement.setStyles([inputStyle]);
+  const style1 = await dropdownTogglerStyle();
+  const style2 = await dropdownWrapperStyle();
+  inputElement.setStyles([style1, style2]);
+
+  // const icon = await createDropdownSelectorIcon();
+
+  // const inputWrapper = window._myWebflow.createDOM("div");
+  // const style1 = await dropdownTogglerStyle();
+  // const style2 = await dropdownWrapperStyle();
+  // inputWrapper.setStyles([style1, style2]);
+
+  // inputWrapper.setChildren([inputElement, icon]);
 
   const labelElement = await createLabelElement(label);
 
@@ -509,6 +523,21 @@ export const insertDateRangePickerToForm = async ({
 }: Pick<DropdownParams, "label" | "inputName" | "form">) => {
   const inputElement = createInputElement(inputName, "text");
   inputElement.setAttribute("form-fields-pro-date-range-picker", "true");
+  const style1 = await dropdownTogglerStyle();
+  const style2 = await dropdownWrapperStyle();
+  inputElement.setStyles([style1, style2]);
+
+  // const inputStyle = await dropdownSearchableInputStyle();
+  // inputElement.setStyles([inputStyle]);
+
+  // const icon = await createDropdownSelectorIcon();
+
+  // const inputWrapper = window._myWebflow.createDOM("div");
+  // const style1 = await dropdownTogglerStyle();
+  // const style2 = await dropdownWrapperStyle();
+  // inputWrapper.setStyles([style1, style2]);
+
+  // inputWrapper.setChildren([inputElement, icon]);
 
   const labelElement = await createLabelElement(label);
 
