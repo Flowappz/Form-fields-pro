@@ -124,7 +124,7 @@ const dropdownWrapperStyle = async (): Promise<Style> => {
   style = window._myWebflow.createStyle(styleNames.FORM_FIELDS_DROPDOWN_WRAPPER);
   style.setProperties({
     position: "relative",
-    width: "fit-content",
+    width: "100%",
   });
 
   return style;
@@ -231,27 +231,30 @@ const createDropdownSelectorIcon = () => {
   return iconDiv;
 };
 
-const createDropdownTogglerContent = (inputName: string, searchable = false) => {
+const createDropdownTogglerContent = async (inputName: string, searchable = false) => {
   const icon = createDropdownSelectorIcon();
   const selector = searchable ? createSearchableDropdownSelector(inputName) : createDropdownSelector(inputName);
 
-  const dropdownSelectorWrapper = window._myWebflow.createDOM("div");
-  dropdownSelectorWrapper.setAttribute("class", "w-dropdown-toggle");
-  dropdownSelectorWrapper.setAttribute("form-field-dropdown-toggler", "true");
-  dropdownSelectorWrapper.setAttribute("dropdown-name", inputName);
-  if (searchable) dropdownSelectorWrapper.setAttribute("form-field-searchable-dropdown-toggler", "true");
+  const dropdownTogglerWrapper = window._myWebflow.createDOM("div");
+  const wrapperStyle = await dropdownTogglerStyle();
+  dropdownTogglerWrapper.setStyles([wrapperStyle]);
 
-  dropdownSelectorWrapper.setChildren([icon, selector]);
+  // dropdownTogglerWrapper.setAttribute("class", "w-dropdown-toggle");
+  dropdownTogglerWrapper.setAttribute("form-field-dropdown-toggler", "true");
+  dropdownTogglerWrapper.setAttribute("dropdown-name", inputName);
+  if (searchable) dropdownTogglerWrapper.setAttribute("form-field-searchable-dropdown-toggler", "true");
 
-  return dropdownSelectorWrapper;
+  dropdownTogglerWrapper.setChildren([icon, selector]);
+
+  return dropdownTogglerWrapper;
 };
 
 const createDropdownToggler = async (label: string, inputName: string, searchable = false) => {
   const labelElement = await createLabelElement(label);
-  const togglerContent = createDropdownTogglerContent(inputName, searchable);
+  const togglerContent = await createDropdownTogglerContent(inputName, searchable);
 
   const div = window._myWebflow.createDOM("div");
-  div.setAttribute("class", "w-dropdown");
+  // div.setAttribute("class", "w-dropdown");
   div.setChildren([labelElement, togglerContent]);
 
   return div;
