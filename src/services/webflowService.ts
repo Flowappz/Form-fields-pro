@@ -24,6 +24,7 @@ enum styleNames {
   DROPDOWN_TOGGLER = "form-fields-dropdown-toggler",
   FORM_FIELDS_DROPDOWN_WRAPPER = "form-fields-dropdown-wrapper",
   USER_IP_INPUT_ALERT = "form-fields-user-ip-input-alert",
+  ICON = "form-fields-icon",
 }
 
 const dropdownLabelStyle = async (): Promise<Style> => {
@@ -35,6 +36,19 @@ const dropdownLabelStyle = async (): Promise<Style> => {
     "font-weight": "bold",
     display: "block",
     "margin-bottom": "5px",
+  });
+
+  return style;
+};
+
+const iconStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.ICON);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.ICON);
+  style.setProperties({
+    top: "auto",
+    bottom: "auto",
   });
 
   return style;
@@ -224,15 +238,22 @@ const createSearchableDropdownSelector = (inputName: string) => {
   return selectorDiv;
 };
 
-const createDropdownSelectorIcon = () => {
+const createDropdownSelectorIcon = async () => {
   const iconDiv = window._myWebflow.createDOM("div");
-  iconDiv.setAttribute("class", "w-icon-dropdown-toggle");
+  const stringEl = window._myWebflow.createString("↓");
+  iconDiv.setChildren([stringEl]);
+  // iconDiv.setAttribute("class", "w-icon-dropdown-toggle");
+  // const webflowIconStyle = await window._myWebflow.getStyleByName("w-icon-dropdown-toggle");
+  // if (webflowIconStyle) {
+  //   const style = await iconStyle();
+  //   iconDiv.setStyles([webflowIconStyle, style]);
+  // }
 
   return iconDiv;
 };
 
 const createDropdownTogglerContent = async (inputName: string, searchable = false) => {
-  const icon = createDropdownSelectorIcon();
+  const icon = await createDropdownSelectorIcon();
   const selector = searchable ? createSearchableDropdownSelector(inputName) : createDropdownSelector(inputName);
 
   const dropdownTogglerWrapper = window._myWebflow.createDOM("div");
@@ -244,7 +265,7 @@ const createDropdownTogglerContent = async (inputName: string, searchable = fals
   dropdownTogglerWrapper.setAttribute("dropdown-name", inputName);
   if (searchable) dropdownTogglerWrapper.setAttribute("form-field-searchable-dropdown-toggler", "true");
 
-  dropdownTogglerWrapper.setChildren([icon, selector]);
+  dropdownTogglerWrapper.setChildren([selector, icon]);
 
   return dropdownTogglerWrapper;
 };
