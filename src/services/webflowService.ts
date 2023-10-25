@@ -23,6 +23,7 @@ enum styleNames {
   DROPDOWN_LIST = "form-fields-dropdown-list",
   DROPDOWN_LIST_UL = "form-fields-dropdown-list-ul",
   DROPDOWN_TOGGLER = "form-fields-dropdown-toggler",
+  DROPDOWN_ITEM = "form-fields-dropdown-item",
   FORM_FIELDS_DROPDOWN_WRAPPER = "form-fields-dropdown-wrapper",
   USER_IP_INPUT_ALERT = "form-fields-user-ip-input-alert",
   ICON = "form-fields-icon",
@@ -67,6 +68,23 @@ const dropdownListUlStyle = async (): Promise<Style> => {
     "border-bottom-width": "1px",
     "border-left-width": "1px",
     "border-right-width": "1px",
+  });
+
+  return style;
+};
+
+const dropdownItemStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_ITEM);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.DROPDOWN_ITEM);
+  style.setProperties({
+    display: "block",
+    "padding-top": "10px",
+    "padding-bottom": "10px",
+    "padding-left": "20px",
+    "padding-right": "20px",
+    cursor: "pointer",
   });
 
   return style;
@@ -172,14 +190,16 @@ const createLabelElement = async (label: string): Promise<DOMElement> => {
   return element;
 };
 
-const createDropdownListItems = (inputName: string, items: string[]) => {
+const createDropdownListItems = async (inputName: string, items: string[]) => {
   const listItems: DOMElement[] = [];
+  const listItemStyle = await dropdownItemStyle();
 
   for (let item of items) {
     const el = window._myWebflow.createDOM("li");
+    el.setStyles([listItemStyle]);
 
     el.setTextContent(item);
-    el.setAttribute("class", "w-dropdown-link");
+    // el.setAttribute("class", "w-dropdown-link");
     el.setAttribute("form-field-dropdown-item", "true");
     el.setAttribute("input-field", inputName);
     el.setAttribute("input-data", item);
@@ -207,7 +227,7 @@ const createDropdownList = async (inputName: string, items: string[]) => {
   list.setAttribute("form-field-dropdown-item-list", "true");
   list.setAttribute("dropdown-name", inputName);
 
-  const listItems = createDropdownListItems(inputName, items);
+  const listItems = await createDropdownListItems(inputName, items);
   list.setChildren(listItems);
 
   const listWrapper = await createDropdownListWrapper();
