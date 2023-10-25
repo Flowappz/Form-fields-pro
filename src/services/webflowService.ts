@@ -24,6 +24,7 @@ enum styleNames {
   DROPDOWN_LIST_UL = "form-fields-dropdown-list-ul",
   DROPDOWN_TOGGLER = "form-fields-dropdown-toggler",
   DROPDOWN_ITEM = "form-fields-dropdown-item",
+  SEARCHABLE_INPUT = "form-fields-searchable-dropdown-input",
   FORM_FIELDS_DROPDOWN_WRAPPER = "form-fields-dropdown-wrapper",
   USER_IP_INPUT_ALERT = "form-fields-user-ip-input-alert",
   ICON = "form-fields-icon",
@@ -180,6 +181,24 @@ const dropdownWrapperStyle = async (): Promise<Style> => {
   return style;
 };
 
+const dropdownSearchableInputStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.SEARCHABLE_INPUT);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.SEARCHABLE_INPUT);
+  style.setProperties({
+    position: "relative",
+    width: "100%",
+    "outline-style": "none",
+    "border-top-style": "none",
+    "border-bottom-style": "none",
+    "border-left-style": "none",
+    "border-right-style": "none",
+  });
+
+  return style;
+};
+
 const createLabelElement = async (label: string): Promise<DOMElement> => {
   const element = window._myWebflow.createDOM("span");
   element.setTextContent(label);
@@ -238,15 +257,22 @@ const createDropdownList = async (inputName: string, items: string[]) => {
 
 const createSearchableDropdownNoItemFound = async (inputName: string, message: string) => {
   const div = window._myWebflow.createDOM("div");
-  div.setAttribute("class", "w-dropdown-list");
-  div.setAttribute("form-field-searchable-dropdown-no-item-found", "true");
-  div.setAttribute("dropdown-name", inputName);
+  const listItemStyle = await dropdownItemStyle();
+  div.setStyles([listItemStyle]);
+  // div.setAttribute("class", "w-dropdown-list");
   div.setTextContent(message);
 
-  const wrapper = await createDropdownListWrapper();
-  wrapper.setChildren([div]);
+  const list = window._myWebflow.createDOM("div");
+  const listStyle = await dropdownListUlStyle();
+  list.setStyles([listStyle]);
+  list.setAttribute("form-field-searchable-dropdown-no-item-found", "true");
+  list.setAttribute("dropdown-name", inputName);
+  list.setChildren([div]);
 
-  return wrapper;
+  const outerWrapper = await createDropdownListWrapper();
+  outerWrapper.setChildren([list]);
+
+  return outerWrapper;
 };
 
 const createDropdownWrapper = async () => {
@@ -267,10 +293,15 @@ const createDropdownSelector = (inputName: string) => {
   return selectorDiv;
 };
 
-const createSearchableDropdownSelector = (inputName: string) => {
+const createSearchableDropdownSelector = async (inputName: string) => {
   const input = searchableDropdownInputElement(inputName);
+  const inputStyle = await dropdownSearchableInputStyle();
+  input.setStyles([inputStyle]);
 
   const selectorDiv = window._myWebflow.createDOM("div");
+  const style = await dropdownWrapperStyle();
+  selectorDiv.setStyles([style]);
+
   selectorDiv.setAttribute("form-field-dropdown-toggler-selected-value", "true");
   // selectorDiv.setAttribute("form-field-searchable-dropdown-toggler", "true");
   selectorDiv.setAttribute("dropdown-name", inputName);
@@ -295,7 +326,7 @@ const createDropdownSelectorIcon = async () => {
 
 const createDropdownTogglerContent = async (inputName: string, searchable = false) => {
   const icon = await createDropdownSelectorIcon();
-  const selector = searchable ? createSearchableDropdownSelector(inputName) : createDropdownSelector(inputName);
+  const selector = searchable ? await createSearchableDropdownSelector(inputName) : createDropdownSelector(inputName);
 
   const dropdownTogglerWrapper = window._myWebflow.createDOM("div");
   const wrapperStyle = await dropdownTogglerStyle();
