@@ -21,6 +21,7 @@ enum styleNames {
   DROPDOWN_LABEL = "dropdown-label",
   DROPDOWN_WRAPPER = "dropdown-wrapper",
   DROPDOWN_LIST = "form-fields-dropdown-list",
+  DROPDOWN_LIST_UL = "form-fields-dropdown-list-ul",
   DROPDOWN_TOGGLER = "form-fields-dropdown-toggler",
   FORM_FIELDS_DROPDOWN_WRAPPER = "form-fields-dropdown-wrapper",
   USER_IP_INPUT_ALERT = "form-fields-user-ip-input-alert",
@@ -41,14 +42,31 @@ const dropdownLabelStyle = async (): Promise<Style> => {
   return style;
 };
 
-const iconStyle = async (): Promise<Style> => {
-  let style = await window._myWebflow.getStyleByName(styleNames.ICON);
+const dropdownListUlStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_LIST_UL);
   if (style) return style;
 
-  style = window._myWebflow.createStyle(styleNames.ICON);
+  style = window._myWebflow.createStyle(styleNames.DROPDOWN_LIST_UL);
   style.setProperties({
-    top: "auto",
-    bottom: "auto",
+    "min-width": "100%",
+    "background-color": "white",
+    "padding-left": "0px",
+    display: "none",
+
+    "border-top-color": "#ccc",
+    "border-bottom-color": "#ccc",
+    "border-left-color": "#ccc",
+    "border-right-color": "#ccc",
+
+    "border-top-style": "solid",
+    "border-bottom-style": "solid",
+    "border-left-style": "solid",
+    "border-right-style": "solid",
+
+    "border-top-width": "1px",
+    "border-bottom-width": "1px",
+    "border-left-width": "1px",
+    "border-right-width": "1px",
   });
 
   return style;
@@ -182,7 +200,10 @@ const createDropdownListWrapper = async () => {
 
 const createDropdownList = async (inputName: string, items: string[]) => {
   const list = window._myWebflow.createDOM("ul");
-  list.setAttribute("class", "w-dropdown-list");
+  const style = await dropdownListUlStyle();
+  list.setStyles([style]);
+
+  // list.setAttribute("class", "w-dropdown-list");
   list.setAttribute("form-field-dropdown-item-list", "true");
   list.setAttribute("dropdown-name", inputName);
 
