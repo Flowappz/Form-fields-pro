@@ -3,6 +3,7 @@ type DropdownParams = {
   items: string[];
   form: FormFormElement | FormWrapperElement;
   inputName: string;
+  noItemFoundMessage?: string;
 };
 
 type NumberSliderParams = {
@@ -66,6 +67,7 @@ const dropdownListStyle = async (): Promise<Style> => {
   style.setProperties({
     "z-index": "999",
     position: "absolute",
+    width: "100%",
   });
 
   return style;
@@ -133,6 +135,19 @@ const createDropdownList = async (inputName: string, items: string[]) => {
   listWrapper.setChildren([list]);
 
   return listWrapper;
+};
+
+const createSearchableDropdownNoItemFound = async (inputName: string, message: string) => {
+  const div = window._myWebflow.createDOM("div");
+  div.setAttribute("class", "w-dropdown-list");
+  div.setAttribute("form-field-searchable-dropdown-no-item-found", "true");
+  div.setAttribute("dropdown-name", inputName);
+  div.setTextContent(message);
+
+  const wrapper = await createDropdownListWrapper();
+  wrapper.setChildren([div]);
+
+  return wrapper;
 };
 
 const createDropdownWrapper = async () => {
@@ -203,17 +218,24 @@ const createDropdown = async ({
   inputName,
   items,
   searchable = false,
+  noItemFoundMessage,
 }: {
   label: string;
   inputName: string;
   items: string[];
   searchable?: boolean;
+  noItemFoundMessage?: string;
 }): Promise<DOMElement> => {
   const dropdownToggler = await createDropdownToggler(label, inputName, searchable);
   const dropdownList = await createDropdownList(inputName, items);
 
   const dropdownWrapper = await createDropdownWrapper();
-  dropdownWrapper.setChildren([dropdownToggler, dropdownList]);
+
+  if (!searchable) dropdownWrapper.setChildren([dropdownToggler, dropdownList]);
+  else {
+    const noItemFound = await createSearchableDropdownNoItemFound(inputName, noItemFoundMessage as string);
+    dropdownWrapper.setChildren([dropdownToggler, dropdownList, noItemFound]);
+  }
 
   return dropdownWrapper;
 };
@@ -251,8 +273,14 @@ export const insertDropdownToForm = async ({ label, items, inputName, form }: Dr
   await form.save();
 };
 
-export const insertSearchableDropdownToForm = async ({ label, items, inputName, form }: DropdownParams) => {
-  const dropdownDiv = await createDropdown({ label, inputName, items, searchable: true });
+export const insertSearchableDropdownToForm = async ({
+  label,
+  items,
+  inputName,
+  form,
+  noItemFoundMessage,
+}: DropdownParams) => {
+  const dropdownDiv = await createDropdown({ label, inputName, items, searchable: true, noItemFoundMessage });
   const lineBreak = window._myWebflow.createDOM("br");
 
   const existingChilds = form.getChildren();

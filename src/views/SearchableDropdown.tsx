@@ -8,6 +8,7 @@ import * as webflowService from "../services/webflowService";
 const inputSchema = z.object({
   dropdownLabel: z.string().min(1, "Please enter a label"),
   inputFieldName: z.string().min(1, "Please enter the input name"),
+  noDataMessage: z.string().min(1, "Please enter the a message for no data found"),
   dropdownItems: z
     .string()
     .min(1, "Please enter dropdown item value")
@@ -20,6 +21,7 @@ export default function SearchableDropdown() {
 
   const [dropdownLabel, setDropdownLabel] = useState("");
   const [inputFieldName, setInputFieldName] = useState("");
+  const [noDataMessage, setNoDataMessage] = useState("");
   const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
 
   const [errors, setErrors] = useState<any>({});
@@ -45,6 +47,7 @@ export default function SearchableDropdown() {
         dropdownLabel,
         inputFieldName,
         dropdownItems,
+        noDataMessage,
       });
 
       setErrors({});
@@ -73,6 +76,7 @@ export default function SearchableDropdown() {
         label: dropdownLabel,
         inputName: inputFieldName,
         items: dropdownItems,
+        noItemFoundMessage: noDataMessage,
       });
     }
   };
@@ -98,6 +102,13 @@ export default function SearchableDropdown() {
           value={inputFieldName}
           onChange={setInputFieldName}
           error={errors.inputFieldName}
+        />
+        <TextInput
+          label="No data message"
+          name="noDataMessage"
+          value={noDataMessage}
+          onChange={setNoDataMessage}
+          error={errors.noDataMessage}
         />
       </div>
 
