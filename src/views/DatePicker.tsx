@@ -20,6 +20,7 @@ export default function DatePicker() {
   const [firstDayOfWeek, setFirstDayOfWeek] = useState(String(WEEKDAYS[0].value));
   const [language, setLanguage] = useState(DATE_PICKER_LANGUAGES[0].value);
   const [numberOfMonthsToShow, setNumberOfMonthsToShow] = useState("2");
+  const [columns, setColumns] = useState("2");
 
   const [errors, setErrors] = useState<any>({});
 
@@ -90,6 +91,8 @@ export default function DatePicker() {
           value={numberOfMonthsToShow}
           onChange={setNumberOfMonthsToShow}
         />
+
+        <SliderInput label="Number of columns" max={12} min={1} value={columns} onChange={setColumns} />
       </div>
 
       <div className="mt-[0.3rem]">
