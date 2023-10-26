@@ -5,6 +5,7 @@ import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
 import SelectInput from "../components/form/SelectInput";
 import { DATE_PICKER_LANGUAGES, WEEKDAYS } from "../config/date";
+import SliderInput from "../components/form/SliderInput";
 
 const inputSchema = z.object({
   label: z.string().min(1, "Please enter a label"),
@@ -18,6 +19,7 @@ export default function DatePicker() {
   const [inputName, setInputName] = useState("");
   const [firstDayOfWeek, setFirstDayOfWeek] = useState(String(WEEKDAYS[0].value));
   const [language, setLanguage] = useState(DATE_PICKER_LANGUAGES[0].value);
+  const [numberOfMonthsToShow, setNumberOfMonthsToShow] = useState("2");
 
   const [errors, setErrors] = useState<any>({});
 
@@ -79,6 +81,14 @@ export default function DatePicker() {
           options={DATE_PICKER_LANGUAGES}
           selectedValue={language}
           onChange={setLanguage}
+        />
+
+        <SliderInput
+          label="How many months to show by default"
+          max={12}
+          min={1}
+          value={numberOfMonthsToShow}
+          onChange={setNumberOfMonthsToShow}
         />
       </div>
 
