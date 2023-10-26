@@ -3,7 +3,9 @@ import TextInput from "../components/form/TextInput";
 import { ZodError, z } from "zod";
 import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
-
+import { DATE_PICKER_LANGUAGES, WEEKDAYS } from "../config/date";
+import SelectInput from "../components/form/SelectInput";
+import SliderInput from "../components/form/SliderInput";
 
 const inputSchema = z.object({
   label: z.string().min(1, "Please enter a label"),
@@ -15,6 +17,10 @@ export default function DateRangePicker() {
 
   const [label, setLabel] = useState("");
   const [inputName, setInputName] = useState("");
+  const [firstDayOfWeek, setFirstDayOfWeek] = useState(String(WEEKDAYS[0].value));
+  const [language, setLanguage] = useState(DATE_PICKER_LANGUAGES[0].value);
+  const [numberOfMonthsToShow, setNumberOfMonthsToShow] = useState("2");
+  const [columns, setColumns] = useState("2");
 
   const [errors, setErrors] = useState<any>({});
 
@@ -66,6 +72,29 @@ export default function DateRangePicker() {
       <div className="border-b-[#363636] border-b-[1.25px]">
         <TextInput label="Label" value={label} name="label" onChange={setLabel} error={errors.label} />
         <TextInput label="Field name" name="input" value={inputName} onChange={setInputName} error={errors.inputName} />
+
+        <SelectInput
+          label="First day of the week"
+          options={WEEKDAYS}
+          selectedValue={firstDayOfWeek}
+          onChange={setFirstDayOfWeek}
+        />
+        <SelectInput
+          label="Calender language"
+          options={DATE_PICKER_LANGUAGES}
+          selectedValue={language}
+          onChange={setLanguage}
+        />
+
+        <SliderInput
+          label="How many months to show by default"
+          max={12}
+          min={1}
+          value={numberOfMonthsToShow}
+          onChange={setNumberOfMonthsToShow}
+        />
+
+        <SliderInput label="Number of columns" max={12} min={1} value={columns} onChange={setColumns} />
       </div>
 
       <div className="mt-[0.3rem]">
