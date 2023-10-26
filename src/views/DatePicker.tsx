@@ -4,7 +4,7 @@ import { ZodError, z } from "zod";
 import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
 import SelectInput from "../components/form/SelectInput";
-import { WEEKDAYS } from "../config/date";
+import { DATE_PICKER_LANGUAGES, WEEKDAYS } from "../config/date";
 
 const inputSchema = z.object({
   label: z.string().min(1, "Please enter a label"),
@@ -17,6 +17,7 @@ export default function DatePicker() {
   const [label, setLabel] = useState("");
   const [inputName, setInputName] = useState("");
   const [firstDayOfWeek, setFirstDayOfWeek] = useState(String(WEEKDAYS[0].value));
+  const [language, setLanguage] = useState(DATE_PICKER_LANGUAGES[0].value);
 
   const [errors, setErrors] = useState<any>({});
 
@@ -66,11 +67,18 @@ export default function DatePicker() {
       <div className="border-b-[#363636] border-b-[1.25px]">
         <TextInput label="Label" value={label} name="label" onChange={setLabel} error={errors.label} />
         <TextInput label="Field name" name="input" value={inputName} onChange={setInputName} error={errors.inputName} />
+
         <SelectInput
           label="First day of the week"
           options={WEEKDAYS}
           selectedValue={firstDayOfWeek}
           onChange={setFirstDayOfWeek}
+        />
+        <SelectInput
+          label="Calender language"
+          options={DATE_PICKER_LANGUAGES}
+          selectedValue={language}
+          onChange={setLanguage}
         />
       </div>
 
