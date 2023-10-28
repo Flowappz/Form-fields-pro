@@ -22,6 +22,7 @@ export default function DatePicker() {
   const [dateFormat, setDateFormat] = useState(DATE_FORMATS[0].value);
   const [numberOfMonthsToShow, setNumberOfMonthsToShow] = useState("2");
   const [columns, setColumns] = useState("2");
+  const [zIndex, setZIndex] = useState("10");
 
   const [errors, setErrors] = useState<any>({});
 
@@ -93,8 +94,16 @@ export default function DatePicker() {
           value={numberOfMonthsToShow}
           onChange={setNumberOfMonthsToShow}
         />
-
         <SliderInput label="Number of columns" max={12} min={1} value={columns} onChange={setColumns} />
+
+        <TextInput
+          label="Z-index"
+          name="zIndex"
+          type="number"
+          value={zIndex}
+          onChange={setZIndex}
+          error={errors.zIndex}
+        />
       </div>
 
       <div className="mt-[0.3rem]">
