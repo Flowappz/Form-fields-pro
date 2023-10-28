@@ -48,7 +48,7 @@ export const DATE_PICKER_LANGUAGES: { value: string; content: string }[] = [
   },
   {
     content: "Japanese",
-    value: "jp-JP",
+    value: "ja-JP",
   },
 ];
 
