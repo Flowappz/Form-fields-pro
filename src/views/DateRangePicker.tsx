@@ -3,7 +3,7 @@ import TextInput from "../components/form/TextInput";
 import { ZodError, z } from "zod";
 import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
-import { DATE_PICKER_LANGUAGES, WEEKDAYS } from "../config/date";
+import { DATE_FORMATS, DATE_PICKER_LANGUAGES, WEEKDAYS } from "../config/date";
 import SelectInput from "../components/form/SelectInput";
 import SliderInput from "../components/form/SliderInput";
 
@@ -19,6 +19,7 @@ export default function DateRangePicker() {
   const [inputName, setInputName] = useState("");
   const [firstDayOfWeek, setFirstDayOfWeek] = useState(String(WEEKDAYS[0].value));
   const [language, setLanguage] = useState(DATE_PICKER_LANGUAGES[0].value);
+  const [dateFormat, setDateFormat] = useState(DATE_FORMATS[0].value);
   const [numberOfMonthsToShow, setNumberOfMonthsToShow] = useState("2");
   const [columns, setColumns] = useState("2");
 
@@ -85,6 +86,7 @@ export default function DateRangePicker() {
           selectedValue={language}
           onChange={setLanguage}
         />
+        <SelectInput label="Date format" options={DATE_FORMATS} selectedValue={dateFormat} onChange={setDateFormat} />
 
         <SliderInput
           label="How many months to show by default"
