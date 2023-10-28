@@ -51,3 +51,18 @@ export const DATE_PICKER_LANGUAGES: { value: string; content: string }[] = [
     value: "jp-JP",
   },
 ];
+
+export const DATE_FORMATS: { value: string; content: string }[] = [
+  {
+    content: "YYYY-MM-DD (Example: '2023-10-23')",
+    value: "YYYY-MM-DD",
+  },
+  {
+    content: "DD MMM YYYY (Example: '23 Oct 2023')",
+    value: "DD MMM YYYY",
+  },
+  {
+    content: "DD MMMM YYYY (Example: '23 October 2023')",
+    value: "DD MMMM YYYY",
+  },
+];
