@@ -6,6 +6,18 @@ type DropdownParams = {
   noItemFoundMessage?: string;
 };
 
+type DateParams = {
+  label: string;
+  form: FormFormElement | FormWrapperElement;
+  inputName: string;
+  zIndex: string;
+  dateFormat: string;
+  language: string;
+  firstDayOfWeek: string;
+  numberOfMonthsToShow: string;
+  columns: string;
+};
+
 type NumberSliderParams = {
   label: string;
   inputName: string;
@@ -402,6 +414,30 @@ const searchableDropdownInputElement = (inputName: string): DOMElement => {
   return input;
 };
 
+const createDateInputElement = ({
+  inputName,
+  columns,
+  dateFormat,
+  firstDayOfWeek,
+  language,
+  numberOfMonthsToShow,
+  zIndex,
+}: Pick<
+  DateParams,
+  "inputName" | "columns" | "dateFormat" | "firstDayOfWeek" | "language" | "numberOfMonthsToShow" | "zIndex"
+>) => {
+  const inputElement = createInputElement(inputName, "text");
+
+  inputElement.setAttribute("data-columns", columns);
+  inputElement.setAttribute("data-format", dateFormat);
+  inputElement.setAttribute("data-firstDay", firstDayOfWeek);
+  inputElement.setAttribute("data-language", language);
+  inputElement.setAttribute("data-months", numberOfMonthsToShow);
+  inputElement.setAttribute("data-zIndex", zIndex);
+
+  return inputElement;
+};
+
 export const insertDropdownToForm = async ({ label, items, inputName, form }: DropdownParams) => {
   const dropdownDiv = await createDropdown({ label, inputName, items });
   const input = hiddenDropdownInputElement(inputName);
@@ -486,9 +522,24 @@ export const insertDatePickerToForm = async ({
   label,
   inputName,
   form,
-}: Pick<DropdownParams, "label" | "inputName" | "form">) => {
-  const inputElement = createInputElement(inputName, "text");
+  columns,
+  dateFormat,
+  firstDayOfWeek,
+  language,
+  numberOfMonthsToShow,
+  zIndex,
+}: DateParams) => {
+  const inputElement = createDateInputElement({
+    inputName,
+    columns,
+    dateFormat,
+    firstDayOfWeek,
+    language,
+    numberOfMonthsToShow,
+    zIndex,
+  });
   inputElement.setAttribute("form-fields-pro-date-picker", "true");
+
   // const inputStyle = await dropdownSearchableInputStyle();
   // inputElement.setStyles([inputStyle]);
   const style1 = await dropdownTogglerStyle();
@@ -520,8 +571,22 @@ export const insertDateRangePickerToForm = async ({
   label,
   inputName,
   form,
-}: Pick<DropdownParams, "label" | "inputName" | "form">) => {
-  const inputElement = createInputElement(inputName, "text");
+  columns,
+  dateFormat,
+  firstDayOfWeek,
+  language,
+  numberOfMonthsToShow,
+  zIndex,
+}: DateParams) => {
+  const inputElement = createDateInputElement({
+    inputName,
+    columns,
+    dateFormat,
+    firstDayOfWeek,
+    language,
+    numberOfMonthsToShow,
+    zIndex,
+  });
   inputElement.setAttribute("form-fields-pro-date-range-picker", "true");
   const style1 = await dropdownTogglerStyle();
   const style2 = await dropdownWrapperStyle();

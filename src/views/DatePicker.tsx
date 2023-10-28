@@ -60,6 +60,12 @@ export default function DatePicker() {
         form,
         label,
         inputName,
+        firstDayOfWeek,
+        language,
+        dateFormat,
+        numberOfMonthsToShow,
+        columns,
+        zIndex,
       });
     }
   };
