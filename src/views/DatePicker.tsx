@@ -10,6 +10,7 @@ import SliderInput from "../components/form/SliderInput";
 const inputSchema = z.object({
   label: z.string().min(1, "Please enter a label"),
   inputName: z.string().min(1, "Please enter the input name"),
+  zIndex: z.number().min(0),
 });
 
 export default function DatePicker() {
@@ -31,6 +32,7 @@ export default function DatePicker() {
       inputSchema.parse({
         label,
         inputName,
+        zIndex: Number(zIndex),
       });
 
       setErrors({});
