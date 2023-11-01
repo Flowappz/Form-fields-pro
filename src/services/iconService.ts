@@ -44,8 +44,8 @@ const calendar = (): DOMElement => {
 
 const chevronDown = (): DOMElement => {
   const svg = window._myWebflow.createDOM("svg");
-  svg.setAttribute("width", "24");
-  svg.setAttribute("height", "24");
+  svg.setAttribute("width", "20");
+  svg.setAttribute("height", "20");
   svg.setAttribute("viewBox", "0 0 24 24");
   svg.setAttribute("fill", "none");
   svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
