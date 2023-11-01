@@ -1,3 +1,5 @@
+import { webflowIcons } from "./iconService";
+
 type DropdownParams = {
   label: string;
   items: string[];
@@ -369,14 +371,8 @@ const createSearchableDropdownSelector = async (inputName: string) => {
 
 const createDropdownSelectorIcon = async () => {
   const iconDiv = window._myWebflow.createDOM("div");
-  const stringEl = window._myWebflow.createString("↓");
-  iconDiv.setChildren([stringEl]);
-  // iconDiv.setAttribute("class", "w-icon-dropdown-toggle");
-  // const webflowIconStyle = await window._myWebflow.getStyleByName("w-icon-dropdown-toggle");
-  // if (webflowIconStyle) {
-  //   const style = await iconStyle();
-  //   iconDiv.setStyles([webflowIconStyle, style]);
-  // }
+  const icon = webflowIcons.CHEVRON_DOWN;
+  iconDiv.setChildren([icon]);
 
   return iconDiv;
 };
