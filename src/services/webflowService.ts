@@ -370,7 +370,7 @@ const createSearchableDropdownSelector = async (inputName: string) => {
 };
 
 const createDropdownSelectorIcon = async () => {
-  const icon = webflowIcons.CHEVRON_DOWN;
+  const icon = webflowIcons.CHEVRON_DOWN();
   return icon;
 };
 
@@ -483,7 +483,7 @@ const createDateInputIcon = async () => {
   const iconStyle = await dateInputIconStyle();
   iconDiv.setStyles([absolutePositionStyle, iconStyle]);
 
-  const icon = webflowIcons.CALENDER;
+  const icon = webflowIcons.CALENDER();
   iconDiv.setChildren([icon]);
 
   return iconDiv;

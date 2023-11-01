@@ -71,7 +71,7 @@ const ICON_NAMES = {
 type iconKeys = keyof typeof ICON_NAMES;
 type iconNames = (typeof ICON_NAMES)[iconKeys];
 
-export const webflowIcons: { [x in iconNames]: DOMElement } = {
-  [ICON_NAMES.CALENDER]: calendar(),
-  [ICON_NAMES.CHEVRON_DOWN]: chevronDown(),
+export const webflowIcons: { [x in iconNames]: () => DOMElement } = {
+  [ICON_NAMES.CALENDER]: calendar,
+  [ICON_NAMES.CHEVRON_DOWN]: chevronDown,
 };
