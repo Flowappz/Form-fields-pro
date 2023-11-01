@@ -40,6 +40,7 @@ enum styleNames {
   FORM_FIELDS_DROPDOWN_WRAPPER = "form-fields-dropdown-wrapper",
   USER_IP_INPUT_ALERT = "form-fields-user-ip-input-alert",
   ICON = "form-fields-icon",
+  FULL_WIDTH_RELATIVE_POSITION = "full-width-relative-position",
 }
 
 const dropdownLabelStyle = async (): Promise<Style> => {
@@ -174,6 +175,19 @@ const dropdownListStyle = async (): Promise<Style> => {
   style.setProperties({
     "z-index": "999",
     position: "absolute",
+    width: "100%",
+  });
+
+  return style;
+};
+
+const fullWidthRelativePositionStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.FULL_WIDTH_RELATIVE_POSITION);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.FULL_WIDTH_RELATIVE_POSITION);
+  style.setProperties({
+    position: "relative",
     width: "100%",
   });
 
