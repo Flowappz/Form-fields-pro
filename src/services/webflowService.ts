@@ -41,7 +41,20 @@ enum styleNames {
   USER_IP_INPUT_ALERT = "form-fields-user-ip-input-alert",
   ICON = "form-fields-icon",
   FULL_WIDTH_RELATIVE_POSITION = "full-width-relative-position",
+  POSITION_ABSOLUTE = "position-absolute",
 }
+
+const positionAbsoluteStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.POSITION_ABSOLUTE);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.POSITION_ABSOLUTE);
+  style.setProperties({
+    position: "absolute",
+  });
+
+  return style;
+};
 
 const dropdownLabelStyle = async (): Promise<Style> => {
   let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_LABEL);
