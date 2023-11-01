@@ -42,6 +42,27 @@ const calendar = (): DOMElement => {
   return svg;
 };
 
+const chevronDown = (): DOMElement => {
+  const svg = window._myWebflow.createDOM("svg");
+  svg.setAttribute("width", "24");
+  svg.setAttribute("height", "24");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+
+  const path = window._myWebflow.createDOM("path");
+  path.setAttribute("d", "M6 9L12 15L18 9");
+  path.setAttribute("stroke", "black");
+  path.setAttribute("stroke-width", "2");
+  path.setAttribute("stroke-linecap", "round");
+  path.setAttribute("stroke-linejoin", "round");
+
+  svg.setChildren([path]);
+
+  return svg;
+};
+
+
 const ICON_NAMES = {
   CALENDER: "calender",
   CHEVRON_DOWN: "chevron_down",
