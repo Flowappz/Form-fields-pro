@@ -486,8 +486,8 @@ const createDateInputIcon = async () => {
   const iconStyle = await dateInputIconStyle();
   iconDiv.setStyles([absolutePositionStyle, iconStyle]);
 
-  const stringEl = window._myWebflow.createString("↓");
-  iconDiv.setChildren([stringEl]);
+  const icon = webflowIcons.CALENDER;
+  iconDiv.setChildren([icon]);
 
   return iconDiv;
 };
