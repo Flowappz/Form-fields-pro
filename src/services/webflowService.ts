@@ -370,11 +370,8 @@ const createSearchableDropdownSelector = async (inputName: string) => {
 };
 
 const createDropdownSelectorIcon = async () => {
-  const iconDiv = window._myWebflow.createDOM("div");
   const icon = webflowIcons.CHEVRON_DOWN;
-  iconDiv.setChildren([icon]);
-
-  return iconDiv;
+  return icon;
 };
 
 const createDropdownTogglerContent = async (inputName: string, searchable = false) => {
