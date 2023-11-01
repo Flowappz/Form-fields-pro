@@ -452,6 +452,14 @@ const createDateInputElement = ({
   return inputElement;
 };
 
+const createDateInputIcon = async () => {
+  const iconDiv = window._myWebflow.createDOM("div");
+  const stringEl = window._myWebflow.createString("↓");
+  iconDiv.setChildren([stringEl]);
+
+  return iconDiv;
+};
+
 export const insertDropdownToForm = async ({ label, items, inputName, form }: DropdownParams) => {
   const dropdownDiv = await createDropdown({ label, inputName, items });
   const input = hiddenDropdownInputElement(inputName);
@@ -554,25 +562,21 @@ export const insertDatePickerToForm = async ({
   });
   inputElement.setAttribute("form-fields-pro-date-picker", "true");
 
-  // const inputStyle = await dropdownSearchableInputStyle();
-  // inputElement.setStyles([inputStyle]);
   const style1 = await dropdownTogglerStyle();
   const style2 = await dropdownWrapperStyle();
   inputElement.setStyles([style1, style2]);
 
-  // const icon = await createDropdownSelectorIcon();
+  const icon = await createDateInputIcon();
 
-  // const inputWrapper = window._myWebflow.createDOM("div");
-  // const style1 = await dropdownTogglerStyle();
-  // const style2 = await dropdownWrapperStyle();
-  // inputWrapper.setStyles([style1, style2]);
-
-  // inputWrapper.setChildren([inputElement, icon]);
+  const inputWithIconWrapper = window._myWebflow.createDOM("div");
+  const style = await fullWidthRelativePositionStyle();
+  inputWithIconWrapper.setStyles([style]);
+  inputWithIconWrapper.setChildren([inputElement, icon]);
 
   const labelElement = await createLabelElement(label);
 
   const wrapperDiv = window._myWebflow.createDOM("div");
-  wrapperDiv.setChildren([labelElement, inputElement]);
+  wrapperDiv.setChildren([labelElement, inputWithIconWrapper]);
 
   const lineBreak = window._myWebflow.createDOM("br");
 
@@ -606,22 +610,17 @@ export const insertDateRangePickerToForm = async ({
   const style2 = await dropdownWrapperStyle();
   inputElement.setStyles([style1, style2]);
 
-  // const inputStyle = await dropdownSearchableInputStyle();
-  // inputElement.setStyles([inputStyle]);
+  const icon = await createDateInputIcon();
 
-  // const icon = await createDropdownSelectorIcon();
-
-  // const inputWrapper = window._myWebflow.createDOM("div");
-  // const style1 = await dropdownTogglerStyle();
-  // const style2 = await dropdownWrapperStyle();
-  // inputWrapper.setStyles([style1, style2]);
-
-  // inputWrapper.setChildren([inputElement, icon]);
+  const inputWithIconWrapper = window._myWebflow.createDOM("div");
+  const style = await fullWidthRelativePositionStyle();
+  inputWithIconWrapper.setStyles([style]);
+  inputWithIconWrapper.setChildren([inputElement, icon]);
 
   const labelElement = await createLabelElement(label);
 
   const wrapperDiv = window._myWebflow.createDOM("div");
-  wrapperDiv.setChildren([labelElement, inputElement]);
+  wrapperDiv.setChildren([labelElement, inputWithIconWrapper]);
 
   const lineBreak = window._myWebflow.createDOM("br");
 
