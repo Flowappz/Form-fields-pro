@@ -42,6 +42,7 @@ enum styleNames {
   ICON = "form-fields-icon",
   FULL_WIDTH_RELATIVE_POSITION = "full-width-relative-position",
   POSITION_ABSOLUTE = "position-absolute",
+  DATE_INPUT_ICON = "date-input-icon",
 }
 
 const positionAbsoluteStyle = async (): Promise<Style> => {
@@ -51,6 +52,23 @@ const positionAbsoluteStyle = async (): Promise<Style> => {
   style = window._myWebflow.createStyle(styleNames.POSITION_ABSOLUTE);
   style.setProperties({
     position: "absolute",
+  });
+
+  return style;
+};
+
+const dateInputIconStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.DATE_INPUT_ICON);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.DATE_INPUT_ICON);
+  style.setProperties({
+    top: "0",
+    right: "0",
+    "padding-top": "8px",
+    "padding-bottom": "8px",
+    "padding-left": "12px",
+    "padding-right": "12px",
   });
 
   return style;
@@ -467,6 +485,11 @@ const createDateInputElement = ({
 
 const createDateInputIcon = async () => {
   const iconDiv = window._myWebflow.createDOM("div");
+
+  const absolutePositionStyle = await positionAbsoluteStyle();
+  const iconStyle = await dateInputIconStyle();
+  iconDiv.setStyles([absolutePositionStyle, iconStyle]);
+
   const stringEl = window._myWebflow.createString("↓");
   iconDiv.setChildren([stringEl]);
 
