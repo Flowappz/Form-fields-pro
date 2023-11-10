@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HexAlphaColorPicker } from "react-colorful";
+import { RgbStringColorPicker } from "react-colorful";
 
 export interface ColorInputProps {
   label?: string;
@@ -20,7 +20,7 @@ export default function ColorInput({ label, placeholder, name, value, onChange, 
       ) : null}
       <div className="relative" tabIndex={-1} onFocus={() => setShowPicker(true)} onBlur={() => setShowPicker(false)}>
         <div className="absolute bottom-0 right-[-70px] z-[3]">
-          {showPicker && <HexAlphaColorPicker color={value} onChange={onChange} />}
+          {showPicker && <RgbStringColorPicker color={value} onChange={onChange} />}
         </div>
         <input
           type="text"
