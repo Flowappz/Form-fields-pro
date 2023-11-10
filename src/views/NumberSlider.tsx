@@ -3,6 +3,7 @@ import TextInput from "../components/form/TextInput";
 import { ZodError, z } from "zod";
 import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
+import ColorInput from "../components/form/ColorInput";
 
 const inputSchema = ({ max, min }: { max: number; min: number }) =>
   z.object({
@@ -36,6 +37,8 @@ export default function NumberSlider() {
   const [maxRange, setMaxRange] = useState<number | string>("");
   const [minRange, setMinRange] = useState<number | string>("");
   const [defaultValue, setDefaultValue] = useState<number | string>("");
+  const [lightThemeSliderColor, setLightThemeSliderColor] = useState("#aabbcc");
+  const [darkThemeSliderColor, setDarkThemeSliderColor] = useState("#aabbcc");
 
   const [errors, setErrors] = useState<any>({});
 
@@ -120,6 +123,13 @@ export default function NumberSlider() {
           onChange={(val) => setDefaultValue(Number(val))}
           error={errors.defaultValue}
         />
+
+        <ColorInput
+          label="Slider color (Light theme)"
+          value={lightThemeSliderColor}
+          onChange={setLightThemeSliderColor}
+        />
+        <ColorInput label="Slider color (Dark theme)" value={darkThemeSliderColor} onChange={setDarkThemeSliderColor} />
       </div>
 
       <div className="mt-[0.3rem]">
