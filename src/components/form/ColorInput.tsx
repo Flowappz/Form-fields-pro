@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { HexAlphaColorPicker } from "react-colorful";
 
 export interface ColorInputProps {
@@ -10,12 +11,14 @@ export interface ColorInputProps {
 }
 
 export default function ColorInput({ label, placeholder, name, value, onChange, error }: ColorInputProps) {
+  const [showPicker, setShowPicker] = useState(false);
+
   return (
     <div className="pb-2 m-0 flex flex-col gap-1">
       {label ? (
         <span className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB] m-0 p-0">{label}</span>
       ) : null}
-      <div className="relative">
+      <div className="relative" tabIndex={-1} onFocus={() => setShowPicker(true)} onBlur={() => setShowPicker(false)}>
         <input
           type="text"
           placeholder={placeholder}
@@ -26,7 +29,7 @@ export default function ColorInput({ label, placeholder, name, value, onChange, 
         />
         {error && <span className="text-red-400 text-[0.74rem]">{error}</span>}
         <div className="absolute pt-1 right-0">
-          <HexAlphaColorPicker color={value} onChange={onChange} />
+          {showPicker && <HexAlphaColorPicker color={value} onChange={onChange} />}
         </div>
       </div>
     </div>
