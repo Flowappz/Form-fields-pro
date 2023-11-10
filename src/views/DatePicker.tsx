@@ -6,6 +6,7 @@ import * as webflowService from "../services/webflowService";
 import SelectInput from "../components/form/SelectInput";
 import { DATE_FORMATS, DATE_PICKER_LANGUAGES, WEEKDAYS } from "../config/date";
 import SliderInput from "../components/form/SliderInput";
+import ColorInput from "../components/form/ColorInput";
 
 const inputSchema = z.object({
   label: z.string().min(1, "Please enter a label"),
@@ -24,6 +25,10 @@ export default function DatePicker() {
   const [numberOfMonthsToShow, setNumberOfMonthsToShow] = useState("2");
   const [columns, setColumns] = useState("2");
   const [zIndex, setZIndex] = useState("10");
+  const [lightThemeSelectedDateColor, setLightThemeSelectedDateColor] = useState("#aabbcc");
+  const [darkThemeSelectedDateColor, setDarkThemeSelectedDateColor] = useState("#aabbcc");
+  const [lightThemeTodayColor, setLightThemeTodayColor] = useState("#aabbcc");
+  const [darkThemeTodayColor, setDarkThemeTodayColor] = useState("#aabbcc");
 
   const [errors, setErrors] = useState<any>({});
 
@@ -111,6 +116,28 @@ export default function DatePicker() {
           value={zIndex}
           onChange={setZIndex}
           error={errors.zIndex}
+        />
+
+        <ColorInput
+          label="Selected date color (Light theme)"
+          value={lightThemeSelectedDateColor}
+          onChange={setLightThemeSelectedDateColor}
+        />
+        <ColorInput
+          label="Selected date color (Dark theme)"
+          value={darkThemeSelectedDateColor}
+          onChange={setDarkThemeSelectedDateColor}
+        />
+
+        <ColorInput
+          label="Today date color (Light theme)"
+          value={lightThemeTodayColor}
+          onChange={setLightThemeTodayColor}
+        />
+        <ColorInput
+          label="Today date color (Dark theme)"
+          value={darkThemeTodayColor}
+          onChange={setDarkThemeTodayColor}
         />
       </div>
 
