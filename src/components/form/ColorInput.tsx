@@ -19,6 +19,9 @@ export default function ColorInput({ label, placeholder, name, value, onChange, 
         <span className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB] m-0 p-0">{label}</span>
       ) : null}
       <div className="relative" tabIndex={-1} onFocus={() => setShowPicker(true)} onBlur={() => setShowPicker(false)}>
+        <div className="absolute bottom-0 right-[-70px] z-[3]">
+          {showPicker && <HexAlphaColorPicker color={value} onChange={onChange} />}
+        </div>
         <input
           type="text"
           placeholder={placeholder}
@@ -28,9 +31,6 @@ export default function ColorInput({ label, placeholder, name, value, onChange, 
           className="rounded-sm w-full px-[0.3rem] bg-[#2B2B2B] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none"
         />
         {error && <span className="text-red-400 text-[0.74rem]">{error}</span>}
-        <div className="absolute pt-1 right-0 z-[3]">
-          {showPicker && <HexAlphaColorPicker color={value} onChange={onChange} />}
-        </div>
       </div>
     </div>
   );
