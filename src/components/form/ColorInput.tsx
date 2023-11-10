@@ -28,7 +28,7 @@ export default function ColorInput({ label, placeholder, name, value, onChange, 
           className="rounded-sm w-full px-[0.3rem] bg-[#2B2B2B] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none"
         />
         {error && <span className="text-red-400 text-[0.74rem]">{error}</span>}
-        <div className="absolute pt-1 right-0">
+        <div className="absolute pt-1 right-0 z-[3]">
           {showPicker && <HexAlphaColorPicker color={value} onChange={onChange} />}
         </div>
       </div>
