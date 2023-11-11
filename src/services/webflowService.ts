@@ -38,7 +38,7 @@ const DateColorConfigKeys = {
   lightThemeSelectedDateColor: "data-light-theme-selected-date-color",
   darkThemeSelectedDateColor: "data-dark-theme-selected-date-color",
   lightThemeTodayColor: "data-light-theme-today-color",
-  darkThemeTodayColor: "data-light-theme-today-color",
+  darkThemeTodayColor: "data-dark-theme-today-color",
 };
 
 type DateColorConfig = { [x in keyof typeof DateColorConfigKeys]?: string };
