@@ -20,7 +20,7 @@ type DateParams = {
   columns: string;
 };
 
-type DateColorConfig = {
+type ColorCustomizationConfig = {
   lightThemeSelectedDateColor?: string;
   darkThemeSelectedDateColor?: string;
   lightThemeTodayColor?: string;
@@ -586,7 +586,7 @@ export const insertDatePickerToForm = async ({
   language,
   numberOfMonthsToShow,
   zIndex,
-}: DateParams & DateColorConfig) => {
+}: DateParams & ColorCustomizationConfig) => {
   const inputElement = createDateInputElement({
     inputName,
     columns,
