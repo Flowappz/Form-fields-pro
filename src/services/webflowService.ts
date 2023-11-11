@@ -20,10 +20,12 @@ type DateParams = {
   columns: string;
 };
 
-type SliderColorConfig = {
-  lightThemeSliderColor?: string;
-  darkThemeSliderColor?: string;
+const sliderColorConfigKeys = {
+  lightThemeSliderColor: "data-light-theme-slider-color",
+  darkThemeSliderColor: "data-dark-theme-slider-color",
 };
+
+type SliderColorConfig = { [x in keyof typeof sliderColorConfigKeys]?: string };
 
 const DateColorConfigKeys = {
   lightThemeSelectedDateColor: "data-light-theme-selected-date-color",
@@ -513,6 +515,13 @@ const attachColorConfigAttributesToDateInput = (inputElement: DOMElement, config
   return inputElement;
 };
 
+const attachColorConfigAttributesToSliderInput = (inputElement: DOMElement, config: SliderColorConfig) => {
+  inputElement.setAttribute(sliderColorConfigKeys.lightThemeSliderColor, config.lightThemeSliderColor || "");
+  inputElement.setAttribute(sliderColorConfigKeys.darkThemeSliderColor, config.darkThemeSliderColor || "");
+
+  return inputElement;
+};
+
 export const insertDropdownToForm = async ({ label, items, inputName, form }: DropdownParams) => {
   const dropdownDiv = await createDropdown({ label, inputName, items });
   const input = hiddenDropdownInputElement(inputName);
@@ -547,11 +556,13 @@ export const insertNumberSliderToForm = async ({
   minRange,
   defaultValue,
   form,
+  ...colorConfig
 }: NumberSliderParams & SliderColorConfig) => {
   const labelElement = await createLabelElement(label);
   const lineBreak = window._myWebflow.createDOM("br");
 
   const inputElement = createInputElement(inputName, "hidden");
+  attachColorConfigAttributesToSliderInput(inputElement, colorConfig);
   inputElement.setAttribute("form-fields-pro-number-slider", "true");
   inputElement.setAttribute("data-max", String(maxRange));
   inputElement.setAttribute("data-min", String(minRange));
@@ -573,11 +584,13 @@ export const insertNumberRangeSliderToForm = async ({
   defaultMax,
   defaultMin,
   form,
+  ...colorConfig
 }: NumberSliderParams & SliderColorConfig) => {
   const labelElement = await createLabelElement(label);
   const lineBreak = window._myWebflow.createDOM("br");
 
   const inputElement = createInputElement(inputName, "hidden");
+  attachColorConfigAttributesToSliderInput(inputElement, colorConfig);
   inputElement.setAttribute("form-fields-pro-number-slider", "true");
   inputElement.setAttribute("data-max", String(maxRange));
   inputElement.setAttribute("data-min", String(minRange));
