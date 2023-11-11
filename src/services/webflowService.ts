@@ -20,13 +20,16 @@ type DateParams = {
   columns: string;
 };
 
-type ColorCustomizationConfig = {
+type SliderColorConfig = {
+  lightThemeSliderColor?: string;
+  darkThemeSliderColor?: string;
+};
+
+type DateColorConfig = {
   lightThemeSelectedDateColor?: string;
   darkThemeSelectedDateColor?: string;
   lightThemeTodayColor?: string;
   darkThemeTodayColor?: string;
-  lightThemeSliderColor?: string;
-  darkThemeSliderColor?: string;
 };
 
 type NumberSliderParams = {
@@ -532,7 +535,7 @@ export const insertNumberSliderToForm = async ({
   minRange,
   defaultValue,
   form,
-}: NumberSliderParams & ColorCustomizationConfig) => {
+}: NumberSliderParams & SliderColorConfig) => {
   const labelElement = await createLabelElement(label);
   const lineBreak = window._myWebflow.createDOM("br");
 
@@ -558,7 +561,7 @@ export const insertNumberRangeSliderToForm = async ({
   defaultMax,
   defaultMin,
   form,
-}: NumberSliderParams & ColorCustomizationConfig) => {
+}: NumberSliderParams & SliderColorConfig) => {
   const labelElement = await createLabelElement(label);
   const lineBreak = window._myWebflow.createDOM("br");
 
@@ -588,7 +591,7 @@ export const insertDatePickerToForm = async ({
   language,
   numberOfMonthsToShow,
   zIndex,
-}: DateParams & ColorCustomizationConfig) => {
+}: DateParams & DateColorConfig) => {
   const inputElement = createDateInputElement({
     inputName,
     columns,
@@ -633,7 +636,7 @@ export const insertDateRangePickerToForm = async ({
   language,
   numberOfMonthsToShow,
   zIndex,
-}: DateParams) => {
+}: DateParams & DateColorConfig) => {
   const inputElement = createDateInputElement({
     inputName,
     columns,
