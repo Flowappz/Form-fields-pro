@@ -71,6 +71,10 @@ export default function DatePicker() {
         numberOfMonthsToShow,
         columns,
         zIndex,
+        lightThemeSelectedDateColor,
+        darkThemeSelectedDateColor,
+        lightThemeTodayColor,
+        darkThemeTodayColor,
       });
     }
   };
