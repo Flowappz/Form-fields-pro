@@ -27,6 +27,13 @@ const sliderColorConfigKeys = {
 
 type SliderColorConfig = { [x in keyof typeof sliderColorConfigKeys]?: string };
 
+const DropdownColorConfigKeys = {
+  lightThemeHoverColor: "data-light-theme-hover-color",
+  darkThemeHoverColor: "data-dark-theme-hover-color",
+};
+
+type DropdownColorConfig = { [x in keyof typeof DropdownColorConfigKeys]?: string };
+
 const DateColorConfigKeys = {
   lightThemeSelectedDateColor: "data-light-theme-selected-date-color",
   darkThemeSelectedDateColor: "data-dark-theme-selected-date-color",
@@ -312,7 +319,7 @@ const createDropdownListWrapper = async () => {
   return div;
 };
 
-const createDropdownList = async (inputName: string, items: string[]) => {
+const createDropdownList = async (inputName: string, items: string[], colorConfig: DropdownColorConfig) => {
   const list = window._myWebflow.createDOM("ul");
   const style = await dropdownListUlStyle();
   list.setStyles([style]);
@@ -320,6 +327,7 @@ const createDropdownList = async (inputName: string, items: string[]) => {
   // list.setAttribute("class", "w-dropdown-list");
   list.setAttribute("form-field-dropdown-item-list", "true");
   list.setAttribute("dropdown-name", inputName);
+  attachColorConfigAttributesToDropdownList(list, colorConfig);
 
   const listItems = await createDropdownListItems(inputName, items);
   list.setChildren(listItems);
@@ -425,15 +433,16 @@ const createDropdown = async ({
   items,
   searchable = false,
   noItemFoundMessage,
+  ...colorConfig
 }: {
   label: string;
   inputName: string;
   items: string[];
   searchable?: boolean;
   noItemFoundMessage?: string;
-}): Promise<DOMElement> => {
+} & DropdownColorConfig): Promise<DOMElement> => {
   const dropdownToggler = await createDropdownToggler(label, inputName, searchable);
-  const dropdownList = await createDropdownList(inputName, items);
+  const dropdownList = await createDropdownList(inputName, items, colorConfig);
 
   const dropdownWrapper = await createDropdownWrapper();
 
@@ -522,8 +531,21 @@ const attachColorConfigAttributesToSliderInput = (inputElement: DOMElement, conf
   return inputElement;
 };
 
-export const insertDropdownToForm = async ({ label, items, inputName, form }: DropdownParams) => {
-  const dropdownDiv = await createDropdown({ label, inputName, items });
+const attachColorConfigAttributesToDropdownList = (listElement: DOMElement, config: DropdownColorConfig) => {
+  listElement.setAttribute(DropdownColorConfigKeys.lightThemeHoverColor, config.lightThemeHoverColor || "");
+  listElement.setAttribute(DropdownColorConfigKeys.darkThemeHoverColor, config.darkThemeHoverColor || "");
+
+  return listElement;
+};
+
+export const insertDropdownToForm = async ({
+  label,
+  items,
+  inputName,
+  form,
+  ...colorConfig
+}: DropdownParams & DropdownColorConfig) => {
+  const dropdownDiv = await createDropdown({ label, inputName, items, ...colorConfig });
   const input = hiddenDropdownInputElement(inputName);
   const lineBreak = window._myWebflow.createDOM("br");
 
@@ -539,8 +561,16 @@ export const insertSearchableDropdownToForm = async ({
   inputName,
   form,
   noItemFoundMessage,
-}: DropdownParams) => {
-  const dropdownDiv = await createDropdown({ label, inputName, items, searchable: true, noItemFoundMessage });
+  ...colorConfig
+}: DropdownParams & DropdownColorConfig) => {
+  const dropdownDiv = await createDropdown({
+    label,
+    inputName,
+    items,
+    searchable: true,
+    noItemFoundMessage,
+    ...colorConfig,
+  });
   const lineBreak = window._myWebflow.createDOM("br");
 
   const existingChilds = form.getChildren();

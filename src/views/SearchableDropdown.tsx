@@ -24,8 +24,8 @@ export default function SearchableDropdown() {
   const [inputFieldName, setInputFieldName] = useState("");
   const [noDataMessage, setNoDataMessage] = useState("");
   const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
-  const [lightHoverColor, setLightHoverColor] = useState("#aabbcc");
-  const [darkHoverColor, setDarkHoverColor] = useState("#aabbcc");
+  const [lightThemeHoverColor, setLightThemeHoverColor] = useState("#aabbcc");
+  const [darkThemeHoverColor, setDarkThemeHoverColor] = useState("#aabbcc");
 
   const [errors, setErrors] = useState<any>({});
 
@@ -80,6 +80,8 @@ export default function SearchableDropdown() {
         inputName: inputFieldName,
         items: dropdownItems,
         noItemFoundMessage: noDataMessage,
+        lightThemeHoverColor,
+        darkThemeHoverColor,
       });
     }
   };
@@ -116,10 +118,14 @@ export default function SearchableDropdown() {
 
         <ColorInput
           label="Hover background color (Light theme)"
-          value={lightHoverColor}
-          onChange={setLightHoverColor}
+          value={lightThemeHoverColor}
+          onChange={setLightThemeHoverColor}
         />
-        <ColorInput label="Hover background color (Dark theme)" value={darkHoverColor} onChange={setDarkHoverColor} />
+        <ColorInput
+          label="Hover background color (Dark theme)"
+          value={darkThemeHoverColor}
+          onChange={setDarkThemeHoverColor}
+        />
       </div>
 
       <div className="mt-[0.3rem]">

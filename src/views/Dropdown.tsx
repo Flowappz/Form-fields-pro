@@ -22,8 +22,8 @@ export default function Dropdown() {
   const [dropdownLabel, setDropdownLabel] = useState("");
   const [inputFieldName, setInputFieldName] = useState("");
   const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
-  const [lightHoverColor, setLightHoverColor] = useState("#aabbcc");
-  const [darkHoverColor, setDarkHoverColor] = useState("#aabbcc");
+  const [lightThemeHoverColor, setLightThemeHoverColor] = useState("#aabbcc");
+  const [darkThemeHoverColor, setDarkThemeHoverColor] = useState("#aabbcc");
 
   const [errors, setErrors] = useState<any>({});
 
@@ -76,6 +76,8 @@ export default function Dropdown() {
         label: dropdownLabel,
         inputName: inputFieldName,
         items: dropdownItems,
+        lightThemeHoverColor,
+        darkThemeHoverColor,
       });
     }
   };
@@ -105,10 +107,14 @@ export default function Dropdown() {
 
         <ColorInput
           label="Hover background color (Light theme)"
-          value={lightHoverColor}
-          onChange={setLightHoverColor}
+          value={lightThemeHoverColor}
+          onChange={setLightThemeHoverColor}
         />
-        <ColorInput label="Hover background color (Dark theme)" value={darkHoverColor} onChange={setDarkHoverColor} />
+        <ColorInput
+          label="Hover background color (Dark theme)"
+          value={darkThemeHoverColor}
+          onChange={setDarkThemeHoverColor}
+        />
       </div>
 
       <div className="mt-[0.3rem]">
