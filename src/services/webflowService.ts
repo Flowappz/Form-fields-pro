@@ -25,6 +25,8 @@ type ColorCustomizationConfig = {
   darkThemeSelectedDateColor?: string;
   lightThemeTodayColor?: string;
   darkThemeTodayColor?: string;
+  lightThemeSliderColor?: string;
+  darkThemeSliderColor?: string;
 };
 
 type NumberSliderParams = {
@@ -530,7 +532,7 @@ export const insertNumberSliderToForm = async ({
   minRange,
   defaultValue,
   form,
-}: NumberSliderParams) => {
+}: NumberSliderParams & ColorCustomizationConfig) => {
   const labelElement = await createLabelElement(label);
   const lineBreak = window._myWebflow.createDOM("br");
 
@@ -556,7 +558,7 @@ export const insertNumberRangeSliderToForm = async ({
   defaultMax,
   defaultMin,
   form,
-}: NumberSliderParams) => {
+}: NumberSliderParams & ColorCustomizationConfig) => {
   const labelElement = await createLabelElement(label);
   const lineBreak = window._myWebflow.createDOM("br");
 

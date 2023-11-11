@@ -80,6 +80,8 @@ export default function NumberSlider() {
         maxRange: Number(maxRange),
         minRange: Number(minRange),
         defaultValue: Number(defaultValue),
+        lightThemeSliderColor,
+        darkThemeSliderColor,
       });
     }
   };
