@@ -622,27 +622,10 @@ export const insertDatePickerToForm = async (options: DateParams & DateColorConf
   await form.save();
 };
 
-export const insertDateRangePickerToForm = async ({
-  label,
-  inputName,
-  form,
-  columns,
-  dateFormat,
-  firstDayOfWeek,
-  language,
-  numberOfMonthsToShow,
-  zIndex,
-}: DateParams & DateColorConfig) => {
-  const inputElement = createDateInputElement({
-    inputName,
-    columns,
-    dateFormat,
-    firstDayOfWeek,
-    language,
-    numberOfMonthsToShow,
-    zIndex,
-  });
+export const insertDateRangePickerToForm = async (options: DateParams & DateColorConfig) => {
+  const inputElement = createDateInputElement(options);
   inputElement.setAttribute("form-fields-pro-date-range-picker", "true");
+  attachColorConfigAttributesToDateInput(inputElement, options);
   const style1 = await dropdownTogglerStyle();
   const style2 = await dropdownWrapperStyle();
   inputElement.setStyles([style1, style2]);
@@ -654,6 +637,7 @@ export const insertDateRangePickerToForm = async ({
   inputWithIconWrapper.setStyles([style]);
   inputWithIconWrapper.setChildren([inputElement, icon]);
 
+  const { label, form } = options;
   const labelElement = await createLabelElement(label);
 
   const wrapperDiv = window._myWebflow.createDOM("div");
