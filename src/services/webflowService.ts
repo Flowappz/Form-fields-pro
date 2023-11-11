@@ -25,12 +25,14 @@ type SliderColorConfig = {
   darkThemeSliderColor?: string;
 };
 
-type DateColorConfig = {
-  lightThemeSelectedDateColor?: string;
-  darkThemeSelectedDateColor?: string;
-  lightThemeTodayColor?: string;
-  darkThemeTodayColor?: string;
+const DateColorConfigKeys = {
+  lightThemeSelectedDateColor: "data-light-theme-selected-date-color",
+  darkThemeSelectedDateColor: "data-dark-theme-selected-date-color",
+  lightThemeTodayColor: "data-light-theme-today-color",
+  darkThemeTodayColor: "data-light-theme-today-color",
 };
+
+type DateColorConfig = { [x in keyof typeof DateColorConfigKeys]?: string };
 
 type NumberSliderParams = {
   label: string;
@@ -501,6 +503,16 @@ const createDateInputIcon = async () => {
   return iconDiv;
 };
 
+const attachColorConfigAttributesToDateInput = (inputElement: DOMElement, config: DateColorConfig) => {
+  inputElement.setAttribute(DateColorConfigKeys.lightThemeSelectedDateColor, config.lightThemeSelectedDateColor || "");
+  inputElement.setAttribute(DateColorConfigKeys.darkThemeSelectedDateColor, config.darkThemeSelectedDateColor || "");
+
+  inputElement.setAttribute(DateColorConfigKeys.lightThemeTodayColor, config.lightThemeTodayColor || "");
+  inputElement.setAttribute(DateColorConfigKeys.darkThemeTodayColor, config.darkThemeTodayColor || "");
+
+  return inputElement;
+};
+
 export const insertDropdownToForm = async ({ label, items, inputName, form }: DropdownParams) => {
   const dropdownDiv = await createDropdown({ label, inputName, items });
   const input = hiddenDropdownInputElement(inputName);
@@ -581,27 +593,10 @@ export const insertNumberRangeSliderToForm = async ({
   await form.save();
 };
 
-export const insertDatePickerToForm = async ({
-  label,
-  inputName,
-  form,
-  columns,
-  dateFormat,
-  firstDayOfWeek,
-  language,
-  numberOfMonthsToShow,
-  zIndex,
-}: DateParams & DateColorConfig) => {
-  const inputElement = createDateInputElement({
-    inputName,
-    columns,
-    dateFormat,
-    firstDayOfWeek,
-    language,
-    numberOfMonthsToShow,
-    zIndex,
-  });
+export const insertDatePickerToForm = async (options: DateParams & DateColorConfig) => {
+  const inputElement = createDateInputElement(options);
   inputElement.setAttribute("form-fields-pro-date-picker", "true");
+  attachColorConfigAttributesToDateInput(inputElement, options);
 
   const style1 = await dropdownTogglerStyle();
   const style2 = await dropdownWrapperStyle();
@@ -614,6 +609,7 @@ export const insertDatePickerToForm = async ({
   inputWithIconWrapper.setStyles([style]);
   inputWithIconWrapper.setChildren([inputElement, icon]);
 
+  const { label, form } = options;
   const labelElement = await createLabelElement(label);
 
   const wrapperDiv = window._myWebflow.createDOM("div");
