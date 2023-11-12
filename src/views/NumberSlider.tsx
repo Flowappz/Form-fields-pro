@@ -51,8 +51,12 @@ export default function NumberSlider() {
   const [maxRange, setMaxRange] = useState<number | string>("");
   const [minRange, setMinRange] = useState<number | string>("");
   const [defaultValue, setDefaultValue] = useState<number | string>("");
+  const [defaultMaxValue, setDefaultMaxValue] = useState<number | string>("");
+  const [defaultMinValue, setDefaultMinValue] = useState<number | string>("");
+
   const [lightThemeSliderColor, setLightThemeSliderColor] = useState("#aabbcc");
   const [darkThemeSliderColor, setDarkThemeSliderColor] = useState("#aabbcc");
+
   const [sliderType, setSliderType] = useState(sliderTypes.singleSlider.value);
 
   const [errors, setErrors] = useState<any>({});
@@ -141,14 +145,38 @@ export default function NumberSlider() {
           error={errors.minRange}
         />
 
-        <TextInput
-          label="Default value"
-          name="defaultValue"
-          type="number"
-          value={defaultValue}
-          onChange={(val) => setDefaultValue(Number(val))}
-          error={errors.defaultValue}
-        />
+        {sliderType === sliderTypes.singleSlider.value && (
+          <TextInput
+            label="Default value"
+            name="defaultValue"
+            type="number"
+            value={defaultValue}
+            onChange={(val) => setDefaultValue(Number(val))}
+            error={errors.defaultValue}
+          />
+        )}
+
+        {sliderType === sliderTypes.rangeSlider.value && (
+          <>
+            <TextInput
+              label="Default max value"
+              name="defaultMaxValue"
+              type="number"
+              value={defaultMaxValue}
+              onChange={(val) => setDefaultMaxValue(Number(val))}
+              error={errors.defaultMaxValue}
+            />
+
+            <TextInput
+              label="Default min value"
+              name="defaultMinValue"
+              type="number"
+              value={defaultMinValue}
+              onChange={(val) => setDefaultMinValue(Number(val))}
+              error={errors.defaultMinValue}
+            />
+          </>
+        )}
 
         <ColorInput
           label="Slider color (Light theme)"
