@@ -40,10 +40,10 @@ export default function DatePicker() {
   const [columns, setColumns] = useState("2");
   const [zIndex, setZIndex] = useState("10");
 
-  const [lightThemeSelectedDateColor, setLightThemeSelectedDateColor] = useState("#aabbcc");
-  const [darkThemeSelectedDateColor, setDarkThemeSelectedDateColor] = useState("#aabbcc");
-  const [lightThemeTodayColor, setLightThemeTodayColor] = useState("#aabbcc");
-  const [darkThemeTodayColor, setDarkThemeTodayColor] = useState("#aabbcc");
+  const [lightThemeSelectedDateColor, setLightThemeSelectedDateColor] = useState("rgb(107 130 255)");
+  const [darkThemeSelectedDateColor, setDarkThemeSelectedDateColor] = useState("rgb(107 130 255)");
+  const [lightThemeTodayColor, setLightThemeTodayColor] = useState("rgb(230 55 87)");
+  const [darkThemeTodayColor, setDarkThemeTodayColor] = useState("rgb(230 55 87)");
 
   const [datePickerType, setDatePickerType] = useState(datePickerTypes.singlePicker.value);
 
