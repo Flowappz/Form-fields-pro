@@ -102,7 +102,7 @@ export default function NumberSlider() {
   };
 
   return (
-    <div className="h-full px-20">
+    <div className="px-20 pb-4">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
         <h3 className="font-semibold text-[0.82rem]">Number picker slider</h3>
         <p className="text-[0.77rem] font-light text-[#ABABAB]">
