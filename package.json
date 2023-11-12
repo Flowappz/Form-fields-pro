@@ -4,12 +4,13 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "npm install && tsc && vite build && webflow extension bundle",
+    "build": "npm install && tsc && vite build && webflow extension bundle && node ./src/modify-html.js",
     "test": "tsc && vite build --watch",
     "dev": "npm install && concurrently -r \"webflow extension serve\" \"tsc && vite build --watch\""
   },
   "dependencies": {
     "axios": "^1.5.1",
+    "fs": "^0.0.1-security",
     "react": "^18.2.0",
     "react-colorful": "^5.6.1",
     "react-dom": "^18.2.0",
