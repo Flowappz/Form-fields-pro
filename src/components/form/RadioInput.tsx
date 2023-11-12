@@ -21,7 +21,7 @@ export default function RadioInput({ label, options, selected, onChange }: Radio
           <div key={option.value} className="flex flex-row items-start">
             <div>
               <input
-                id="helper-radio"
+                id={option.value}
                 aria-describedby="helper-radio-text"
                 type="radio"
                 value={option.value}
@@ -31,7 +31,7 @@ export default function RadioInput({ label, options, selected, onChange }: Radio
               />
             </div>
             <div className="ms-2 mt-[-0.2rem]">
-              <label htmlFor="helper-radio" className="text-[#ABABAB]">
+              <label htmlFor={option.value} className="text-[#ABABAB]">
                 {option.label}
               </label>
               <p id="helper-radio-text" className="text-xs font-normal text-[#ABABAB]">
