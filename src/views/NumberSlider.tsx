@@ -4,6 +4,7 @@ import { ZodError, z } from "zod";
 import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
 import ColorInput from "../components/form/ColorInput";
+import RadioInput, { RadioOption } from "../components/form/RadioInput";
 
 const inputSchema = ({ max, min }: { max: number; min: number }) =>
   z.object({
@@ -29,6 +30,19 @@ const inputSchema = ({ max, min }: { max: number; min: number }) =>
       .lte(max, "Default value should be less than or equal to max range value"),
   });
 
+const sliderTypes: { [x in "singleSlider" | "rangeSlider"]: RadioOption } = {
+  singleSlider: {
+    value: "single",
+    label: "Regular",
+    helpContent: "Let's user select a single number",
+  },
+  rangeSlider: {
+    value: "range",
+    label: "Number range slider",
+    helpContent: "Let's user select a range between two numbers",
+  },
+};
+
 export default function NumberSlider() {
   const { form } = useAppContext();
 
@@ -39,6 +53,7 @@ export default function NumberSlider() {
   const [defaultValue, setDefaultValue] = useState<number | string>("");
   const [lightThemeSliderColor, setLightThemeSliderColor] = useState("#aabbcc");
   const [darkThemeSliderColor, setDarkThemeSliderColor] = useState("#aabbcc");
+  const [sliderType, setSliderType] = useState(sliderTypes.singleSlider.value);
 
   const [errors, setErrors] = useState<any>({});
 
@@ -98,6 +113,15 @@ export default function NumberSlider() {
       <div className="border-b-[#363636] border-b-[1.25px]">
         <TextInput label="Label" value={label} name="label" onChange={setLabel} error={errors.label} />
         <TextInput label="Field name" name="input" value={inputName} onChange={setInputName} error={errors.inputName} />
+
+        <div className="border-y-[1.25px] border-y-[#363636] py-1 my-3">
+          <RadioInput
+            label="Slider type"
+            options={Object.values(sliderTypes)}
+            selected={sliderType}
+            onChange={setSliderType}
+          />
+        </div>
 
         <TextInput
           label="Max range"
