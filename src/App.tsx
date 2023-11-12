@@ -9,9 +9,9 @@ import NoFormSelectedState from "./views/NoFormSelectedState";
 import Dropdown from "./views/Dropdown";
 import SearchableDropdown from "./views/SearchableDropdown";
 import NumberSlider from "./views/NumberSlider";
-import NumberRangePicker from "./views/NumberRangePicker";
+// import NumberRangePicker from "./views/NumberRangePicker";
 import DatePicker from "./views/DatePicker";
-import DateRangePicker from "./views/DateRangePicker";
+// import DateRangePicker from "./views/DateRangePicker";
 import CollectUserIp from "./views/CollectUserIp";
 
 declare global {
@@ -46,9 +46,9 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
   dropdown: Dropdown,
   searchable_dropdown: SearchableDropdown,
   number_picker_slider: NumberSlider,
-  number_range_picker: NumberRangePicker,
+  // number_range_picker: NumberRangePicker,
   date_picker: DatePicker,
-  date_range_picker: DateRangePicker,
+  // date_range_picker: DateRangePicker,
   collect_user_ip: CollectUserIp,
 };
 

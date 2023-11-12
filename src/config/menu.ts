@@ -17,24 +17,24 @@ export const MENU_ITEMS = [
     description: "An stylish date picker",
     available: true,
   },
-  {
-    id: "date_range_picker",
-    label: "Date range picker",
-    description: "Select a range of dates",
-    available: true,
-  },
+  // {
+  //   id: "date_range_picker",
+  //   label: "Date range picker",
+  //   description: "Select a range of dates",
+  //   available: true,
+  // },
   {
     id: "number_picker_slider",
     label: "Number picker slider",
     description: "Slider to select a value between a range",
     available: true,
   },
-  {
-    id: "number_range_picker",
-    label: "Number range picker",
-    description: "Select between two ranges",
-    available: true,
-  },
+  // {
+  //   id: "number_range_picker",
+  //   label: "Number range picker",
+  //   description: "Select between two ranges",
+  //   available: true,
+  // },
   // {
   //   id: "time_zone_picker",
   //   label: "Time zone picker",
