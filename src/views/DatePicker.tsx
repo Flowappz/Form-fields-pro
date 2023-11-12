@@ -7,12 +7,26 @@ import SelectInput from "../components/form/SelectInput";
 import { DATE_FORMATS, DATE_PICKER_LANGUAGES, WEEKDAYS } from "../config/date";
 import SliderInput from "../components/form/SliderInput";
 import ColorInput from "../components/form/ColorInput";
+import RadioInput, { RadioOption } from "../components/form/RadioInput";
 
 const inputSchema = z.object({
   label: z.string().min(1, "Please enter a label"),
   inputName: z.string().min(1, "Please enter the input name"),
   zIndex: z.number().min(0),
 });
+
+const datePickerTypes: { [x in "singlePicker" | "rangePicker"]: RadioOption } = {
+  singlePicker: {
+    value: "single",
+    label: "Single date picker",
+    helpContent: "Let's user select a single date only",
+  },
+  rangePicker: {
+    value: "range",
+    label: "Date range picker",
+    helpContent: "Let's user select all dates between two dates",
+  },
+};
 
 export default function DatePicker() {
   const { form } = useAppContext();
@@ -29,6 +43,7 @@ export default function DatePicker() {
   const [darkThemeSelectedDateColor, setDarkThemeSelectedDateColor] = useState("#aabbcc");
   const [lightThemeTodayColor, setLightThemeTodayColor] = useState("#aabbcc");
   const [darkThemeTodayColor, setDarkThemeTodayColor] = useState("#aabbcc");
+  const [datePickerType, setDatePickerType] = useState(datePickerTypes.singlePicker.value);
 
   const [errors, setErrors] = useState<any>({});
 
@@ -90,6 +105,14 @@ export default function DatePicker() {
         <TextInput label="Label" value={label} name="label" onChange={setLabel} error={errors.label} />
         <TextInput label="Field name" name="input" value={inputName} onChange={setInputName} error={errors.inputName} />
 
+        <div className="border-y-[1.25px] border-y-[#363636] py-1 my-3">
+          <RadioInput
+            label="Date picker type"
+            options={Object.values(datePickerTypes)}
+            selected={datePickerType}
+            onChange={setDatePickerType}
+          />
+        </div>
         <SelectInput
           label="First day of the week"
           options={WEEKDAYS}
