@@ -133,7 +133,11 @@ export default function NumberSlider() {
   };
 
   const handleInsert = async () => {
-    if (validateData() && form) {
+    if (!validateData() || !form) {
+      return;
+    }
+
+    if (sliderType === sliderTypes.singleSlider.value) {
       await webflowService.insertNumberSliderToForm({
         form,
         label,
@@ -141,6 +145,18 @@ export default function NumberSlider() {
         maxRange: Number(maxRange),
         minRange: Number(minRange),
         defaultValue: Number(defaultValue),
+        lightThemeSliderColor,
+        darkThemeSliderColor,
+      });
+    } else {
+      await webflowService.insertNumberRangeSliderToForm({
+        form,
+        label,
+        inputName,
+        maxRange: Number(maxRange),
+        minRange: Number(minRange),
+        defaultMax: Number(defaultMaxValue),
+        defaultMin: Number(defaultMinValue),
         lightThemeSliderColor,
         darkThemeSliderColor,
       });
