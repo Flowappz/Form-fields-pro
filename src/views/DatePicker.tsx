@@ -39,10 +39,12 @@ export default function DatePicker() {
   const [numberOfMonthsToShow, setNumberOfMonthsToShow] = useState("2");
   const [columns, setColumns] = useState("2");
   const [zIndex, setZIndex] = useState("10");
+
   const [lightThemeSelectedDateColor, setLightThemeSelectedDateColor] = useState("#aabbcc");
   const [darkThemeSelectedDateColor, setDarkThemeSelectedDateColor] = useState("#aabbcc");
   const [lightThemeTodayColor, setLightThemeTodayColor] = useState("#aabbcc");
   const [darkThemeTodayColor, setDarkThemeTodayColor] = useState("#aabbcc");
+
   const [datePickerType, setDatePickerType] = useState(datePickerTypes.singlePicker.value);
 
   const [errors, setErrors] = useState<any>({});
@@ -75,22 +77,28 @@ export default function DatePicker() {
   };
 
   const handleInsert = async () => {
-    if (validateData() && form) {
-      await webflowService.insertDatePickerToForm({
-        form,
-        label,
-        inputName,
-        firstDayOfWeek,
-        language,
-        dateFormat,
-        numberOfMonthsToShow,
-        columns,
-        zIndex,
-        lightThemeSelectedDateColor,
-        darkThemeSelectedDateColor,
-        lightThemeTodayColor,
-        darkThemeTodayColor,
-      });
+    if (!validateData() || !form) return;
+
+    const config = {
+      form,
+      label,
+      inputName,
+      firstDayOfWeek,
+      language,
+      dateFormat,
+      numberOfMonthsToShow,
+      columns,
+      zIndex,
+      lightThemeSelectedDateColor,
+      darkThemeSelectedDateColor,
+      lightThemeTodayColor,
+      darkThemeTodayColor,
+    };
+
+    if (datePickerType === datePickerTypes.singlePicker.value) {
+      await webflowService.insertDatePickerToForm(config);
+    } else {
+      await webflowService.insertDateRangePickerToForm(config);
     }
   };
 
