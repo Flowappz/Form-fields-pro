@@ -24,10 +24,12 @@ export default function SearchableSelect() {
   const [inputFieldName, setInputFieldName] = useState("");
   const [noDataMessage, setNoDataMessage] = useState("");
   const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
-  const [lightThemeHoverColor, setLightThemeHoverColor] = useState("rgb(211, 211, 211)");
-  const [darkThemeHoverColor, setDarkThemeHoverColor] = useState("rgb(211, 211, 211)");
-  const [lightThemeTextColor, setLightThemeTextColor] = useState("rgb(0, 0, 0)");
-  const [darkThemeTextColor, setDarkThemeTextColor] = useState("rgb(0, 0, 0)");
+  
+  const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] = useState("rgb(211, 211, 211)");
+  const [darkThemeHoverBackgroundColor, setDarkThemeHoverBackgroundColor] = useState("rgb(211, 211, 211)");
+
+  const [lightThemeHoverTextColor, setLightThemeHoverTextColor] = useState("rgb(0, 0, 0)");
+  const [darkThemeHoverTextColor, setDarkThemeHoverTextColor] = useState("rgb(0, 0, 0)");
 
   const [errors, setErrors] = useState<any>({});
 
@@ -82,8 +84,10 @@ export default function SearchableSelect() {
         inputName: inputFieldName,
         items: dropdownItems,
         noItemFoundMessage: noDataMessage,
-        lightThemeHoverColor,
-        darkThemeHoverColor,
+        lightThemeHoverTextColor,
+        darkThemeHoverTextColor,
+        lightThemeHoverBackgroundColor,
+        darkThemeHoverBackgroundColor,
       });
     }
   };
@@ -120,20 +124,24 @@ export default function SearchableSelect() {
 
         <ColorInput
           label="Hover text color (Light theme)"
-          value={lightThemeTextColor}
-          onChange={setLightThemeTextColor}
+          value={lightThemeHoverTextColor}
+          onChange={setLightThemeHoverTextColor}
         />
-        <ColorInput label="Hover text color (Dark theme)" value={darkThemeTextColor} onChange={setDarkThemeTextColor} />
+        <ColorInput
+          label="Hover text color (Dark theme)"
+          value={darkThemeHoverTextColor}
+          onChange={setDarkThemeHoverTextColor}
+        />
 
         <ColorInput
           label="Hover background color (Light theme)"
-          value={lightThemeHoverColor}
-          onChange={setLightThemeHoverColor}
+          value={lightThemeHoverBackgroundColor}
+          onChange={setLightThemeHoverBackgroundColor}
         />
         <ColorInput
           label="Hover background color (Dark theme)"
-          value={darkThemeHoverColor}
-          onChange={setDarkThemeHoverColor}
+          value={darkThemeHoverBackgroundColor}
+          onChange={setDarkThemeHoverBackgroundColor}
         />
       </div>
 
