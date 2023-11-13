@@ -24,8 +24,8 @@ export default function SearchableSelect() {
   const [inputFieldName, setInputFieldName] = useState("");
   const [noDataMessage, setNoDataMessage] = useState("");
   const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
-  const [lightThemeHoverColor, setLightThemeHoverColor] = useState("#aabbcc");
-  const [darkThemeHoverColor, setDarkThemeHoverColor] = useState("#aabbcc");
+  const [lightThemeHoverColor, setLightThemeHoverColor] = useState("rgb(211, 211, 211)");
+  const [darkThemeHoverColor, setDarkThemeHoverColor] = useState("rgb(211, 211, 211)");
   const [lightThemeTextColor, setLightThemeTextColor] = useState("rgb(0, 0, 0)");
   const [darkThemeTextColor, setDarkThemeTextColor] = useState("rgb(0, 0, 0)");
 
