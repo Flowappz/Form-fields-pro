@@ -1,14 +1,14 @@
 export const MENU_ITEMS = [
   {
-    id: "dropdown",
-    label: "Dropdown",
-    description: "Custom dropdown input",
+    id: "select",
+    label: "Select",
+    description: "Custom select input",
     available: true,
   },
   {
-    id: "searchable_dropdown",
-    label: "Searchable dropdown",
-    description: "Dropdown input with search option",
+    id: "searchable_select",
+    label: "Searchable select",
+    description: "Select input with search option",
     available: true,
   },
   {
