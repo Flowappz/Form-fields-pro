@@ -6,8 +6,8 @@ import { type MenuId } from "./config/menu";
 import EmptyState from "./views/EmptyState";
 import { AppContext } from "./contexts/AppContext";
 import NoFormSelectedState from "./views/NoFormSelectedState";
-import Dropdown from "./views/Dropdown";
-import SearchableDropdown from "./views/SearchableDropdown";
+import Select from "./views/Select";
+import SearchableSelect from "./views/SearchableSelect";
 import NumberSlider from "./views/NumberSlider";
 // import NumberRangePicker from "./views/NumberRangePicker";
 import DatePicker from "./views/DatePicker";
@@ -43,8 +43,8 @@ enum SCRIPT_NAMES {
 }
 
 const VIEWS: { [id in MenuId]?: React.FC } = {
-  dropdown: Dropdown,
-  searchable_dropdown: SearchableDropdown,
+  select: Select,
+  searchable_select: SearchableSelect,
   number_picker_slider: NumberSlider,
   // number_range_picker: NumberRangePicker,
   date_picker: DatePicker,
