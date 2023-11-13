@@ -25,7 +25,7 @@ export default function Dropdown() {
   const [lightThemeHoverColor, setLightThemeHoverColor] = useState("#aabbcc");
   const [darkThemeHoverColor, setDarkThemeHoverColor] = useState("#aabbcc");
   const [lightThemeTextColor, setLightThemeTextColor] = useState("rgb(0, 0, 0)");
-  const [darkThemeTextColor, setDarkThemeTextColor] = useState("rgb(0, 0, 0");
+  const [darkThemeTextColor, setDarkThemeTextColor] = useState("rgb(0, 0, 0)");
 
   const [errors, setErrors] = useState<any>({});
 
