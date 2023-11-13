@@ -38,8 +38,12 @@ const DropdownColorConfigKeys = {
 type DropdownColorConfig = { [x in keyof typeof DropdownColorConfigKeys]?: string };
 
 const DateColorConfigKeys = {
-  lightThemeSelectedDateColor: "data-light-theme-selected-date-color",
-  darkThemeSelectedDateColor: "data-dark-theme-selected-date-color",
+  lightThemeSelectedDateTextColor: "data-light-theme-selected-date-text-color",
+  darkThemeSelectedDateTextColor: "data-dark-theme-selected-date-text-color",
+
+  lightThemeSelectedDateBackgroundColor: "data-light-theme-selected-date-background-color",
+  darkThemeSelectedDateBackgroundColor: "data-dark-theme-selected-date-background-color",
+
   lightThemeTodayColor: "data-light-theme-today-color",
   darkThemeTodayColor: "data-dark-theme-today-color",
 };
@@ -518,8 +522,23 @@ const createDateInputIcon = async () => {
 };
 
 const attachColorConfigAttributesToDateInput = (inputElement: DOMElement, config: DateColorConfig) => {
-  inputElement.setAttribute(DateColorConfigKeys.lightThemeSelectedDateColor, config.lightThemeSelectedDateColor || "");
-  inputElement.setAttribute(DateColorConfigKeys.darkThemeSelectedDateColor, config.darkThemeSelectedDateColor || "");
+  inputElement.setAttribute(
+    DateColorConfigKeys.lightThemeSelectedDateTextColor,
+    config.lightThemeSelectedDateTextColor || ""
+  );
+  inputElement.setAttribute(
+    DateColorConfigKeys.darkThemeSelectedDateTextColor,
+    config.darkThemeSelectedDateTextColor || ""
+  );
+
+  inputElement.setAttribute(
+    DateColorConfigKeys.lightThemeSelectedDateBackgroundColor,
+    config.lightThemeSelectedDateBackgroundColor || ""
+  );
+  inputElement.setAttribute(
+    DateColorConfigKeys.darkThemeSelectedDateBackgroundColor,
+    config.darkThemeSelectedDateBackgroundColor || ""
+  );
 
   inputElement.setAttribute(DateColorConfigKeys.lightThemeTodayColor, config.lightThemeTodayColor || "");
   inputElement.setAttribute(DateColorConfigKeys.darkThemeTodayColor, config.darkThemeTodayColor || "");
