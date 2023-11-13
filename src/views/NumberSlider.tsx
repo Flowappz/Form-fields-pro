@@ -150,6 +150,8 @@ export default function NumberSlider() {
         defaultValue: Number(defaultValue),
         lightThemeSliderColor,
         darkThemeSliderColor,
+        lightThemeTooltipTextColor,
+        darkThemeTooltipTextColor,
       });
     } else {
       await webflowService.insertNumberRangeSliderToForm({
@@ -162,6 +164,8 @@ export default function NumberSlider() {
         defaultMin: Number(defaultMinValue),
         lightThemeSliderColor,
         darkThemeSliderColor,
+        lightThemeTooltipTextColor,
+        darkThemeTooltipTextColor,
       });
     }
   };
