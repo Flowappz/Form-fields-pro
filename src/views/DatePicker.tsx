@@ -40,8 +40,12 @@ export default function DatePicker() {
   const [columns, setColumns] = useState("2");
   const [zIndex, setZIndex] = useState("10");
 
+  const [lightThemeSelectedDateTextColor, setLightThemeSelectedDateTextColor] = useState("rgb(255, 255, 255)");
+  const [darkThemeSelectedDateTextColor, setDarkThemeSelectedDateTextColor] = useState("rgb(255, 255, 255)");
+
   const [lightThemeSelectedDateColor, setLightThemeSelectedDateColor] = useState("rgb(107 130 255)");
   const [darkThemeSelectedDateColor, setDarkThemeSelectedDateColor] = useState("rgb(107 130 255)");
+
   const [lightThemeTodayColor, setLightThemeTodayColor] = useState("rgb(230 55 87)");
   const [darkThemeTodayColor, setDarkThemeTodayColor] = useState("rgb(230 55 87)");
 
@@ -154,12 +158,23 @@ export default function DatePicker() {
         />
 
         <ColorInput
-          label="Selected date color (Light theme)"
+          label="Selected date text color (Light theme)"
+          value={lightThemeSelectedDateTextColor}
+          onChange={setLightThemeSelectedDateTextColor}
+        />
+        <ColorInput
+          label="Selected date text color (Dark theme)"
+          value={darkThemeSelectedDateTextColor}
+          onChange={setDarkThemeSelectedDateTextColor}
+        />
+
+        <ColorInput
+          label="Selected date background color (Light theme)"
           value={lightThemeSelectedDateColor}
           onChange={setLightThemeSelectedDateColor}
         />
         <ColorInput
-          label="Selected date color (Dark theme)"
+          label="Selected date background color (Dark theme)"
           value={darkThemeSelectedDateColor}
           onChange={setDarkThemeSelectedDateColor}
         />
