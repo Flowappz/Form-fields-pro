@@ -88,6 +88,9 @@ export default function NumberSlider() {
   const [lightThemeSliderColor, setLightThemeSliderColor] = useState("rgb(0 179 188)");
   const [darkThemeSliderColor, setDarkThemeSliderColor] = useState("rgb(0 179 188)");
 
+  const [lightThemeTooltipTextColor, setLightThemeTooltipTextColor] = useState("rgb(0, 0, 0)");
+  const [darkThemeTooltipTextColor, setDarkThemeTooltipTextColor] = useState("rgb(0, 0, 0)");
+
   const [sliderType, setSliderType] = useState(sliderTypes.singleSlider.value);
 
   const [errors, setErrors] = useState<any>({});
@@ -235,6 +238,17 @@ export default function NumberSlider() {
             />
           </>
         )}
+
+        <ColorInput
+          label="Tooltip text color (Light theme)"
+          value={lightThemeTooltipTextColor}
+          onChange={setLightThemeTooltipTextColor}
+        />
+        <ColorInput
+          label="Tooltip text color (Dark theme)"
+          value={darkThemeTooltipTextColor}
+          onChange={setDarkThemeTooltipTextColor}
+        />
 
         <ColorInput
           label="Slider color (Light theme)"
