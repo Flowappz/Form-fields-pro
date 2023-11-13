@@ -8,7 +8,7 @@ type DropdownParams = {
   noItemFoundMessage?: string;
 };
 
-type DateParams = {
+export type DateParams = {
   label: string;
   form: FormFormElement | FormWrapperElement;
   inputName: string;
@@ -48,7 +48,7 @@ const DateColorConfigKeys = {
   darkThemeTodayColor: "data-dark-theme-today-color",
 };
 
-type DateColorConfig = { [x in keyof typeof DateColorConfigKeys]?: string };
+export type DateColorConfig = { [x in keyof typeof DateColorConfigKeys]?: string };
 
 type NumberSliderParams = {
   label: string;

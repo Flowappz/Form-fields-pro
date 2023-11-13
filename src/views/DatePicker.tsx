@@ -43,8 +43,9 @@ export default function DatePicker() {
   const [lightThemeSelectedDateTextColor, setLightThemeSelectedDateTextColor] = useState("rgb(255, 255, 255)");
   const [darkThemeSelectedDateTextColor, setDarkThemeSelectedDateTextColor] = useState("rgb(255, 255, 255)");
 
-  const [lightThemeSelectedDateColor, setLightThemeSelectedDateColor] = useState("rgb(107 130 255)");
-  const [darkThemeSelectedDateColor, setDarkThemeSelectedDateColor] = useState("rgb(107 130 255)");
+  const [lightThemeSelectedDateBackgroundColor, setLightThemeSelectedDateBackgroundColor] =
+    useState("rgb(107 130 255)");
+  const [darkThemeSelectedDateBackgroundColor, setDarkThemeSelectedDateBackgroundColor] = useState("rgb(107 130 255)");
 
   const [lightThemeTodayColor, setLightThemeTodayColor] = useState("rgb(230 55 87)");
   const [darkThemeTodayColor, setDarkThemeTodayColor] = useState("rgb(230 55 87)");
@@ -83,7 +84,7 @@ export default function DatePicker() {
   const handleInsert = async () => {
     if (!validateData() || !form) return;
 
-    const config = {
+    const config: webflowService.DateParams & webflowService.DateColorConfig = {
       form,
       label,
       inputName,
@@ -93,8 +94,13 @@ export default function DatePicker() {
       numberOfMonthsToShow,
       columns,
       zIndex,
-      lightThemeSelectedDateColor,
-      darkThemeSelectedDateColor,
+
+      lightThemeSelectedDateTextColor,
+      darkThemeSelectedDateTextColor,
+
+      lightThemeSelectedDateBackgroundColor,
+      darkThemeSelectedDateBackgroundColor,
+
       lightThemeTodayColor,
       darkThemeTodayColor,
     };
@@ -170,13 +176,13 @@ export default function DatePicker() {
 
         <ColorInput
           label="Selected date background color (Light theme)"
-          value={lightThemeSelectedDateColor}
-          onChange={setLightThemeSelectedDateColor}
+          value={lightThemeSelectedDateBackgroundColor}
+          onChange={setLightThemeSelectedDateBackgroundColor}
         />
         <ColorInput
           label="Selected date background color (Dark theme)"
-          value={darkThemeSelectedDateColor}
-          onChange={setDarkThemeSelectedDateColor}
+          value={darkThemeSelectedDateBackgroundColor}
+          onChange={setDarkThemeSelectedDateBackgroundColor}
         />
 
         <ColorInput
