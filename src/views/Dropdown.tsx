@@ -24,6 +24,8 @@ export default function Dropdown() {
   const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
   const [lightThemeHoverColor, setLightThemeHoverColor] = useState("#aabbcc");
   const [darkThemeHoverColor, setDarkThemeHoverColor] = useState("#aabbcc");
+  const [lightThemeTextColor, setLightThemeTextColor] = useState("rgb(0, 0, 0)");
+  const [darkThemeTextColor, setDarkThemeTextColor] = useState("rgb(0, 0, 0");
 
   const [errors, setErrors] = useState<any>({});
 
@@ -104,6 +106,13 @@ export default function Dropdown() {
           onChange={setInputFieldName}
           error={errors.inputFieldName}
         />
+
+        <ColorInput
+          label="Hover text color (Light theme)"
+          value={lightThemeTextColor}
+          onChange={setLightThemeTextColor}
+        />
+        <ColorInput label="Hover text color (Dark theme)" value={darkThemeTextColor} onChange={setDarkThemeTextColor} />
 
         <ColorInput
           label="Hover background color (Light theme)"
