@@ -21,6 +21,9 @@ export type DateParams = {
 };
 
 const sliderColorConfigKeys = {
+  lightThemeTooltipTextColor: "data-light-theme-tooltip-text-color",
+  darkThemeTooltipTextColor: "data-dark-theme-tooltip-text-color",
+
   lightThemeSliderColor: "data-light-theme-slider-color",
   darkThemeSliderColor: "data-dark-theme-slider-color",
 };
@@ -549,6 +552,9 @@ const attachColorConfigAttributesToDateInput = (inputElement: DOMElement, config
 const attachColorConfigAttributesToSliderInput = (inputElement: DOMElement, config: SliderColorConfig) => {
   inputElement.setAttribute(sliderColorConfigKeys.lightThemeSliderColor, config.lightThemeSliderColor || "");
   inputElement.setAttribute(sliderColorConfigKeys.darkThemeSliderColor, config.darkThemeSliderColor || "");
+
+  inputElement.setAttribute(sliderColorConfigKeys.lightThemeTooltipTextColor, config.lightThemeTooltipTextColor || "");
+  inputElement.setAttribute(sliderColorConfigKeys.darkThemeTooltipTextColor, config.darkThemeTooltipTextColor || "");
 
   return inputElement;
 };
