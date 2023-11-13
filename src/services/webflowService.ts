@@ -28,8 +28,11 @@ const sliderColorConfigKeys = {
 type SliderColorConfig = { [x in keyof typeof sliderColorConfigKeys]?: string };
 
 const DropdownColorConfigKeys = {
-  lightThemeHoverColor: "data-light-theme-hover-color",
-  darkThemeHoverColor: "data-dark-theme-hover-color",
+  lightThemeHoverTextColor: "data-light-theme-hover-text-color",
+  darkThemeHoverTextColor: "data-dark-theme-hover-text-color",
+
+  lightThemeHoverBackgroundColor: "data-light-theme-hover-background-color",
+  darkThemeHoverBackgroundColor: "data-dark-theme-hover-background-color",
 };
 
 type DropdownColorConfig = { [x in keyof typeof DropdownColorConfigKeys]?: string };
@@ -532,8 +535,17 @@ const attachColorConfigAttributesToSliderInput = (inputElement: DOMElement, conf
 };
 
 const attachColorConfigAttributesToDropdownList = (listElement: DOMElement, config: DropdownColorConfig) => {
-  listElement.setAttribute(DropdownColorConfigKeys.lightThemeHoverColor, config.lightThemeHoverColor || "");
-  listElement.setAttribute(DropdownColorConfigKeys.darkThemeHoverColor, config.darkThemeHoverColor || "");
+  listElement.setAttribute(DropdownColorConfigKeys.lightThemeHoverTextColor, config.lightThemeHoverTextColor || "");
+  listElement.setAttribute(DropdownColorConfigKeys.darkThemeHoverTextColor, config.darkThemeHoverTextColor || "");
+
+  listElement.setAttribute(
+    DropdownColorConfigKeys.lightThemeHoverBackgroundColor,
+    config.lightThemeHoverBackgroundColor || ""
+  );
+  listElement.setAttribute(
+    DropdownColorConfigKeys.darkThemeHoverBackgroundColor,
+    config.darkThemeHoverBackgroundColor || ""
+  );
 
   return listElement;
 };
