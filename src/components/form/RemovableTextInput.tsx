@@ -27,7 +27,7 @@ export default function RemovableTextInput({
         />
       </div>
       <div
-        className="bg-[#5E5E5E] box-border mb-2 p-1 border-[#363636] border-[1px] rounded-sm cursor-pointer"
+        className="action-secondary-background boxShadows-action-colored box-border mb-2 p-1 border-[#363636] border-[1px] rounded-[4px] cursor-pointer"
         onClick={onRemove}
       >
         <CloseDefaultIcon />

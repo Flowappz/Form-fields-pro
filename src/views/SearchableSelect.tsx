@@ -160,7 +160,7 @@ export default function SearchableSelect() {
 
         <div className="border-b-[1.25px] border-b-[#363636] pb-[0.5rem]">
           <button
-            className="w-full bg-[#5E5E5E] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
+            className="action-secondary-background boxShadows-action-secondary w-full bg-[#5E5E5E] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
             onClick={() => setDropdownItems([...dropdownItems, ""])}
           >
             Add item
@@ -170,7 +170,7 @@ export default function SearchableSelect() {
 
         <div className="mt-2">
           <button
-            className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
+            className="boxShadows-action-colored w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
             onClick={handleDropdownInsert}
           >
             Insert field
