@@ -8,9 +8,9 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     return;
   }
 
-  // Replace leading slashes with an empty string
-  const modifiedData = data.replace(/href="\.\/|src="\.\/|type="module" crossorigin src="\.\/assets/g, (match) => {
-    return match.replace('./', '');
+  // Replace leading slashes from asset paths
+  const modifiedData = data.replace(/href="\/|src="\/|type="module" crossorigin src="\/|href="\//g, (match) => {
+    return match.replace(/\//g, '');
   });
 
   fs.writeFile(filePath, modifiedData, 'utf8', (err) => {

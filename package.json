@@ -4,7 +4,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "npm install && tsc && vite build && webflow extension bundle && node ./src/modify-html.js",
+    "build": "npm install && tsc && vite build && node ./src/modify-html.js && webflow extension bundle",
     "test": "tsc && vite build --watch",
     "dev": "npm install && concurrently -r \"webflow extension serve\" \"tsc && vite build --watch\""
   },
