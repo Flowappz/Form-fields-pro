@@ -3,6 +3,7 @@ import TextInput from "../components/form/TextInput";
 import { ZodError, z } from "zod";
 import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
+import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
 
 const inputSchema = z.object({
   inputName: z.string().min(1, "Please enter the input name"),
@@ -13,6 +14,7 @@ export default function CollectUserIp() {
   const [inputName, setInputName] = useState("");
 
   const [errors, setErrors] = useState<any>({});
+  const { Banner, showBanner } = useElementInsertedBanner();
 
   const validateData = () => {
     try {
@@ -45,6 +47,8 @@ export default function CollectUserIp() {
         form,
         inputName,
       });
+
+      showBanner();
     }
   };
 
@@ -62,6 +66,7 @@ export default function CollectUserIp() {
       </div>
 
       <div className="mt-[0.3rem]">
+        <Banner />
         <div className="mt-2">
           <button
             className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
