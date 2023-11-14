@@ -8,6 +8,7 @@ import { DATE_FORMATS, DATE_PICKER_LANGUAGES, WEEKDAYS } from "../config/date";
 import SliderInput from "../components/form/SliderInput";
 import ColorInput from "../components/form/ColorInput";
 import RadioInput, { RadioOption } from "../components/form/RadioInput";
+import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
 
 const inputSchema = z.object({
   label: z.string().min(1, "Please enter a label"),
@@ -53,6 +54,7 @@ export default function DatePicker() {
   const [datePickerType, setDatePickerType] = useState(datePickerTypes.singlePicker.value);
 
   const [errors, setErrors] = useState<any>({});
+  const { Banner, showBanner } = useElementInsertedBanner();
 
   const validateData = () => {
     try {
@@ -110,6 +112,8 @@ export default function DatePicker() {
     } else {
       await webflowService.insertDateRangePickerToForm(config);
     }
+
+    showBanner();
   };
 
   return (
@@ -198,6 +202,7 @@ export default function DatePicker() {
       </div>
 
       <div className="mt-[0.3rem]">
+        <Banner />
         <div className="mt-2">
           <button
             className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
