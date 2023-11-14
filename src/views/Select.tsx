@@ -5,6 +5,7 @@ import { ZodError, z } from "zod";
 import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
 import ColorInput from "../components/form/ColorInput";
+import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
 
 const inputSchema = z.object({
   dropdownLabel: z.string().min(1, "Please enter a label"),
@@ -28,6 +29,7 @@ export default function Select() {
   const [darkThemeHoverTextColor, setDarkThemeHoverTextColor] = useState("rgb(0, 0, 0)");
 
   const [errors, setErrors] = useState<any>({});
+  const { Banner, showBanner } = useElementInsertedBanner();
 
   const handleDropdownItemChange = (idx: number, val: string) => {
     const items = [...dropdownItems];
@@ -83,6 +85,8 @@ export default function Select() {
         lightThemeHoverBackgroundColor,
         darkThemeHoverBackgroundColor,
       });
+
+      showBanner();
     }
   };
 
@@ -156,6 +160,7 @@ export default function Select() {
         </div>
 
         <div className="mt-2">
+          <Banner />
           <button
             className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
             onClick={handleDropdownInsert}
