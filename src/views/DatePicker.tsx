@@ -117,7 +117,7 @@ export default function DatePicker() {
   };
 
   return (
-    <div className="h-full px-20">
+    <div className="h-full px-20 py-10">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
         <h3 className="font-semibold text-[0.82rem]">Date picker</h3>
         <p className="text-[0.77rem] font-light text-[#ABABAB]">A beautiful date picker</p>
@@ -205,7 +205,7 @@ export default function DatePicker() {
         <Banner />
         <div className="mt-2">
           <button
-            className="boxShadows-action-colored w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
+            className="boxShadows-action-colored mb-[60px] w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
             onClick={handleInsert}
           >
             Insert field
