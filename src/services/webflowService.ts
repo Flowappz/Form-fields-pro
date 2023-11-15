@@ -727,13 +727,11 @@ export const insertDatePickerToForm = async (options: DateParams & DateColorConf
   const { label, form } = options;
   const labelElement = await createLabelElement(label);
 
-  const wrapperDiv = window._myWebflow.createDOM("div");
+  const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([labelElement, inputWithIconWrapper]);
 
-  const lineBreak = window._myWebflow.createDOM("br");
-
   const existingChilds = form.getChildren();
-  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
@@ -755,13 +753,11 @@ export const insertDateRangePickerToForm = async (options: DateParams & DateColo
   const { label, form } = options;
   const labelElement = await createLabelElement(label);
 
-  const wrapperDiv = window._myWebflow.createDOM("div");
+  const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([labelElement, inputWithIconWrapper]);
 
-  const lineBreak = window._myWebflow.createDOM("br");
-
   const existingChilds = form.getChildren();
-  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
