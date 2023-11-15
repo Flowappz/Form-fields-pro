@@ -621,11 +621,13 @@ export const insertDropdownToForm = async ({
 }: DropdownParams & DropdownColorConfig) => {
   const dropdownDiv = await createDropdown({ label, inputName, items, ...colorConfig });
   const input = hiddenDropdownInputElement(inputName);
-  const lineBreak = window._myWebflow.createDOM("br");
+
+  const wrapperDiv = await formFieldsWrapperDiv();
+  wrapperDiv.setChildren([dropdownDiv, input]);
 
   const existingChilds = form.getChildren();
 
-  form.setChildren([...existingChilds, lineBreak, dropdownDiv, input]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
@@ -645,11 +647,13 @@ export const insertSearchableDropdownToForm = async ({
     noItemFoundMessage,
     ...colorConfig,
   });
-  const lineBreak = window._myWebflow.createDOM("br");
+
+  const wrapperDiv = await formFieldsWrapperDiv();
+  wrapperDiv.setChildren([dropdownDiv]);
 
   const existingChilds = form.getChildren();
 
-  form.setChildren([...existingChilds, lineBreak, dropdownDiv]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
