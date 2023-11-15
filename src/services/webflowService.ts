@@ -79,6 +79,7 @@ enum styleNames {
   POSITION_ABSOLUTE = "position-absolute",
   DATE_INPUT_ICON = "date-input-icon",
   FORM_FIELDS_WRAPPER = "form-fields-wrapper",
+  FORM_FIELDS_MARGIN_BOTTOM = "form-fields-margin-bottom",
 }
 
 const positionAbsoluteStyle = async (): Promise<Style> => {
@@ -224,6 +225,18 @@ const formFieldsWrapperStyle = async (): Promise<Style> => {
   return style;
 };
 
+const formFieldsMarginBottomStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.FORM_FIELDS_MARGIN_BOTTOM);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.FORM_FIELDS_MARGIN_BOTTOM);
+  style.setProperties({
+    "margin-bottom": "10px",
+  });
+
+  return style;
+};
+
 const userIpInputAlertStyle = async (): Promise<Style> => {
   let style = await window._myWebflow.getStyleByName(styleNames.USER_IP_INPUT_ALERT);
   if (style) return style;
@@ -302,10 +315,15 @@ const dropdownSearchableInputStyle = async (): Promise<Style> => {
   return style;
 };
 
-const formFieldsWrapperDiv = async (): Promise<DOMElement> => {
+const formFieldsWrapperDiv = async (withMargin = true): Promise<DOMElement> => {
   const div = window._myWebflow.createDOM("div");
-  const style = await formFieldsWrapperStyle();
-  div.setStyles([style]);
+
+  const styles = [];
+  styles.push(await formFieldsWrapperStyle());
+
+  if (withMargin) styles.push(await formFieldsMarginBottomStyle());
+
+  div.setStyles(styles);
 
   return div;
 };
@@ -760,7 +778,7 @@ export const insertUserIpInputToForm = async ({ inputName, form }: Pick<Dropdown
   const style = await userIpInputAlertStyle();
   adminFeedback.setStyles([style]);
 
-  const wrapperDiv = await formFieldsWrapperDiv();
+  const wrapperDiv = await formFieldsWrapperDiv(false);
   wrapperDiv.setChildren([adminFeedback, inputElement]);
 
   const existingChilds = form.getChildren();
