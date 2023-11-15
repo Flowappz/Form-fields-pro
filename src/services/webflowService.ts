@@ -760,9 +760,10 @@ export const insertUserIpInputToForm = async ({ inputName, form }: Pick<Dropdown
   const style = await userIpInputAlertStyle();
   adminFeedback.setStyles([style]);
 
-  const lineBreak = window._myWebflow.createDOM("br");
+  const wrapperDiv = await formFieldsWrapperDiv();
+  wrapperDiv.setChildren([adminFeedback, inputElement]);
 
   const existingChilds = form.getChildren();
-  form.setChildren([...existingChilds, lineBreak, adminFeedback, inputElement]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
