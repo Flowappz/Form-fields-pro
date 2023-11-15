@@ -5,6 +5,7 @@ import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
 import ColorInput from "../components/form/ColorInput";
 import RadioInput, { RadioOption } from "../components/form/RadioInput";
+import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
 
 const singleSliderInputSchema = ({ max, min }: { max: number; min: number }) =>
   z.object({
@@ -95,6 +96,8 @@ export default function NumberSlider() {
 
   const [errors, setErrors] = useState<any>({});
 
+  const { Banner, showBanner } = useElementInsertedBanner();
+
   const validateData = () => {
     try {
       if (sliderType === sliderTypes.singleSlider.value) {
@@ -168,6 +171,8 @@ export default function NumberSlider() {
         darkThemeTooltipTextColor,
       });
     }
+
+    showBanner();
   };
 
   return (
@@ -263,6 +268,7 @@ export default function NumberSlider() {
       </div>
 
       <div className="mt-[0.3rem]">
+        <Banner />
         <div className="mt-2">
           <button
             className="boxShadows-action-colored w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
