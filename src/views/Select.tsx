@@ -22,11 +22,17 @@ export default function Select() {
 
   const [dropdownLabel, setDropdownLabel] = useState("");
   const [inputFieldName, setInputFieldName] = useState("");
-  const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
-  const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] = useState("rgb(211, 211, 211)");
-  const [darkThemeHoverBackgroundColor, setDarkThemeHoverBackgroundColor] = useState("rgb(211, 211, 211)");
-  const [lightThemeHoverTextColor, setLightThemeHoverTextColor] = useState("rgb(0, 0, 0)");
-  const [darkThemeHoverTextColor, setDarkThemeHoverTextColor] = useState("rgb(0, 0, 0)");
+  const [dropdownItems, setDropdownItems] = useState<string[]>(
+    new Array(3).fill("")
+  );
+  const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] =
+    useState("rgb(211, 211, 211)");
+  const [darkThemeHoverBackgroundColor, setDarkThemeHoverBackgroundColor] =
+    useState("rgb(211, 211, 211)");
+  const [lightThemeHoverTextColor, setLightThemeHoverTextColor] =
+    useState("rgb(0, 0, 0)");
+  const [darkThemeHoverTextColor, setDarkThemeHoverTextColor] =
+    useState("rgb(0, 0, 0)");
 
   const [errors, setErrors] = useState<any>({});
   const { Banner, showBanner } = useElementInsertedBanner();
@@ -61,7 +67,7 @@ export default function Select() {
       if (err instanceof ZodError) {
         const errorsByField: { [x: string]: string } = {};
 
-        for (let issue of err.errors) {
+        for (const issue of err.errors) {
           const { path, message } = issue;
           const field = path.length === 1 ? path[0] : path.join(".");
 
@@ -93,8 +99,12 @@ export default function Select() {
   return (
     <div className="h-full px-20">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
-        <h3 className="font-semibold text-[0.82rem]">Select Input</h3>
-        <p className="text-[0.77rem] font-light text-[#ABABAB]">Custom select input with customization options</p>
+        <h3 className="font-semibold text-[#D9D9D9] text-[0.80rem]">
+          Select Input
+        </h3>
+        <p className="text-[0.70rem] font-light text-[#ABABAB]">
+          Custom select input with customization options
+        </p>
       </div>
 
       <div className="border-b-[#363636] border-b-[1.25px]">
@@ -137,7 +147,9 @@ export default function Select() {
       </div>
 
       <div className="mt-[0.3rem]">
-        <p className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB]">Select Options</p>
+        <p className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB]">
+          Select Options
+        </p>
 
         {dropdownItems.map((item, idx) => (
           <RemovableTextInput
@@ -151,18 +163,22 @@ export default function Select() {
 
         <div className="border-b-[1.25px] border-b-[#363636] pb-[0.5rem]">
           <button
-            className="w-full bg-[#5E5E5E] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
+            className="boxShadows-action-secondary action-secondary-background w-full bg-[#5E5E5E] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
             onClick={() => setDropdownItems([...dropdownItems, ""])}
           >
             Add item
           </button>
-          {errors.dropdownItems && <span className="text-red-400 text-[0.74rem]">{errors.dropdownItems}</span>}
+          {errors.dropdownItems && (
+            <span className="text-red-400 text-[0.74rem]">
+              {errors.dropdownItems}
+            </span>
+          )}
         </div>
 
         <div className="mt-2">
           <Banner />
           <button
-            className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
+            className="boxShadows-action-colored w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
             onClick={handleDropdownInsert}
           >
             Insert field
