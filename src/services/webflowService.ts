@@ -78,6 +78,7 @@ enum styleNames {
   FULL_WIDTH_RELATIVE_POSITION = "full-width-relative-position",
   POSITION_ABSOLUTE = "position-absolute",
   DATE_INPUT_ICON = "date-input-icon",
+  FORM_FIELDS_WRAPPER = "form-fields-wrapper",
 }
 
 const positionAbsoluteStyle = async (): Promise<Style> => {
@@ -213,6 +214,16 @@ const dropdownTogglerStyle = async (): Promise<Style> => {
   return style;
 };
 
+const formFieldsWrapperStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.FORM_FIELDS_WRAPPER);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.FORM_FIELDS_WRAPPER);
+  style.setProperties({});
+
+  return style;
+};
+
 const userIpInputAlertStyle = async (): Promise<Style> => {
   let style = await window._myWebflow.getStyleByName(styleNames.USER_IP_INPUT_ALERT);
   if (style) return style;
@@ -289,6 +300,14 @@ const dropdownSearchableInputStyle = async (): Promise<Style> => {
   });
 
   return style;
+};
+
+const formFieldsWrapperDiv = async (): Promise<DOMElement> => {
+  const div = window._myWebflow.createDOM("div");
+  const style = await formFieldsWrapperStyle();
+  div.setStyles([style]);
+
+  return div;
 };
 
 const createLabelElement = async (label: string): Promise<DOMElement> => {
