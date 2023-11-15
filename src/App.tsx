@@ -101,10 +101,14 @@ function App() {
       <div className="col-span-4 h-full border-r-[1.25px] border-r-[#363636] overflow-y-auto overscroll-none">
         <LeftSideMenu selectedMenuId={selectedMenuId} onClick={(id) => setSelectedMenuId(id)} />
       </div>
-      <div className="col-span-8 h-full p-2 relative overflow-y-auto">
+      <div className="col-span-8 h-screen relative ">
         <AppContext.Provider value={{ form: formElement }}>
           <NoFormSelectedState />
-          {SelectedView && <SelectedView />}
+          {SelectedView && (
+            <div className="h-full p-2 overflow-y-auto">
+              <SelectedView />
+            </div>
+          )}
         </AppContext.Provider>
       </div>
     </div>
