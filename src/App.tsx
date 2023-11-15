@@ -97,7 +97,7 @@ function App() {
 
   const SelectedView = selectedMenuId ? VIEWS[selectedMenuId] : EmptyState;
   return (
-    <div className="bg-[#404040] h-screen grid grid-cols-12 text-[#D9D9D9]">
+    <div className="bg-[#1e1e1e] h-screen grid grid-cols-12 text-[#D9D9D9]">
       <div className="col-span-4 h-full border-r-[1.25px] border-r-[#363636] overflow-y-auto overscroll-none">
         <LeftSideMenu selectedMenuId={selectedMenuId} onClick={(id) => setSelectedMenuId(id)} />
       </div>

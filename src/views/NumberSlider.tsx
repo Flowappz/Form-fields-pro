@@ -271,7 +271,7 @@ export default function NumberSlider() {
         <Banner />
         <div className="mt-2">
           <button
-            className="w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-sm"
+            className="boxShadows-action-colored w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
             onClick={handleInsert}
           >
             Insert field
