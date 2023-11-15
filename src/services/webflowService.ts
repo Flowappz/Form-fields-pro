@@ -663,7 +663,6 @@ export const insertNumberSliderToForm = async ({
   ...colorConfig
 }: NumberSliderParams & SliderColorConfig) => {
   const labelElement = await createLabelElement(label);
-  const lineBreak = window._myWebflow.createDOM("br");
 
   const inputElement = createInputElement(inputName, "hidden");
   attachColorConfigAttributesToSliderInput(inputElement, colorConfig);
@@ -672,11 +671,11 @@ export const insertNumberSliderToForm = async ({
   inputElement.setAttribute("data-min", String(minRange));
   inputElement.setAttribute("data-default", String(defaultValue));
 
-  const wrapperDiv = window._myWebflow.createDOM("div");
+  const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([labelElement, inputElement]);
 
   const existingChilds = form.getChildren();
-  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
@@ -691,7 +690,6 @@ export const insertNumberRangeSliderToForm = async ({
   ...colorConfig
 }: NumberSliderParams & SliderColorConfig) => {
   const labelElement = await createLabelElement(label);
-  const lineBreak = window._myWebflow.createDOM("br");
 
   const inputElement = createInputElement(inputName, "hidden");
   attachColorConfigAttributesToSliderInput(inputElement, colorConfig);
@@ -702,11 +700,11 @@ export const insertNumberRangeSliderToForm = async ({
   inputElement.setAttribute("data-min-default", String(defaultMin));
   inputElement.setAttribute("allow-range", "true");
 
-  const wrapperDiv = window._myWebflow.createDOM("div");
+  const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([labelElement, inputElement]);
 
   const existingChilds = form.getChildren();
-  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
