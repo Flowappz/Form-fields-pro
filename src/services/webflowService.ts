@@ -78,6 +78,8 @@ enum styleNames {
   FULL_WIDTH_RELATIVE_POSITION = "full-width-relative-position",
   POSITION_ABSOLUTE = "position-absolute",
   DATE_INPUT_ICON = "date-input-icon",
+  FORM_FIELDS_WRAPPER = "form-fields-wrapper",
+  FORM_FIELDS_MARGIN_BOTTOM = "form-fields-margin-bottom",
 }
 
 const positionAbsoluteStyle = async (): Promise<Style> => {
@@ -213,6 +215,28 @@ const dropdownTogglerStyle = async (): Promise<Style> => {
   return style;
 };
 
+const formFieldsWrapperStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.FORM_FIELDS_WRAPPER);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.FORM_FIELDS_WRAPPER);
+  style.setProperties({});
+
+  return style;
+};
+
+const formFieldsMarginBottomStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.FORM_FIELDS_MARGIN_BOTTOM);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.FORM_FIELDS_MARGIN_BOTTOM);
+  style.setProperties({
+    "margin-bottom": "10px",
+  });
+
+  return style;
+};
+
 const userIpInputAlertStyle = async (): Promise<Style> => {
   let style = await window._myWebflow.getStyleByName(styleNames.USER_IP_INPUT_ALERT);
   if (style) return style;
@@ -289,6 +313,19 @@ const dropdownSearchableInputStyle = async (): Promise<Style> => {
   });
 
   return style;
+};
+
+const formFieldsWrapperDiv = async (withMargin = true): Promise<DOMElement> => {
+  const div = window._myWebflow.createDOM("div");
+
+  const styles = [];
+  styles.push(await formFieldsWrapperStyle());
+
+  if (withMargin) styles.push(await formFieldsMarginBottomStyle());
+
+  div.setStyles(styles);
+
+  return div;
 };
 
 const createLabelElement = async (label: string): Promise<DOMElement> => {
@@ -584,11 +621,13 @@ export const insertDropdownToForm = async ({
 }: DropdownParams & DropdownColorConfig) => {
   const dropdownDiv = await createDropdown({ label, inputName, items, ...colorConfig });
   const input = hiddenDropdownInputElement(inputName);
-  const lineBreak = window._myWebflow.createDOM("br");
+
+  const wrapperDiv = await formFieldsWrapperDiv();
+  wrapperDiv.setChildren([dropdownDiv, input]);
 
   const existingChilds = form.getChildren();
 
-  form.setChildren([...existingChilds, lineBreak, dropdownDiv, input]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
@@ -608,11 +647,13 @@ export const insertSearchableDropdownToForm = async ({
     noItemFoundMessage,
     ...colorConfig,
   });
-  const lineBreak = window._myWebflow.createDOM("br");
+
+  const wrapperDiv = await formFieldsWrapperDiv();
+  wrapperDiv.setChildren([dropdownDiv]);
 
   const existingChilds = form.getChildren();
 
-  form.setChildren([...existingChilds, lineBreak, dropdownDiv]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
@@ -626,7 +667,6 @@ export const insertNumberSliderToForm = async ({
   ...colorConfig
 }: NumberSliderParams & SliderColorConfig) => {
   const labelElement = await createLabelElement(label);
-  const lineBreak = window._myWebflow.createDOM("br");
 
   const inputElement = createInputElement(inputName, "hidden");
   attachColorConfigAttributesToSliderInput(inputElement, colorConfig);
@@ -635,11 +675,11 @@ export const insertNumberSliderToForm = async ({
   inputElement.setAttribute("data-min", String(minRange));
   inputElement.setAttribute("data-default", String(defaultValue));
 
-  const wrapperDiv = window._myWebflow.createDOM("div");
+  const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([labelElement, inputElement]);
 
   const existingChilds = form.getChildren();
-  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
@@ -654,7 +694,6 @@ export const insertNumberRangeSliderToForm = async ({
   ...colorConfig
 }: NumberSliderParams & SliderColorConfig) => {
   const labelElement = await createLabelElement(label);
-  const lineBreak = window._myWebflow.createDOM("br");
 
   const inputElement = createInputElement(inputName, "hidden");
   attachColorConfigAttributesToSliderInput(inputElement, colorConfig);
@@ -665,11 +704,11 @@ export const insertNumberRangeSliderToForm = async ({
   inputElement.setAttribute("data-min-default", String(defaultMin));
   inputElement.setAttribute("allow-range", "true");
 
-  const wrapperDiv = window._myWebflow.createDOM("div");
+  const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([labelElement, inputElement]);
 
   const existingChilds = form.getChildren();
-  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
@@ -692,13 +731,11 @@ export const insertDatePickerToForm = async (options: DateParams & DateColorConf
   const { label, form } = options;
   const labelElement = await createLabelElement(label);
 
-  const wrapperDiv = window._myWebflow.createDOM("div");
+  const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([labelElement, inputWithIconWrapper]);
 
-  const lineBreak = window._myWebflow.createDOM("br");
-
   const existingChilds = form.getChildren();
-  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
@@ -720,13 +757,11 @@ export const insertDateRangePickerToForm = async (options: DateParams & DateColo
   const { label, form } = options;
   const labelElement = await createLabelElement(label);
 
-  const wrapperDiv = window._myWebflow.createDOM("div");
+  const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([labelElement, inputWithIconWrapper]);
 
-  const lineBreak = window._myWebflow.createDOM("br");
-
   const existingChilds = form.getChildren();
-  form.setChildren([...existingChilds, lineBreak, wrapperDiv]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
 
@@ -741,9 +776,10 @@ export const insertUserIpInputToForm = async ({ inputName, form }: Pick<Dropdown
   const style = await userIpInputAlertStyle();
   adminFeedback.setStyles([style]);
 
-  const lineBreak = window._myWebflow.createDOM("br");
+  const wrapperDiv = await formFieldsWrapperDiv(false);
+  wrapperDiv.setChildren([adminFeedback, inputElement]);
 
   const existingChilds = form.getChildren();
-  form.setChildren([...existingChilds, lineBreak, adminFeedback, inputElement]);
+  form.setChildren([...existingChilds, wrapperDiv]);
   await form.save();
 };
