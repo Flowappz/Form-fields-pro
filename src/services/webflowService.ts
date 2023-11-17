@@ -624,6 +624,7 @@ export const insertDropdownToForm = async ({
 
   const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([dropdownDiv, input]);
+  wrapperDiv.setAttribute("form-fields-type", "select");
 
   const existingChilds = form.getChildren();
 
@@ -650,6 +651,8 @@ export const insertSearchableDropdownToForm = async ({
 
   const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([dropdownDiv]);
+  wrapperDiv.setAttribute("form-fields-type", "select");
+  wrapperDiv.setAttribute("data-searchable", "true");
 
   const existingChilds = form.getChildren();
 
