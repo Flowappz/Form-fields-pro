@@ -86,11 +86,11 @@ export default function NumberSlider() {
   const [defaultMaxValue, setDefaultMaxValue] = useState<number | string>("");
   const [defaultMinValue, setDefaultMinValue] = useState<number | string>("");
 
-  const [lightThemeSliderColor, setLightThemeSliderColor] = useState("rgb(0 179 188)");
-  const [darkThemeSliderColor, setDarkThemeSliderColor] = useState("rgb(0 179 188)");
+  const [lightThemeSliderColor, setLightThemeSliderColor] = useState("rgb(0, 0, 0)");
+  const [darkThemeSliderColor, setDarkThemeSliderColor] = useState("rgb(0, 0, 0)");
 
-  const [lightThemeTooltipTextColor, setLightThemeTooltipTextColor] = useState("rgb(0, 0, 0)");
-  const [darkThemeTooltipTextColor, setDarkThemeTooltipTextColor] = useState("rgb(0, 0, 0)");
+  const [lightThemeTooltipTextColor, setLightThemeTooltipTextColor] = useState("rgb(255, 255, 255)");
+  const [darkThemeTooltipTextColor, setDarkThemeTooltipTextColor] = useState("rgb(255, 255, 255)");
 
   const [sliderType, setSliderType] = useState(sliderTypes.singleSlider.value);
 
