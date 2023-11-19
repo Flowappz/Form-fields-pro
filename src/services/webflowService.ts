@@ -738,14 +738,12 @@ export const insertDatePickerToForm = async (options: DateParams & DateColorConf
   inputElement.setAttribute("form-fields-pro-date-picker", "true");
   attachColorConfigAttributesToDateInput(inputElement, options);
 
-  const style1 = await dropdownTogglerStyle();
-  const style2 = await dropdownWrapperStyle();
-  inputElement.setStyles([style1, style2]);
+  inputElement.setStyles([await dropdownTogglerStyle(), await dropdownWrapperStyle(), await backgroundWhiteStyle()]);
 
   const icon = await createDateInputIcon();
 
   const inputWithIconWrapper = window._myWebflow.createDOM("div");
-  inputWithIconWrapper.setStyles([await fullWidthRelativePositionStyle(), await backgroundWhiteStyle()]);
+  inputWithIconWrapper.setStyles([await fullWidthRelativePositionStyle()]);
   inputWithIconWrapper.setChildren([inputElement, icon]);
 
   const { label, form } = options;
@@ -763,14 +761,12 @@ export const insertDateRangePickerToForm = async (options: DateParams & DateColo
   const inputElement = createDateInputElement(options);
   inputElement.setAttribute("form-fields-pro-date-range-picker", "true");
   attachColorConfigAttributesToDateInput(inputElement, options);
-  const style1 = await dropdownTogglerStyle();
-  const style2 = await dropdownWrapperStyle();
-  inputElement.setStyles([style1, style2]);
+  inputElement.setStyles([await dropdownTogglerStyle(), await dropdownWrapperStyle(), await backgroundWhiteStyle()]);
 
   const icon = await createDateInputIcon();
 
   const inputWithIconWrapper = window._myWebflow.createDOM("div");
-  inputWithIconWrapper.setStyles([await fullWidthRelativePositionStyle(), await backgroundWhiteStyle()]);
+  inputWithIconWrapper.setStyles([await fullWidthRelativePositionStyle()]);
   inputWithIconWrapper.setChildren([inputElement, icon]);
 
   const { label, form } = options;
