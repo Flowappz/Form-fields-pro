@@ -220,7 +220,9 @@ const formFieldsWrapperStyle = async (): Promise<Style> => {
   if (style) return style;
 
   style = window._myWebflow.createStyle(styleNames.FORM_FIELDS_WRAPPER);
-  style.setProperties({});
+  style.setProperties({
+    "background-color": "inherit",
+  });
 
   return style;
 };
@@ -279,6 +281,7 @@ const fullWidthRelativePositionStyle = async (): Promise<Style> => {
   style.setProperties({
     position: "relative",
     width: "100%",
+    "background-color": "inherit",
   });
 
   return style;
