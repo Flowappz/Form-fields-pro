@@ -80,6 +80,7 @@ enum styleNames {
   DATE_INPUT_ICON = "date-input-icon",
   FORM_FIELDS_WRAPPER = "form-fields-wrapper",
   FORM_FIELDS_MARGIN_BOTTOM = "form-fields-margin-bottom",
+  BACKGROUND_WHITE = "bg-white",
 }
 
 const positionAbsoluteStyle = async (): Promise<Style> => {
@@ -120,6 +121,18 @@ const dropdownLabelStyle = async (): Promise<Style> => {
     "font-weight": "bold",
     display: "block",
     "margin-bottom": "5px",
+  });
+
+  return style;
+};
+
+const backgroundWhiteStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.BACKGROUND_WHITE);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.BACKGROUND_WHITE);
+  style.setProperties({
+    "background-color": "#fff",
   });
 
   return style;
@@ -732,8 +745,7 @@ export const insertDatePickerToForm = async (options: DateParams & DateColorConf
   const icon = await createDateInputIcon();
 
   const inputWithIconWrapper = window._myWebflow.createDOM("div");
-  const style = await fullWidthRelativePositionStyle();
-  inputWithIconWrapper.setStyles([style]);
+  inputWithIconWrapper.setStyles([await fullWidthRelativePositionStyle(), await backgroundWhiteStyle()]);
   inputWithIconWrapper.setChildren([inputElement, icon]);
 
   const { label, form } = options;
@@ -758,8 +770,7 @@ export const insertDateRangePickerToForm = async (options: DateParams & DateColo
   const icon = await createDateInputIcon();
 
   const inputWithIconWrapper = window._myWebflow.createDOM("div");
-  const style = await fullWidthRelativePositionStyle();
-  inputWithIconWrapper.setStyles([style]);
+  inputWithIconWrapper.setStyles([await fullWidthRelativePositionStyle(), await backgroundWhiteStyle()]);
   inputWithIconWrapper.setChildren([inputElement, icon]);
 
   const { label, form } = options;
