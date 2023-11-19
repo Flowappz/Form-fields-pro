@@ -132,7 +132,7 @@ const dropdownListUlStyle = async (): Promise<Style> => {
   style = window._myWebflow.createStyle(styleNames.DROPDOWN_LIST_UL);
   style.setProperties({
     "min-width": "100%",
-    "background-color": "white",
+    "background-color": "inherit",
     "padding-left": "0px",
     display: "none",
 
@@ -268,6 +268,7 @@ const dropdownListStyle = async (): Promise<Style> => {
     "z-index": "999",
     position: "absolute",
     width: "100%",
+    "background-color": "inherit",
   });
 
   return style;
