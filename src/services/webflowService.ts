@@ -295,6 +295,7 @@ const dropdownWrapperStyle = async (): Promise<Style> => {
   style.setProperties({
     position: "relative",
     width: "100%",
+    "background-color": "inherit",
   });
 
   return style;
