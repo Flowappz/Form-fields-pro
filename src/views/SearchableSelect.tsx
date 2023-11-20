@@ -26,11 +26,11 @@ export default function SearchableSelect() {
   const [noDataMessage, setNoDataMessage] = useState("");
   const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
 
-  const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] = useState("rgb(211, 211, 211)");
-  const [darkThemeHoverBackgroundColor, setDarkThemeHoverBackgroundColor] = useState("rgb(211, 211, 211)");
+  const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] = useState("rgb(0, 0, 0)");
+  const [darkThemeHoverBackgroundColor, setDarkThemeHoverBackgroundColor] = useState("rgb(0, 0, 0)");
 
-  const [lightThemeHoverTextColor, setLightThemeHoverTextColor] = useState("rgb(0, 0, 0)");
-  const [darkThemeHoverTextColor, setDarkThemeHoverTextColor] = useState("rgb(0, 0, 0)");
+  const [lightThemeHoverTextColor, setLightThemeHoverTextColor] = useState("rgb(255, 255, 255)");
+  const [darkThemeHoverTextColor, setDarkThemeHoverTextColor] = useState("rgb(255, 255, 255)");
 
   const [errors, setErrors] = useState<any>({});
   const { Banner, showBanner } = useElementInsertedBanner();

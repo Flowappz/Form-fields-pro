@@ -80,6 +80,7 @@ enum styleNames {
   DATE_INPUT_ICON = "date-input-icon",
   FORM_FIELDS_WRAPPER = "form-fields-wrapper",
   FORM_FIELDS_MARGIN_BOTTOM = "form-fields-margin-bottom",
+  BACKGROUND_WHITE = "bg-white",
 }
 
 const positionAbsoluteStyle = async (): Promise<Style> => {
@@ -125,6 +126,18 @@ const dropdownLabelStyle = async (): Promise<Style> => {
   return style;
 };
 
+const backgroundWhiteStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName(styleNames.BACKGROUND_WHITE);
+  if (style) return style;
+
+  style = window._myWebflow.createStyle(styleNames.BACKGROUND_WHITE);
+  style.setProperties({
+    "background-color": "#fff",
+  });
+
+  return style;
+};
+
 const dropdownListUlStyle = async (): Promise<Style> => {
   let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_LIST_UL);
   if (style) return style;
@@ -132,7 +145,7 @@ const dropdownListUlStyle = async (): Promise<Style> => {
   style = window._myWebflow.createStyle(styleNames.DROPDOWN_LIST_UL);
   style.setProperties({
     "min-width": "100%",
-    "background-color": "white",
+    "background-color": "inherit",
     "padding-left": "0px",
     display: "none",
 
@@ -220,7 +233,9 @@ const formFieldsWrapperStyle = async (): Promise<Style> => {
   if (style) return style;
 
   style = window._myWebflow.createStyle(styleNames.FORM_FIELDS_WRAPPER);
-  style.setProperties({});
+  style.setProperties({
+    "background-color": "inherit",
+  });
 
   return style;
 };
@@ -266,6 +281,7 @@ const dropdownListStyle = async (): Promise<Style> => {
     "z-index": "999",
     position: "absolute",
     width: "100%",
+    "background-color": "inherit",
   });
 
   return style;
@@ -279,6 +295,7 @@ const fullWidthRelativePositionStyle = async (): Promise<Style> => {
   style.setProperties({
     position: "relative",
     width: "100%",
+    "background-color": "inherit",
   });
 
   return style;
@@ -292,6 +309,7 @@ const dropdownWrapperStyle = async (): Promise<Style> => {
   style.setProperties({
     position: "relative",
     width: "100%",
+    "background-color": "inherit",
   });
 
   return style;
@@ -624,6 +642,7 @@ export const insertDropdownToForm = async ({
 
   const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([dropdownDiv, input]);
+  wrapperDiv.setAttribute("form-fields-type", "select");
 
   const existingChilds = form.getChildren();
 
@@ -650,6 +669,8 @@ export const insertSearchableDropdownToForm = async ({
 
   const wrapperDiv = await formFieldsWrapperDiv();
   wrapperDiv.setChildren([dropdownDiv]);
+  wrapperDiv.setAttribute("form-fields-type", "select");
+  wrapperDiv.setAttribute("data-searchable", "true");
 
   const existingChilds = form.getChildren();
 
@@ -717,15 +738,12 @@ export const insertDatePickerToForm = async (options: DateParams & DateColorConf
   inputElement.setAttribute("form-fields-pro-date-picker", "true");
   attachColorConfigAttributesToDateInput(inputElement, options);
 
-  const style1 = await dropdownTogglerStyle();
-  const style2 = await dropdownWrapperStyle();
-  inputElement.setStyles([style1, style2]);
+  inputElement.setStyles([await dropdownTogglerStyle(), await dropdownWrapperStyle(), await backgroundWhiteStyle()]);
 
   const icon = await createDateInputIcon();
 
   const inputWithIconWrapper = window._myWebflow.createDOM("div");
-  const style = await fullWidthRelativePositionStyle();
-  inputWithIconWrapper.setStyles([style]);
+  inputWithIconWrapper.setStyles([await fullWidthRelativePositionStyle()]);
   inputWithIconWrapper.setChildren([inputElement, icon]);
 
   const { label, form } = options;
@@ -743,15 +761,12 @@ export const insertDateRangePickerToForm = async (options: DateParams & DateColo
   const inputElement = createDateInputElement(options);
   inputElement.setAttribute("form-fields-pro-date-range-picker", "true");
   attachColorConfigAttributesToDateInput(inputElement, options);
-  const style1 = await dropdownTogglerStyle();
-  const style2 = await dropdownWrapperStyle();
-  inputElement.setStyles([style1, style2]);
+  inputElement.setStyles([await dropdownTogglerStyle(), await dropdownWrapperStyle(), await backgroundWhiteStyle()]);
 
   const icon = await createDateInputIcon();
 
   const inputWithIconWrapper = window._myWebflow.createDOM("div");
-  const style = await fullWidthRelativePositionStyle();
-  inputWithIconWrapper.setStyles([style]);
+  inputWithIconWrapper.setStyles([await fullWidthRelativePositionStyle()]);
   inputWithIconWrapper.setChildren([inputElement, icon]);
 
   const { label, form } = options;

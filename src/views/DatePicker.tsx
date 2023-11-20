@@ -44,13 +44,11 @@ export default function DatePicker() {
   const [lightThemeSelectedDateTextColor, setLightThemeSelectedDateTextColor] = useState("rgb(255, 255, 255)");
   const [darkThemeSelectedDateTextColor, setDarkThemeSelectedDateTextColor] = useState("rgb(255, 255, 255)");
 
-  const [lightThemeSelectedDateBackgroundColor, setLightThemeSelectedDateBackgroundColor] =
-    useState("rgb(107, 130, 255)");
-  const [darkThemeSelectedDateBackgroundColor, setDarkThemeSelectedDateBackgroundColor] =
-    useState("rgb(107, 130, 255)");
+  const [lightThemeSelectedDateBackgroundColor, setLightThemeSelectedDateBackgroundColor] = useState("rgb(0, 0, 0)");
+  const [darkThemeSelectedDateBackgroundColor, setDarkThemeSelectedDateBackgroundColor] = useState("rgb(0, 0, 0)");
 
-  const [lightThemeTodayColor, setLightThemeTodayColor] = useState("rgb(230, 55, 87)");
-  const [darkThemeTodayColor, setDarkThemeTodayColor] = useState("rgb(230, 55, 87)");
+  const [lightThemeTodayColor, setLightThemeTodayColor] = useState("rgb(255, 255, 255)");
+  const [darkThemeTodayColor, setDarkThemeTodayColor] = useState("rgb(255, 255, 255)");
 
   const [datePickerType, setDatePickerType] = useState(datePickerTypes.singlePicker.value);
 
