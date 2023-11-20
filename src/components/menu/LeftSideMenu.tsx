@@ -49,23 +49,22 @@ interface MenuProps extends PropsWithChildren {
 
 export default function LeftSideMenu({selectedMenuId, onClick}: MenuProps) {
     return (
-        <>
-            <div className="p-[0.45rem] py-2">
+      <>
+        {/* <div className="p-[0.45rem] py-2">
                 <input
                     type="text"
                     placeholder="Search"
                     className="input-inner-shadow w-full px-[0.3rem] bg-[#00000015] placeholder:text-[#f5f5f5]  border-[1px] border-[#ffffff24] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none rounded-[0.25rem]"
                 />
-            </div>
+            </div> */}
 
-            {MENU_ITEMS.map((item) =>
-                item.available ? (
-                    <AvailableMenuItem key={item.id} item={item} selected={item.id === selectedMenuId}
-                                       onClick={onClick}/>
-                ) : (
-                    <NotAvailableMenuItem key={item.id} item={item}/>
-                )
-            )}
-        </>
+        {MENU_ITEMS.map((item) =>
+          item.available ? (
+            <AvailableMenuItem key={item.id} item={item} selected={item.id === selectedMenuId} onClick={onClick} />
+          ) : (
+            <NotAvailableMenuItem key={item.id} item={item} />
+          )
+        )}
+      </>
     );
 }
