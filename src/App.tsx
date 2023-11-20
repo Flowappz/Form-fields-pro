@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 import axios from "axios";
 import LeftSideMenu from "./components/menu/LeftSideMenu";
@@ -54,8 +54,9 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
 
 function App() {
   const [selectedelement, setSelectedElement] = useState<AnyElement | null>(null);
-
   const [selectedMenuId, setSelectedMenuId] = useState<MenuId | null>(null);
+
+  const viewSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(function listenToElementSelectonChange() {
     window._myWebflow.subscribe("selectedelement", (element) => setSelectedElement(element));
@@ -92,6 +93,13 @@ function App() {
     pushScriptsToWebflowSite();
   }, []);
 
+  useEffect(
+    function scrollToTop() {
+      viewSectionRef.current?.scrollTo(0, 0);
+    },
+    [selectedMenuId]
+  );
+
   const formElement =
     selectedelement?.type === "FormForm" || selectedelement?.type === "FormWrapper" ? selectedelement : null;
 
@@ -101,11 +109,11 @@ function App() {
       <div className="col-span-4 h-full border-r-[1.25px] border-r-[#363636] overflow-y-auto overscroll-none">
         <LeftSideMenu selectedMenuId={selectedMenuId} onClick={(id) => setSelectedMenuId(id)} />
       </div>
-      <div className="col-span-8 h-screen relative ">
+      <div className="col-span-8 h-screen relative">
         <AppContext.Provider value={{ form: formElement }}>
           <NoFormSelectedState />
           {SelectedView && (
-            <div className="h-full p-2 overflow-y-auto">
+            <div className="h-full p-2 overflow-y-auto" ref={viewSectionRef}>
               <SelectedView />
             </div>
           )}
