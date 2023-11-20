@@ -9,7 +9,7 @@ export default function RemovableTextInput({
   label,
   name = "",
   value,
-  placeholder = "1000$",
+  placeholder = "Option",
   onChange = () => {},
   onRemove,
   error,

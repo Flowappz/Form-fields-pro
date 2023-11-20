@@ -10,7 +10,9 @@ import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
 const inputSchema = z.object({
   dropdownLabel: z.string().min(1, "Please enter a label"),
   inputFieldName: z.string().min(1, "Please enter the input name"),
-  noDataMessage: z.string().min(1, "Please enter the a message for no data found"),
+  noDataMessage: z
+    .string()
+    .min(1, "Please enter the a message for no data found"),
   dropdownItems: z
     .string()
     .min(1, "Please enter option value")
@@ -24,13 +26,19 @@ export default function SearchableSelect() {
   const [dropdownLabel, setDropdownLabel] = useState("");
   const [inputFieldName, setInputFieldName] = useState("");
   const [noDataMessage, setNoDataMessage] = useState("");
-  const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
+  const [dropdownItems, setDropdownItems] = useState<string[]>(
+    new Array(3).fill("")
+  );
 
-  const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] = useState("rgb(0, 0, 0)");
-  const [darkThemeHoverBackgroundColor, setDarkThemeHoverBackgroundColor] = useState("rgb(0, 0, 0)");
+  const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] =
+    useState("rgb(0, 0, 0)");
+  const [darkThemeHoverBackgroundColor, setDarkThemeHoverBackgroundColor] =
+    useState("rgb(0, 0, 0)");
 
-  const [lightThemeHoverTextColor, setLightThemeHoverTextColor] = useState("rgb(255, 255, 255)");
-  const [darkThemeHoverTextColor, setDarkThemeHoverTextColor] = useState("rgb(255, 255, 255)");
+  const [lightThemeHoverTextColor, setLightThemeHoverTextColor] =
+    useState("rgb(255, 255, 255)");
+  const [darkThemeHoverTextColor, setDarkThemeHoverTextColor] =
+    useState("rgb(255, 255, 255)");
 
   const [errors, setErrors] = useState<any>({});
   const { Banner, showBanner } = useElementInsertedBanner();
@@ -99,8 +107,12 @@ export default function SearchableSelect() {
   return (
     <div className="h-full px-20 pt-10">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
-        <h3 className="font-semibold text-[0.82rem]">Searchable Select Input</h3>
-        <p className="text-[0.77rem] font-light text-[#ABABAB]">Customizable select input with customization options</p>
+        <h3 className="font-semibold text-[0.82rem]">
+          Searchable Select Input
+        </h3>
+        <p className="text-[0.77rem] font-light text-[#ABABAB]">
+          Customizable select input with customization options
+        </p>
       </div>
 
       <div className="border-b-[#363636] border-b-[1.25px]">
@@ -150,7 +162,9 @@ export default function SearchableSelect() {
       </div>
 
       <div className="mt-[0.3rem]">
-        <p className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB]">Select Options</p>
+        <p className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB]">
+          Select Options
+        </p>
 
         {dropdownItems.map((item, idx) => (
           <RemovableTextInput
@@ -159,6 +173,7 @@ export default function SearchableSelect() {
             onChange={(val) => handleDropdownItemChange(idx, val)}
             onRemove={() => handleDropdownItemRemove(idx)}
             error={errors[`dropdownItems.${idx}`]}
+            placeholder={"Option" + (idx + 1)}
           />
         ))}
 
@@ -169,7 +184,11 @@ export default function SearchableSelect() {
           >
             Add item
           </button>
-          {errors.dropdownItems && <span className="text-red-400 text-[0.74rem]">{errors.dropdownItems}</span>}
+          {errors.dropdownItems && (
+            <span className="text-red-400 text-[0.74rem]">
+              {errors.dropdownItems}
+            </span>
+          )}
         </div>
 
         <div className="mt-2">
