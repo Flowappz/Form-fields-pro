@@ -7,7 +7,7 @@ export default function NoFormSelectedState() {
     if (form) return null;
 
     return (
-      <div className="w-full bg-[#2e2e2e] h-full flex items-start justify-center absolute top-0 left-0 z-10">
+      <div className="w-full bg-[#2e2e2e] h-full flex items-start justify-center pt-10 absolute top-0 left-0 z-10">
         <div className="w-3/4 bg-red-600 flex flex-col items-center p-[0.75rem] pb-[1.3rem] rounded">
           <PinIcon color="white" />
 
