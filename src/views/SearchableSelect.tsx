@@ -108,7 +108,7 @@ export default function SearchableSelect() {
     <div className="h-full px-20 pt-10">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
         <h3 className="font-semibold text-[0.82rem]">Searchable Select Input</h3>
-        <p className="text-[0.77rem] font-light text-[#ABABAB]">Customizable select input with customization options</p>
+        <p className="text-[0.77rem]  text-[#ABABAB]">Customizable select input with customization options</p>
       </div>
 
       <div className="border-b-[#363636] border-b-[1.25px]">
@@ -158,7 +158,7 @@ export default function SearchableSelect() {
       </div>
 
       <div className="mt-[0.3rem]">
-        <p className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB]">Select Options</p>
+        <p className="text-[0.77rem] box-border inline-block  text-[#ABABAB]">Select Options</p>
 
         {dropdownItems.map((item, idx) => (
           <RemovableTextInput

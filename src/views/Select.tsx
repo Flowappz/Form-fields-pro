@@ -99,12 +99,8 @@ export default function Select() {
   return (
     <div className="h-full px-20 pt-10">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
-        <h3 className="font-semibold text-[#D9D9D9] text-[0.80rem]">
-          Select Input
-        </h3>
-        <p className="text-[0.70rem] font-light text-[#ABABAB]">
-          Custom select input with customization options
-        </p>
+        <h3 className="font-semibold text-[#D9D9D9] text-[0.80rem]">Select Input</h3>
+        <p className="text-[0.70rem]  text-[#ABABAB]">Custom select input with customization options</p>
       </div>
 
       <div className="border-b-[#363636] border-b-[1.25px]">
@@ -147,9 +143,7 @@ export default function Select() {
       </div>
 
       <div className="mt-[0.3rem]">
-        <p className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB]">
-          Select Options
-        </p>
+        <p className="text-[0.77rem] box-border inline-block  text-[#ABABAB]">Select Options</p>
 
         {dropdownItems.map((item, idx) => (
           <RemovableTextInput
@@ -169,11 +163,7 @@ export default function Select() {
           >
             Add item
           </button>
-          {errors.dropdownItems && (
-            <span className="text-red-400 text-[0.74rem]">
-              {errors.dropdownItems}
-            </span>
-          )}
+          {errors.dropdownItems && <span className="text-red-400 text-[0.74rem]">{errors.dropdownItems}</span>}
         </div>
 
         <div className="mt-2">

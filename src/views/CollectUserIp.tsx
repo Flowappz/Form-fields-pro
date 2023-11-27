@@ -56,7 +56,7 @@ export default function CollectUserIp() {
     <div className="h-full px-20 pt-10">
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
         <h3 className="font-semibold text-[0.82rem]">Collect User IP</h3>
-        <p className="text-[0.77rem] font-light text-[#ABABAB]">
+        <p className="text-[0.77rem]  text-[#ABABAB]">
           A hidden input field that will automatically collect the user's IP address and submit it with other form data.
         </p>
       </div>

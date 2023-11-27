@@ -7,7 +7,7 @@ export default function EmptyState() {
         <PinIcon />
 
         <h4 className="text-center font-bold text-[0.82rem] mt-[0.2rem] leading-5">Select a field type</h4>
-        <p className="text-[0.77rem] font-light text-[#ABABAB] text-center">
+        <p className="text-[0.77rem]  text-[#ABABAB] text-center">
           To use a form field, select it and add relevant settings, then press insert
         </p>
       </div>
