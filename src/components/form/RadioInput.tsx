@@ -14,7 +14,7 @@ export interface RadioOption {
 export default function RadioInput({ label, options, selected, onChange }: RadioInputProps) {
   return (
     <div className="pb-2 m-0 flex flex-col gap-3 text-[0.77rem]">
-      <span className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB] m-0 p-0">{label}</span>
+      <span className="text-[0.77rem] box-border inline-block text-[#ABABAB] m-0 p-0">{label}</span>
 
       <div className="flex flex-col gap-3">
         {options.map((option) => (

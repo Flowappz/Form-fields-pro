@@ -19,9 +19,7 @@ export default function TextInput({
 }: TextInputProps) {
   return (
     <div className="pb-2 m-0 flex flex-col gap-1">
-      {label ? (
-        <span className="text-[0.70rem] box-border inline-block font-light text-[#ABABAB] m-0 p-0">{label}</span>
-      ) : null}
+      {label ? <span className="text-[0.70rem] box-border inline-block text-[#ABABAB] m-0 p-0">{label}</span> : null}
       <input
         type={type}
         placeholder={placeholder}

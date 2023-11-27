@@ -9,7 +9,7 @@ export interface SliderInputProps {
 export default function SliderInput({ label, max, min, value, onChange }: SliderInputProps) {
   return (
     <div className="pb-2 m-0 flex flex-col gap-1">
-      <span className="text-[0.77rem] box-border inline-block font-light text-[#ABABAB] m-0 p-0">{label}</span>
+      <span className="text-[0.77rem] box-border inline-block text-[#ABABAB] m-0 p-0">{label}</span>
 
       <div className="w-full flex justify-between items-center text-xs gap-3">
         <input
