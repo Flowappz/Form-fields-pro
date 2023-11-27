@@ -14,7 +14,7 @@ export default function NoFormSelectedState() {
           <h4 className="text-center text-[#D9D9D9] font-bold text-[0.82rem] mt-[0.2rem] leading-5">
             Please select a form first
           </h4>
-          <p className="text-[0.77rem] text-[#cdcccc] font-light text-center">
+          <p className="text-[0.77rem] text-[#cdcccc] text-center">
             To use a form field, you must select a form in the designer console.
           </p>
         </div>
