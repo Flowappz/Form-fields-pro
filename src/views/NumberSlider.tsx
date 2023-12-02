@@ -89,6 +89,9 @@ export default function NumberSlider() {
   const [lightThemeSliderColor, setLightThemeSliderColor] = useState("rgb(0, 0, 0)");
   const [darkThemeSliderColor, setDarkThemeSliderColor] = useState("rgb(0, 0, 0)");
 
+  const [lightThemeMaxMinValueTextColor, setLightThemeMaxMinValueTextColor] = useState("rgb(0, 0, 0)");
+  const [darkThemeMaxMinValueTextColor, setDarkThemeMaxMinValueTextColor] = useState("rgb(0, 0, 0)");
+
   const [lightThemeTooltipTextColor, setLightThemeTooltipTextColor] = useState("rgb(255, 255, 255)");
   const [darkThemeTooltipTextColor, setDarkThemeTooltipTextColor] = useState("rgb(255, 255, 255)");
 
@@ -153,6 +156,8 @@ export default function NumberSlider() {
         defaultValue: Number(defaultValue),
         lightThemeSliderColor,
         darkThemeSliderColor,
+        lightThemeMaxMinValueTextColor,
+        darkThemeMaxMinValueTextColor,
         lightThemeTooltipTextColor,
         darkThemeTooltipTextColor,
       });
@@ -167,6 +172,8 @@ export default function NumberSlider() {
         defaultMin: Number(defaultMinValue),
         lightThemeSliderColor,
         darkThemeSliderColor,
+        lightThemeMaxMinValueTextColor,
+        darkThemeMaxMinValueTextColor,
         lightThemeTooltipTextColor,
         darkThemeTooltipTextColor,
       });
@@ -245,6 +252,17 @@ export default function NumberSlider() {
             />
           </>
         )}
+
+        <ColorInput
+          label="Max, min value text color (Light theme)"
+          value={lightThemeMaxMinValueTextColor}
+          onChange={setLightThemeMaxMinValueTextColor}
+        />
+        <ColorInput
+          label="Max, min value text color (Dark theme)"
+          value={darkThemeMaxMinValueTextColor}
+          onChange={setDarkThemeMaxMinValueTextColor}
+        />
 
         <ColorInput
           label="Tooltip text color (Light theme)"
