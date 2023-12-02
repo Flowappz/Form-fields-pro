@@ -21,6 +21,9 @@ export type DateParams = {
 };
 
 const sliderColorConfigKeys = {
+  lightThemeMaxMinValueTextColor: "data-light-theme-max-min-text-color",
+  darkThemeMaxMinValueTextColor: "data-dark-theme-max-min-text-color",
+
   lightThemeTooltipTextColor: "data-light-theme-tooltip-text-color",
   darkThemeTooltipTextColor: "data-dark-theme-tooltip-text-color",
 
@@ -607,6 +610,15 @@ const attachColorConfigAttributesToDateInput = (inputElement: DOMElement, config
 const attachColorConfigAttributesToSliderInput = (inputElement: DOMElement, config: SliderColorConfig) => {
   inputElement.setAttribute(sliderColorConfigKeys.lightThemeSliderColor, config.lightThemeSliderColor || "");
   inputElement.setAttribute(sliderColorConfigKeys.darkThemeSliderColor, config.darkThemeSliderColor || "");
+
+  inputElement.setAttribute(
+    sliderColorConfigKeys.lightThemeMaxMinValueTextColor,
+    config.lightThemeMaxMinValueTextColor || ""
+  );
+  inputElement.setAttribute(
+    sliderColorConfigKeys.darkThemeMaxMinValueTextColor,
+    config.darkThemeMaxMinValueTextColor || ""
+  );
 
   inputElement.setAttribute(sliderColorConfigKeys.lightThemeTooltipTextColor, config.lightThemeTooltipTextColor || "");
   inputElement.setAttribute(sliderColorConfigKeys.darkThemeTooltipTextColor, config.darkThemeTooltipTextColor || "");
