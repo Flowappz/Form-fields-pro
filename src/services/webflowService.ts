@@ -523,6 +523,42 @@ const createDropdown = async ({
   return dropdownWrapper;
 };
 
+const createSelectInput = async ({
+  label,
+  inputName,
+  items,
+  searchable = false,
+  noItemFoundMessage,
+  ...colorConfig
+}: {
+  label: string;
+  inputName: string;
+  items: string[];
+  searchable?: boolean;
+  noItemFoundMessage?: string;
+} & DropdownColorConfig): Promise<DOMElement> => {
+  const options: DOMElement[] = [];
+  for (let item of items) {
+    const option = window._myWebflow.createDOM("option");
+    option.setAttribute("value", item);
+    option.setTextContent(item);
+
+    options.push(option);
+  }
+
+  const selectElement = window._myWebflow.createDOM("select");
+  attachColorConfigAttributesToDropdownList(selectElement, colorConfig);
+
+  selectElement.setAttribute("name", inputName);
+  selectElement.setAttribute("style", "width: 100% !important;");
+  selectElement.setAttribute("form-fields-type", "select");
+  if (searchable) selectElement.setAttribute("data-searchable", "true");
+
+  selectElement.setChildren(options);
+
+  return selectElement;
+};
+
 const createInputElement = (name: string, type: "text" | "hidden"): DOMElement => {
   const input = window._myWebflow.createDOM("input");
   input.setAttribute("type", type);
@@ -531,12 +567,12 @@ const createInputElement = (name: string, type: "text" | "hidden"): DOMElement =
   return input;
 };
 
-const hiddenDropdownInputElement = (inputName: string): DOMElement => {
-  const input = createInputElement(inputName, "hidden");
-  input.setAttribute("form-field-dropdown-input", "true");
+// const hiddenDropdownInputElement = (inputName: string): DOMElement => {
+//   const input = createInputElement(inputName, "hidden");
+//   input.setAttribute("form-field-dropdown-input", "true");
 
-  return input;
-};
+//   return input;
+// };
 
 const searchableDropdownInputElement = (inputName: string): DOMElement => {
   const input = createInputElement(inputName, "text");
@@ -649,12 +685,17 @@ export const insertDropdownToForm = async ({
   form,
   ...colorConfig
 }: DropdownParams & DropdownColorConfig) => {
-  const dropdownDiv = await createDropdown({ label, inputName, items, ...colorConfig });
-  const input = hiddenDropdownInputElement(inputName);
+  // const dropdownDiv = await createDropdown({ label, inputName, items, ...colorConfig });
+  // const input = hiddenDropdownInputElement(inputName);
+  const selectInput = await createSelectInput({ label, inputName, items, ...colorConfig });
+  const labelElement = await createLabelElement(label);
+  const dropdownWrapper = await createDropdownWrapper();
+
+  dropdownWrapper.setChildren([labelElement, selectInput]);
 
   const wrapperDiv = await formFieldsWrapperDiv();
-  wrapperDiv.setChildren([dropdownDiv, input]);
-  wrapperDiv.setAttribute("form-fields-type", "select");
+  wrapperDiv.setChildren([dropdownWrapper]);
+  // wrapperDiv.setAttribute("form-fields-type", "select");
 
   const existingChilds = form.getChildren();
 
@@ -670,19 +711,15 @@ export const insertSearchableDropdownToForm = async ({
   noItemFoundMessage,
   ...colorConfig
 }: DropdownParams & DropdownColorConfig) => {
-  const dropdownDiv = await createDropdown({
-    label,
-    inputName,
-    items,
-    searchable: true,
-    noItemFoundMessage,
-    ...colorConfig,
-  });
+  const selectInput = await createSelectInput({ label, inputName, items, searchable: true, ...colorConfig });
+  const labelElement = await createLabelElement(label);
+  const dropdownWrapper = await createDropdownWrapper();
+
+  dropdownWrapper.setChildren([labelElement, selectInput]);
 
   const wrapperDiv = await formFieldsWrapperDiv();
-  wrapperDiv.setChildren([dropdownDiv]);
-  wrapperDiv.setAttribute("form-fields-type", "select");
-  wrapperDiv.setAttribute("data-searchable", "true");
+  wrapperDiv.setChildren([dropdownWrapper]);
+  // wrapperDiv.setAttribute("form-fields-type", "select");
 
   const existingChilds = form.getChildren();
 
