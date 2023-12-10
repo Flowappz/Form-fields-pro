@@ -36,13 +36,13 @@ interface IPushScriptApiResponse {
   };
 }
 
-enum SCRIPT_NAMES {
-  DROPDOWN = "dropdown",
-  DATE_PICKER_LIBRARY = "date picker library",
-  DATE_PICKER_SCRIPT = "date picker script",
-  DATE_RANGE_PICKER_SCRIPT = "date range script",
-  USER_IP_SCRIPT = "user ip script",
-}
+// enum SCRIPT_NAMES {
+//   DROPDOWN = "dropdown",
+//   DATE_PICKER_LIBRARY = "date picker library",
+//   DATE_PICKER_SCRIPT = "date picker script",
+//   DATE_RANGE_PICKER_SCRIPT = "date range script",
+//   USER_IP_SCRIPT = "user ip script",
+// }
 
 const VIEWS: { [id in MenuId]?: React.FC } = {
   select: Select,
