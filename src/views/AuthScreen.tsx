@@ -1,5 +1,4 @@
 export default function AuthScreen({ authUrl }: { authUrl: string }) {
-  alert(authUrl);
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center px-28">
       <p>

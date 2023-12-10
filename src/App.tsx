@@ -100,7 +100,9 @@ function App() {
       const {
         data: { authorizeUrl },
       } = await axios.get<{ authorizeUrl: string }>(`${import.meta.env.VITE_DATA_CLIENT_URL}/auth/webflowauthorize`);
-      setAuthorizationUrl(authorizeUrl);
+      const { shortName, siteId } = await window._myWebflow.getSiteInfo();
+      const base64 = btoa(JSON.stringify({ siteId, returnUrl: `https://webflow.com/design/${shortName}` }));
+      setAuthorizationUrl(`${authorizeUrl}&state=${base64}`);
     } catch (err) {
       console.log("Error getting authorization url: ", err);
     }
