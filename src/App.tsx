@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import LeftSideMenu from "./components/menu/LeftSideMenu";
 import { type MenuId } from "./config/menu";
 import EmptyState from "./views/EmptyState";
@@ -14,6 +14,7 @@ import DatePicker from "./views/DatePicker";
 // import DateRangePicker from "./views/DateRangePicker";
 import CollectUserIp from "./views/CollectUserIp";
 import LoadingScreen from "./views/LoadingScreen";
+import AuthScreen from "./views/AuthScreen";
 
 declare global {
   interface Window {
@@ -58,6 +59,8 @@ function App() {
   const [selectedMenuId, setSelectedMenuId] = useState<MenuId | null>(null);
 
   const [checkingScriptInjectStatus, setCheckingScriptInjectStatus] = useState(true);
+  const [needsToAuthenticate, setNeedsToAuthenticate] = useState(false);
+  const [authorizationUrl, setAuthorizationUrl] = useState("");
 
   const viewSectionRef = useRef<HTMLDivElement>(null);
 
@@ -82,13 +85,29 @@ function App() {
       );
 
       console.log("\n\nSuccessfully attached script: ", data, "\n\n");
-      setCheckingScriptInjectStatus(false);
     } catch (err) {
+      if (err instanceof AxiosError && err.response?.status === 400) {
+        setNeedsToAuthenticate(true);
+      }
       console.log("Error pushing script", err);
+    } finally {
+      setCheckingScriptInjectStatus(false);
+    }
+  }, []);
+
+  const getAuthorizationUrl = useCallback(async () => {
+    try {
+      const {
+        data: { authorizeUrl },
+      } = await axios.get<{ authorizeUrl: string }>(`${import.meta.env.VITE_DATA_CLIENT_URL}/auth/webflowauthorize`);
+      setAuthorizationUrl(authorizeUrl);
+    } catch (err) {
+      console.log("Error getting authorization url: ", err);
     }
   }, []);
 
   useEffect(() => {
+    getAuthorizationUrl();
     injectCustomScriptToSite();
   }, []);
 
@@ -105,6 +124,7 @@ function App() {
   const SelectedView = selectedMenuId ? VIEWS[selectedMenuId] : EmptyState;
 
   if (checkingScriptInjectStatus) return <LoadingScreen message="Registering custom code to your site" />;
+  else if (needsToAuthenticate) return <AuthScreen authUrl={authorizationUrl} />;
 
   return (
     <div className="bg-[#1e1e1e] h-screen grid grid-cols-12 text-[#D9D9D9]">
