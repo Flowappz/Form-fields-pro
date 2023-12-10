@@ -141,52 +141,52 @@ const backgroundWhiteStyle = async (): Promise<Style> => {
   return style;
 };
 
-const dropdownListUlStyle = async (): Promise<Style> => {
-  let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_LIST_UL);
-  if (style) return style;
+// const dropdownListUlStyle = async (): Promise<Style> => {
+//   let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_LIST_UL);
+//   if (style) return style;
 
-  style = window._myWebflow.createStyle(styleNames.DROPDOWN_LIST_UL);
-  style.setProperties({
-    "min-width": "100%",
-    "background-color": "inherit",
-    "padding-left": "0px",
-    display: "none",
+//   style = window._myWebflow.createStyle(styleNames.DROPDOWN_LIST_UL);
+//   style.setProperties({
+//     "min-width": "100%",
+//     "background-color": "inherit",
+//     "padding-left": "0px",
+//     display: "none",
 
-    "border-top-color": "#ccc",
-    "border-bottom-color": "#ccc",
-    "border-left-color": "#ccc",
-    "border-right-color": "#ccc",
+//     "border-top-color": "#ccc",
+//     "border-bottom-color": "#ccc",
+//     "border-left-color": "#ccc",
+//     "border-right-color": "#ccc",
 
-    "border-top-style": "solid",
-    "border-bottom-style": "solid",
-    "border-left-style": "solid",
-    "border-right-style": "solid",
+//     "border-top-style": "solid",
+//     "border-bottom-style": "solid",
+//     "border-left-style": "solid",
+//     "border-right-style": "solid",
 
-    "border-top-width": "1px",
-    "border-bottom-width": "1px",
-    "border-left-width": "1px",
-    "border-right-width": "1px",
-  });
+//     "border-top-width": "1px",
+//     "border-bottom-width": "1px",
+//     "border-left-width": "1px",
+//     "border-right-width": "1px",
+//   });
 
-  return style;
-};
+//   return style;
+// };
 
-const dropdownItemStyle = async (): Promise<Style> => {
-  let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_ITEM);
-  if (style) return style;
+// const dropdownItemStyle = async (): Promise<Style> => {
+//   let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_ITEM);
+//   if (style) return style;
 
-  style = window._myWebflow.createStyle(styleNames.DROPDOWN_ITEM);
-  style.setProperties({
-    display: "block",
-    "padding-top": "10px",
-    "padding-bottom": "10px",
-    "padding-left": "20px",
-    "padding-right": "20px",
-    cursor: "pointer",
-  });
+//   style = window._myWebflow.createStyle(styleNames.DROPDOWN_ITEM);
+//   style.setProperties({
+//     display: "block",
+//     "padding-top": "10px",
+//     "padding-bottom": "10px",
+//     "padding-left": "20px",
+//     "padding-right": "20px",
+//     cursor: "pointer",
+//   });
 
-  return style;
-};
+//   return style;
+// };
 
 const dropdownTogglerStyle = async (): Promise<Style> => {
   let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_TOGGLER);
@@ -275,20 +275,20 @@ const userIpInputAlertStyle = async (): Promise<Style> => {
   return style;
 };
 
-const dropdownListStyle = async (): Promise<Style> => {
-  let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_LIST);
-  if (style) return style;
+// const dropdownListStyle = async (): Promise<Style> => {
+//   let style = await window._myWebflow.getStyleByName(styleNames.DROPDOWN_LIST);
+//   if (style) return style;
 
-  style = window._myWebflow.createStyle(styleNames.DROPDOWN_LIST);
-  style.setProperties({
-    "z-index": "999",
-    position: "absolute",
-    width: "100%",
-    "background-color": "inherit",
-  });
+//   style = window._myWebflow.createStyle(styleNames.DROPDOWN_LIST);
+//   style.setProperties({
+//     "z-index": "999",
+//     position: "absolute",
+//     width: "100%",
+//     "background-color": "inherit",
+//   });
 
-  return style;
-};
+//   return style;
+// };
 
 const fullWidthRelativePositionStyle = async (): Promise<Style> => {
   let style = await window._myWebflow.getStyleByName(styleNames.FULL_WIDTH_RELATIVE_POSITION);
@@ -318,23 +318,23 @@ const dropdownWrapperStyle = async (): Promise<Style> => {
   return style;
 };
 
-const dropdownSearchableInputStyle = async (): Promise<Style> => {
-  let style = await window._myWebflow.getStyleByName(styleNames.SEARCHABLE_INPUT);
-  if (style) return style;
+// const dropdownSearchableInputStyle = async (): Promise<Style> => {
+//   let style = await window._myWebflow.getStyleByName(styleNames.SEARCHABLE_INPUT);
+//   if (style) return style;
 
-  style = window._myWebflow.createStyle(styleNames.SEARCHABLE_INPUT);
-  style.setProperties({
-    position: "relative",
-    width: "100%",
-    "outline-style": "none",
-    "border-top-style": "none",
-    "border-bottom-style": "none",
-    "border-left-style": "none",
-    "border-right-style": "none",
-  });
+//   style = window._myWebflow.createStyle(styleNames.SEARCHABLE_INPUT);
+//   style.setProperties({
+//     position: "relative",
+//     width: "100%",
+//     "outline-style": "none",
+//     "border-top-style": "none",
+//     "border-bottom-style": "none",
+//     "border-left-style": "none",
+//     "border-right-style": "none",
+//   });
 
-  return style;
-};
+//   return style;
+// };
 
 const formFieldsWrapperDiv = async (withMargin = true): Promise<DOMElement> => {
   const div = window._myWebflow.createDOM("div");
@@ -359,72 +359,72 @@ const createLabelElement = async (label: string): Promise<DOMElement> => {
   return element;
 };
 
-const createDropdownListItems = async (inputName: string, items: string[]) => {
-  const listItems: DOMElement[] = [];
-  const listItemStyle = await dropdownItemStyle();
+// const createDropdownListItems = async (inputName: string, items: string[]) => {
+//   const listItems: DOMElement[] = [];
+//   const listItemStyle = await dropdownItemStyle();
 
-  for (let item of items) {
-    const el = window._myWebflow.createDOM("li");
-    el.setStyles([listItemStyle]);
+//   for (let item of items) {
+//     const el = window._myWebflow.createDOM("li");
+//     el.setStyles([listItemStyle]);
 
-    el.setTextContent(item);
-    // el.setAttribute("class", "w-dropdown-link");
-    el.setAttribute("form-field-dropdown-item", "true");
-    el.setAttribute("input-field", inputName);
-    el.setAttribute("input-data", item);
+//     el.setTextContent(item);
+//     // el.setAttribute("class", "w-dropdown-link");
+//     el.setAttribute("form-field-dropdown-item", "true");
+//     el.setAttribute("input-field", inputName);
+//     el.setAttribute("input-data", item);
 
-    listItems.push(el);
-  }
+//     listItems.push(el);
+//   }
 
-  return listItems;
-};
+//   return listItems;
+// };
 
-const createDropdownListWrapper = async () => {
-  const div = window._myWebflow.createDOM("div");
-  const listStyle = await dropdownListStyle();
-  div.setStyles([listStyle]);
+// const createDropdownListWrapper = async () => {
+//   const div = window._myWebflow.createDOM("div");
+//   const listStyle = await dropdownListStyle();
+//   div.setStyles([listStyle]);
 
-  return div;
-};
+//   return div;
+// };
 
-const createDropdownList = async (inputName: string, items: string[], colorConfig: DropdownColorConfig) => {
-  const list = window._myWebflow.createDOM("ul");
-  const style = await dropdownListUlStyle();
-  list.setStyles([style]);
+// const createDropdownList = async (inputName: string, items: string[], colorConfig: DropdownColorConfig) => {
+//   const list = window._myWebflow.createDOM("ul");
+//   const style = await dropdownListUlStyle();
+//   list.setStyles([style]);
 
-  // list.setAttribute("class", "w-dropdown-list");
-  list.setAttribute("form-field-dropdown-item-list", "true");
-  list.setAttribute("dropdown-name", inputName);
-  attachColorConfigAttributesToDropdownList(list, colorConfig);
+//   // list.setAttribute("class", "w-dropdown-list");
+//   list.setAttribute("form-field-dropdown-item-list", "true");
+//   list.setAttribute("dropdown-name", inputName);
+//   attachColorConfigAttributesToDropdownList(list, colorConfig);
 
-  const listItems = await createDropdownListItems(inputName, items);
-  list.setChildren(listItems);
+//   const listItems = await createDropdownListItems(inputName, items);
+//   list.setChildren(listItems);
 
-  const listWrapper = await createDropdownListWrapper();
-  listWrapper.setChildren([list]);
+//   const listWrapper = await createDropdownListWrapper();
+//   listWrapper.setChildren([list]);
 
-  return listWrapper;
-};
+//   return listWrapper;
+// };
 
-const createSearchableDropdownNoItemFound = async (inputName: string, message: string) => {
-  const div = window._myWebflow.createDOM("div");
-  const listItemStyle = await dropdownItemStyle();
-  div.setStyles([listItemStyle]);
-  // div.setAttribute("class", "w-dropdown-list");
-  div.setTextContent(message);
+// const createSearchableDropdownNoItemFound = async (inputName: string, message: string) => {
+//   const div = window._myWebflow.createDOM("div");
+//   const listItemStyle = await dropdownItemStyle();
+//   div.setStyles([listItemStyle]);
+//   // div.setAttribute("class", "w-dropdown-list");
+//   div.setTextContent(message);
 
-  const list = window._myWebflow.createDOM("div");
-  const listStyle = await dropdownListUlStyle();
-  list.setStyles([listStyle]);
-  list.setAttribute("form-field-searchable-dropdown-no-item-found", "true");
-  list.setAttribute("dropdown-name", inputName);
-  list.setChildren([div]);
+//   const list = window._myWebflow.createDOM("div");
+//   const listStyle = await dropdownListUlStyle();
+//   list.setStyles([listStyle]);
+//   list.setAttribute("form-field-searchable-dropdown-no-item-found", "true");
+//   list.setAttribute("dropdown-name", inputName);
+//   list.setChildren([div]);
 
-  const outerWrapper = await createDropdownListWrapper();
-  outerWrapper.setChildren([list]);
+//   const outerWrapper = await createDropdownListWrapper();
+//   outerWrapper.setChildren([list]);
 
-  return outerWrapper;
-};
+//   return outerWrapper;
+// };
 
 const createDropdownWrapper = async () => {
   const div = window._myWebflow.createDOM("div");
@@ -434,94 +434,94 @@ const createDropdownWrapper = async () => {
   return div;
 };
 
-const createDropdownSelector = (inputName: string) => {
-  const selectorDiv = window._myWebflow.createDOM("div");
-  selectorDiv.setTextContent("Select an item");
-  selectorDiv.setAttribute("form-field-dropdown-toggler-selected-value", "true");
-  // selectorDiv.setAttribute("form-field-dropdown-toggler", "true");
-  selectorDiv.setAttribute("dropdown-name", inputName);
+// const createDropdownSelector = (inputName: string) => {
+//   const selectorDiv = window._myWebflow.createDOM("div");
+//   selectorDiv.setTextContent("Select an item");
+//   selectorDiv.setAttribute("form-field-dropdown-toggler-selected-value", "true");
+//   // selectorDiv.setAttribute("form-field-dropdown-toggler", "true");
+//   selectorDiv.setAttribute("dropdown-name", inputName);
 
-  return selectorDiv;
-};
+//   return selectorDiv;
+// };
 
-const createSearchableDropdownSelector = async (inputName: string) => {
-  const input = searchableDropdownInputElement(inputName);
-  const inputStyle = await dropdownSearchableInputStyle();
-  input.setStyles([inputStyle]);
+// const createSearchableDropdownSelector = async (inputName: string) => {
+//   const input = searchableDropdownInputElement(inputName);
+//   const inputStyle = await dropdownSearchableInputStyle();
+//   input.setStyles([inputStyle]);
 
-  const selectorDiv = window._myWebflow.createDOM("div");
-  const style = await dropdownWrapperStyle();
-  selectorDiv.setStyles([style]);
+//   const selectorDiv = window._myWebflow.createDOM("div");
+//   const style = await dropdownWrapperStyle();
+//   selectorDiv.setStyles([style]);
 
-  selectorDiv.setAttribute("form-field-dropdown-toggler-selected-value", "true");
-  // selectorDiv.setAttribute("form-field-searchable-dropdown-toggler", "true");
-  selectorDiv.setAttribute("dropdown-name", inputName);
-  selectorDiv.setChildren([input]);
+//   selectorDiv.setAttribute("form-field-dropdown-toggler-selected-value", "true");
+//   // selectorDiv.setAttribute("form-field-searchable-dropdown-toggler", "true");
+//   selectorDiv.setAttribute("dropdown-name", inputName);
+//   selectorDiv.setChildren([input]);
 
-  return selectorDiv;
-};
+//   return selectorDiv;
+// };
 
-const createDropdownSelectorIcon = async () => {
-  const icon = webflowIcons.CHEVRON_DOWN();
-  return icon;
-};
+// const createDropdownSelectorIcon = async () => {
+//   const icon = webflowIcons.CHEVRON_DOWN();
+//   return icon;
+// };
 
-const createDropdownTogglerContent = async (inputName: string, searchable = false) => {
-  const icon = await createDropdownSelectorIcon();
-  const selector = searchable ? await createSearchableDropdownSelector(inputName) : createDropdownSelector(inputName);
+// const createDropdownTogglerContent = async (inputName: string, searchable = false) => {
+//   const icon = await createDropdownSelectorIcon();
+//   const selector = searchable ? await createSearchableDropdownSelector(inputName) : createDropdownSelector(inputName);
 
-  const dropdownTogglerWrapper = window._myWebflow.createDOM("div");
-  const wrapperStyle = await dropdownTogglerStyle();
-  dropdownTogglerWrapper.setStyles([wrapperStyle]);
+//   const dropdownTogglerWrapper = window._myWebflow.createDOM("div");
+//   const wrapperStyle = await dropdownTogglerStyle();
+//   dropdownTogglerWrapper.setStyles([wrapperStyle]);
 
-  // dropdownTogglerWrapper.setAttribute("class", "w-dropdown-toggle");
-  dropdownTogglerWrapper.setAttribute("form-field-dropdown-toggler", "true");
-  dropdownTogglerWrapper.setAttribute("dropdown-name", inputName);
-  if (searchable) dropdownTogglerWrapper.setAttribute("form-field-searchable-dropdown-toggler", "true");
+//   // dropdownTogglerWrapper.setAttribute("class", "w-dropdown-toggle");
+//   dropdownTogglerWrapper.setAttribute("form-field-dropdown-toggler", "true");
+//   dropdownTogglerWrapper.setAttribute("dropdown-name", inputName);
+//   if (searchable) dropdownTogglerWrapper.setAttribute("form-field-searchable-dropdown-toggler", "true");
 
-  dropdownTogglerWrapper.setChildren([selector, icon]);
+//   dropdownTogglerWrapper.setChildren([selector, icon]);
 
-  return dropdownTogglerWrapper;
-};
+//   return dropdownTogglerWrapper;
+// };
 
-const createDropdownToggler = async (label: string, inputName: string, searchable = false) => {
-  const labelElement = await createLabelElement(label);
-  const togglerContent = await createDropdownTogglerContent(inputName, searchable);
+// const createDropdownToggler = async (label: string, inputName: string, searchable = false) => {
+//   const labelElement = await createLabelElement(label);
+//   const togglerContent = await createDropdownTogglerContent(inputName, searchable);
 
-  const div = window._myWebflow.createDOM("div");
-  // div.setAttribute("class", "w-dropdown");
-  div.setChildren([labelElement, togglerContent]);
+//   const div = window._myWebflow.createDOM("div");
+//   // div.setAttribute("class", "w-dropdown");
+//   div.setChildren([labelElement, togglerContent]);
 
-  return div;
-};
+//   return div;
+// };
 
-const createDropdown = async ({
-  label,
-  inputName,
-  items,
-  searchable = false,
-  noItemFoundMessage,
-  ...colorConfig
-}: {
-  label: string;
-  inputName: string;
-  items: string[];
-  searchable?: boolean;
-  noItemFoundMessage?: string;
-} & DropdownColorConfig): Promise<DOMElement> => {
-  const dropdownToggler = await createDropdownToggler(label, inputName, searchable);
-  const dropdownList = await createDropdownList(inputName, items, colorConfig);
+// const createDropdown = async ({
+//   label,
+//   inputName,
+//   items,
+//   searchable = false,
+//   noItemFoundMessage,
+//   ...colorConfig
+// }: {
+//   label: string;
+//   inputName: string;
+//   items: string[];
+//   searchable?: boolean;
+//   noItemFoundMessage?: string;
+// } & DropdownColorConfig): Promise<DOMElement> => {
+//   const dropdownToggler = await createDropdownToggler(label, inputName, searchable);
+//   const dropdownList = await createDropdownList(inputName, items, colorConfig);
 
-  const dropdownWrapper = await createDropdownWrapper();
+//   const dropdownWrapper = await createDropdownWrapper();
 
-  if (!searchable) dropdownWrapper.setChildren([dropdownToggler, dropdownList]);
-  else {
-    const noItemFound = await createSearchableDropdownNoItemFound(inputName, noItemFoundMessage as string);
-    dropdownWrapper.setChildren([dropdownToggler, dropdownList, noItemFound]);
-  }
+//   if (!searchable) dropdownWrapper.setChildren([dropdownToggler, dropdownList]);
+//   else {
+//     const noItemFound = await createSearchableDropdownNoItemFound(inputName, noItemFoundMessage as string);
+//     dropdownWrapper.setChildren([dropdownToggler, dropdownList, noItemFound]);
+//   }
 
-  return dropdownWrapper;
-};
+//   return dropdownWrapper;
+// };
 
 const createSelectInput = async ({
   label,
@@ -574,12 +574,12 @@ const createInputElement = (name: string, type: "text" | "hidden"): DOMElement =
 //   return input;
 // };
 
-const searchableDropdownInputElement = (inputName: string): DOMElement => {
-  const input = createInputElement(inputName, "text");
-  input.setAttribute("form-field-dropdown-input", "true");
+// const searchableDropdownInputElement = (inputName: string): DOMElement => {
+//   const input = createInputElement(inputName, "text");
+//   input.setAttribute("form-field-dropdown-input", "true");
 
-  return input;
-};
+//   return input;
+// };
 
 const createDateInputElement = ({
   inputName,
