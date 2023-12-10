@@ -65,7 +65,7 @@ function App() {
     window._myWebflow.subscribe("selectedelement", (element) => setSelectedElement(element));
   }, []);
 
-  const pushScript = useCallback(async (scriptName: SCRIPT_NAMES) => {
+  const injectCustomScriptToSite = useCallback(async () => {
     try {
       const { siteId } = await window._myWebflow.getSiteInfo();
 
@@ -73,7 +73,6 @@ function App() {
         `${import.meta.env.VITE_DATA_CLIENT_URL}/app/attach-custom-script`,
         {
           siteId,
-          scriptName,
         },
         {
           headers: {
@@ -83,17 +82,14 @@ function App() {
       );
 
       console.log("\n\nSuccessfully attached script: ", data, "\n\n");
+      setCheckingScriptInjectStatus(false);
     } catch (err) {
       console.log("Error pushing script", err);
     }
   }, []);
 
-  const pushScriptsToWebflowSite = useCallback(async () => {
-    await pushScript(SCRIPT_NAMES.DROPDOWN);
-  }, []);
-
   useEffect(() => {
-    pushScriptsToWebflowSite();
+    injectCustomScriptToSite();
   }, []);
 
   useEffect(
@@ -108,7 +104,7 @@ function App() {
 
   const SelectedView = selectedMenuId ? VIEWS[selectedMenuId] : EmptyState;
 
-  if (checkingScriptInjectStatus) return <LoadingScreen message="Checking script inject status..." />;
+  if (checkingScriptInjectStatus) return <LoadingScreen message="Registering custom code to your site" />;
 
   return (
     <div className="bg-[#1e1e1e] h-screen grid grid-cols-12 text-[#D9D9D9]">
