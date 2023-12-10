@@ -13,6 +13,7 @@ import NumberSlider from "./views/NumberSlider";
 import DatePicker from "./views/DatePicker";
 // import DateRangePicker from "./views/DateRangePicker";
 import CollectUserIp from "./views/CollectUserIp";
+import LoadingScreen from "./views/LoadingScreen";
 
 declare global {
   interface Window {
@@ -55,6 +56,8 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
 function App() {
   const [selectedelement, setSelectedElement] = useState<AnyElement | null>(null);
   const [selectedMenuId, setSelectedMenuId] = useState<MenuId | null>(null);
+
+  const [checkingScriptInjectStatus, setCheckingScriptInjectStatus] = useState(true);
 
   const viewSectionRef = useRef<HTMLDivElement>(null);
 
@@ -104,6 +107,9 @@ function App() {
     selectedelement?.type === "FormForm" || selectedelement?.type === "FormWrapper" ? selectedelement : null;
 
   const SelectedView = selectedMenuId ? VIEWS[selectedMenuId] : EmptyState;
+
+  if (checkingScriptInjectStatus) return <LoadingScreen message="Checking script inject status..." />;
+
   return (
     <div className="bg-[#1e1e1e] h-screen grid grid-cols-12 text-[#D9D9D9]">
       <div className="col-span-4 h-full border-r-[1.25px] border-r-[#363636] overflow-y-auto overscroll-none">
