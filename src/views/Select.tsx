@@ -7,6 +7,7 @@ import * as webflowService from "../services/webflowService";
 import ColorInput from "../components/form/ColorInput";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
 import { useFocus } from "../hooks/useFocus";
+import CheckboxInput from "../components/form/CheckboxInput";
 
 const inputSchema = z.object({
   dropdownLabel: z.string().min(1, "Please enter a label"),
@@ -23,7 +24,9 @@ export default function Select() {
 
   const [dropdownLabel, setDropdownLabel] = useState("");
   const [inputFieldName, setInputFieldName] = useState("");
+  const [isSearchable, setIsSearchable] = useState(false);
   const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
+
   const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] = useState("rgb(0, 0, 0)");
   const [darkThemeHoverBackgroundColor, setDarkThemeHoverBackgroundColor] = useState("rgb(0, 0, 0)");
   const [lightThemeHoverTextColor, setLightThemeHoverTextColor] = useState("rgb(255, 255, 255)");
@@ -113,6 +116,13 @@ export default function Select() {
           value={inputFieldName}
           onChange={setInputFieldName}
           error={errors.inputFieldName}
+        />
+
+        <CheckboxInput
+          label="Make it searchable"
+          helpText="Let user search through the options"
+          checked={isSearchable}
+          onChange={setIsSearchable}
         />
 
         <ColorInput
