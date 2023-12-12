@@ -80,7 +80,7 @@ export default function Select() {
 
   const handleDropdownInsert = async () => {
     if (validateDate() && form) {
-      await webflowService.insertDropdownToForm({
+      const data = {
         form,
         label: dropdownLabel,
         inputName: inputFieldName,
@@ -89,7 +89,10 @@ export default function Select() {
         darkThemeHoverTextColor,
         lightThemeHoverBackgroundColor,
         darkThemeHoverBackgroundColor,
-      });
+      };
+
+      if (isSearchable) await webflowService.insertSearchableDropdownToForm(data);
+      else await webflowService.insertDropdownToForm(data);
 
       showBanner();
     }
