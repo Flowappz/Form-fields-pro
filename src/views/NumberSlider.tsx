@@ -205,21 +205,21 @@ export default function NumberSlider() {
         </div>
 
         <TextInput
-          label="Max range"
-          name="maxRange"
-          type="number"
-          value={maxRange}
-          onChange={(val) => setMaxRange(Number(val))}
-          error={errors.maxRange}
-        />
-
-        <TextInput
           label="Min range"
           name="minRange"
           type="number"
           value={minRange}
           onChange={(val) => setMinRange(Number(val))}
           error={errors.minRange}
+        />
+
+        <TextInput
+          label="Max range"
+          name="maxRange"
+          type="number"
+          value={maxRange}
+          onChange={(val) => setMaxRange(Number(val))}
+          error={errors.maxRange}
         />
 
         {sliderType === sliderTypes.singleSlider.value && (
@@ -236,21 +236,21 @@ export default function NumberSlider() {
         {sliderType === sliderTypes.rangeSlider.value && (
           <>
             <TextInput
-              label="Default max value"
-              name="defaultMaxValue"
-              type="number"
-              value={defaultMaxValue}
-              onChange={(val) => setDefaultMaxValue(Number(val))}
-              error={errors.defaultMaxValue}
-            />
-
-            <TextInput
               label="Default min value"
               name="defaultMinValue"
               type="number"
               value={defaultMinValue}
               onChange={(val) => setDefaultMinValue(Number(val))}
               error={errors.defaultMinValue}
+            />
+
+            <TextInput
+              label="Default max value"
+              name="defaultMaxValue"
+              type="number"
+              value={defaultMaxValue}
+              onChange={(val) => setDefaultMaxValue(Number(val))}
+              error={errors.defaultMaxValue}
             />
           </>
         )}
