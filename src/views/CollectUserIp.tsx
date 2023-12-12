@@ -4,6 +4,7 @@ import { ZodError, z } from "zod";
 import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
+import { useFocus } from "../hooks/useFocus";
 
 const inputSchema = z.object({
   inputName: z.string().min(1, "Please enter the input name"),
@@ -15,6 +16,7 @@ export default function CollectUserIp() {
 
   const [errors, setErrors] = useState<any>({});
   const { Banner, showBanner } = useElementInsertedBanner();
+  const { focusRef } = useFocus<HTMLDivElement>();
 
   const validateData = () => {
     try {
@@ -53,7 +55,7 @@ export default function CollectUserIp() {
   };
 
   return (
-    <div className="h-full px-20 pt-10">
+    <div className="h-full px-20 pt-10" ref={focusRef}>
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
         <h3 className="font-semibold text-[0.82rem]">Collect User IP</h3>
         <p className="text-[0.77rem]  text-[#ABABAB]">
