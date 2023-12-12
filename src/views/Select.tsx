@@ -6,6 +6,7 @@ import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
 import ColorInput from "../components/form/ColorInput";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
+import { useFocus } from "../hooks/useFocus";
 
 const inputSchema = z.object({
   dropdownLabel: z.string().min(1, "Please enter a label"),
@@ -22,20 +23,15 @@ export default function Select() {
 
   const [dropdownLabel, setDropdownLabel] = useState("");
   const [inputFieldName, setInputFieldName] = useState("");
-  const [dropdownItems, setDropdownItems] = useState<string[]>(
-    new Array(3).fill("")
-  );
-  const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] =
-    useState("rgb(0, 0, 0)");
-  const [darkThemeHoverBackgroundColor, setDarkThemeHoverBackgroundColor] =
-    useState("rgb(0, 0, 0)");
-  const [lightThemeHoverTextColor, setLightThemeHoverTextColor] =
-    useState("rgb(255, 255, 255)");
-  const [darkThemeHoverTextColor, setDarkThemeHoverTextColor] =
-    useState("rgb(255, 255, 255)");
+  const [dropdownItems, setDropdownItems] = useState<string[]>(new Array(3).fill(""));
+  const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] = useState("rgb(0, 0, 0)");
+  const [darkThemeHoverBackgroundColor, setDarkThemeHoverBackgroundColor] = useState("rgb(0, 0, 0)");
+  const [lightThemeHoverTextColor, setLightThemeHoverTextColor] = useState("rgb(255, 255, 255)");
+  const [darkThemeHoverTextColor, setDarkThemeHoverTextColor] = useState("rgb(255, 255, 255)");
 
   const [errors, setErrors] = useState<any>({});
   const { Banner, showBanner } = useElementInsertedBanner();
+  const { focusRef } = useFocus<HTMLDivElement>();
 
   const handleDropdownItemChange = (idx: number, val: string) => {
     const items = [...dropdownItems];
@@ -97,7 +93,7 @@ export default function Select() {
   };
 
   return (
-    <div className="h-full px-20 pt-10">
+    <div className="h-full px-20 pt-10" tabIndex={0} ref={focusRef}>
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
         <h3 className="font-semibold text-[#D9D9D9] text-[0.80rem]">Select Input</h3>
         <p className="text-[0.70rem]  text-[#ABABAB]">Custom select input with customization options</p>
