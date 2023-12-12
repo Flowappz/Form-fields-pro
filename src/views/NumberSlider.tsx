@@ -6,6 +6,7 @@ import * as webflowService from "../services/webflowService";
 import ColorInput from "../components/form/ColorInput";
 import RadioInput, { RadioOption } from "../components/form/RadioInput";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
+import { useFocus } from "../hooks/useFocus";
 
 const singleSliderInputSchema = ({ max, min }: { max: number; min: number }) =>
   z.object({
@@ -100,6 +101,7 @@ export default function NumberSlider() {
   const [errors, setErrors] = useState<any>({});
 
   const { Banner, showBanner } = useElementInsertedBanner();
+  const { focusRef } = useFocus<HTMLDivElement>();
 
   const validateData = () => {
     try {
@@ -183,7 +185,7 @@ export default function NumberSlider() {
   };
 
   return (
-    <div className="px-20 py-10">
+    <div className="px-20 py-10" ref={focusRef}>
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
         <h3 className="font-semibold text-[0.82rem]">Number picker slider</h3>
         <p className="text-[0.77rem]  text-[#ABABAB]">Number slider that lets user select a value between a range</p>
