@@ -7,7 +7,7 @@ import EmptyState from "./views/EmptyState";
 import { AppContext } from "./contexts/AppContext";
 import NoFormSelectedState from "./views/NoFormSelectedState";
 import Select from "./views/Select";
-import SearchableSelect from "./views/SearchableSelect";
+// import SearchableSelect from "./views/SearchableSelect";
 import NumberSlider from "./views/NumberSlider";
 // import NumberRangePicker from "./views/NumberRangePicker";
 import DatePicker from "./views/DatePicker";
@@ -46,7 +46,7 @@ interface IPushScriptApiResponse {
 
 const VIEWS: { [id in MenuId]?: React.FC } = {
   select: Select,
-  searchable_select: SearchableSelect,
+  // searchable_select: SearchableSelect,
   number_picker_slider: NumberSlider,
   // number_range_picker: NumberRangePicker,
   date_picker: DatePicker,
