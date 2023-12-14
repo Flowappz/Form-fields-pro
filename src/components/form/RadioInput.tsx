@@ -26,7 +26,7 @@ export default function RadioInput({ label, options, selected, onChange }: Radio
                 type="radio"
                 value={option.value}
                 checked={option.value === selected}
-                className="text-[#ABABAB] bg-gray-100 border-gray-300 focus:ring-blue-500"
+                className="text-[#ABABAB] bg-gray-100 border-gray-300 focus:ring-blue-500 focus:outline-none"
                 onChange={(e) => onChange(e.target.value)}
               />
             </div>
