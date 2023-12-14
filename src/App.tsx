@@ -125,7 +125,7 @@ function App() {
 
   const SelectedView = selectedMenuId ? VIEWS[selectedMenuId] : EmptyState;
 
-  if (checkingScriptInjectStatus) return <LoadingScreen message="Registering custom code to your site" />;
+  if (checkingScriptInjectStatus) return <LoadingScreen message="Checking app scripts..." />;
   else if (needsToAuthenticate) return <AuthScreen authUrl={authorizationUrl} />;
 
   return (
