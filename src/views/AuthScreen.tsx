@@ -1,10 +1,7 @@
 export default function AuthScreen({ authUrl }: { authUrl: string }) {
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center px-28">
-      <p>
-        Failed to inject custom code! Perhaps you created this site after installing the app. In order to use the app
-        with this site please authenticate again
-      </p>
+      <p>Looks like you are trying to use the app in a new site. You need to re-grant the permissions.</p>
       <a
         href={authUrl}
         target="_top"
