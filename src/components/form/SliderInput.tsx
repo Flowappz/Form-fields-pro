@@ -18,7 +18,7 @@ export default function SliderInput({ label, max, min, value, onChange }: Slider
           max={max}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="range accent-[#0073E6] flex-1 focus:outline-none"
+          className="range accent-[#0073E6] flex-1 focus:outline-none focus-visible:outline-none"
           step="1"
         />
         <span className="p-1 bg-[#2B2B2B] font-bold">{String(value).padStart(2, "0")}</span>

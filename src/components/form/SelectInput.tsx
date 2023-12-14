@@ -11,7 +11,7 @@ export default function SelectInput({ label, options, selectedValue, onChange }:
       <span className="text-[0.77rem] box-border inline-block text-[#ABABAB] m-0 p-0">{label}</span>
 
       <select
-        className="rounded-sm w-full px-[0.3rem] bg-[#2B2B2B] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none"
+        className="rounded-sm w-full px-[0.3rem] bg-[#2B2B2B] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none focus-visible:outline-none"
         value={selectedValue}
         onChange={(e) => onChange(e.target.value)}
       >

@@ -18,7 +18,7 @@ export default function CheckboxInput({ label, helpText, checked, onChange }: Ch
           value=""
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}
-          className="w-[3.5] h-[3.5] text-[#0073E6] bg-gray-100 border-gray-300 rounded focus:ring-[#0073E6] focus:outline-none"
+          className="w-[3.5] h-[3.5] text-[#0073E6] bg-gray-100 border-gray-300 rounded focus:ring-[#0073E6] focus:outline-none focus-visible:outline-none"
         />
       </div>
       <div className="ms-2 mt-[-0.25rem]">
