@@ -201,14 +201,14 @@ export default function DatePicker() {
         />
         <SelectInput label="Date format" options={DATE_FORMATS} selectedValue={dateFormat} onChange={setDateFormat} />
 
-        <SliderInput
+        {/* <SliderInput
           label="How many months to show by default"
           max={12}
           min={1}
           value={numberOfMonthsToShow}
           onChange={setNumberOfMonthsToShow}
         />
-        <SliderInput label="Number of columns" max={12} min={1} value={columns} onChange={setColumns} />
+        <SliderInput label="Number of columns" max={12} min={1} value={columns} onChange={setColumns} /> */}
 
         <TextInput
           label="Z-index"
@@ -241,7 +241,7 @@ export default function DatePicker() {
           onChange={setDarkThemeSelectedDateBackgroundColor}
         />
 
-        <ColorInput
+        {/* <ColorInput
           label="Today date color (Light theme)"
           value={lightThemeTodayColor}
           onChange={setLightThemeTodayColor}
@@ -250,7 +250,7 @@ export default function DatePicker() {
           label="Today date color (Dark theme)"
           value={darkThemeTodayColor}
           onChange={setDarkThemeTodayColor}
-        />
+        /> */}
       </div>
 
       <div className="mt-[0.3rem]">
