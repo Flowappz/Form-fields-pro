@@ -11,9 +11,16 @@ import RadioInput, { RadioOption } from "../components/form/RadioInput";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
 import { useFocus } from "../hooks/useFocus";
 
-const inputSchema = z.object({
+const singleDateInputSchema = z.object({
   label: z.string().min(1, "Please enter a label"),
   inputName: z.string().min(1, "Please enter the input name"),
+  zIndex: z.number().min(0),
+});
+
+const dateRangeInputSchema = z.object({
+  label: z.string().min(1, "Please enter a label"),
+  startDateInputName: z.string().min(1, "Please enter the start date input name"),
+  endDateInputName: z.string().min(1, "Please enter the end date input name"),
   zIndex: z.number().min(0),
 });
 
@@ -62,11 +69,20 @@ export default function DatePicker() {
 
   const validateData = () => {
     try {
-      inputSchema.parse({
-        label,
-        inputName,
-        zIndex: Number(zIndex),
-      });
+      if (datePickerType === datePickerTypes.singlePicker.value) {
+        singleDateInputSchema.parse({
+          label,
+          inputName,
+          zIndex: Number(zIndex),
+        });
+      } else {
+        dateRangeInputSchema.parse({
+          label,
+          startDateInputName,
+          endDateInputName,
+          zIndex: Number(zIndex),
+        });
+      }
 
       setErrors({});
 
@@ -156,7 +172,7 @@ export default function DatePicker() {
               name="startDate"
               value={startDateInputName}
               onChange={setStartDateInputName}
-              error={errors.inputName}
+              error={errors.startDateInputName}
             />
 
             <TextInput
@@ -164,7 +180,7 @@ export default function DatePicker() {
               name="endDate"
               value={endDateInputName}
               onChange={setEndDateInputName}
-              error={errors.inputName}
+              error={errors.endDateInputName}
             />
           </>
         )}
