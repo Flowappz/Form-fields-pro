@@ -35,6 +35,9 @@ export default function DatePicker() {
 
   const [label, setLabel] = useState("");
   const [inputName, setInputName] = useState("");
+  const [startDateInputName, setStartDateInputName] = useState<string>("");
+  const [endDateInputName, setEndDateInputName] = useState<string>("");
+
   const [firstDayOfWeek, setFirstDayOfWeek] = useState(String(WEEKDAYS[0].value));
   const [language, setLanguage] = useState(DATE_PICKER_LANGUAGES[0].value);
   const [dateFormat, setDateFormat] = useState(DATE_FORMATS[0].value);
@@ -126,7 +129,6 @@ export default function DatePicker() {
 
       <div className="border-b-[#363636] border-b-[1.25px]">
         <TextInput label="Label" value={label} name="label" onChange={setLabel} error={errors.label} />
-        <TextInput label="Field name" name="input" value={inputName} onChange={setInputName} error={errors.inputName} />
 
         <div className="border-y-[1.25px] border-y-[#363636] py-1 my-3">
           <RadioInput
@@ -136,6 +138,37 @@ export default function DatePicker() {
             onChange={setDatePickerType}
           />
         </div>
+
+        {datePickerType === datePickerTypes.singlePicker.value && (
+          <TextInput
+            label="Field name"
+            name="input"
+            value={inputName}
+            onChange={setInputName}
+            error={errors.inputName}
+          />
+        )}
+
+        {datePickerType === datePickerTypes.rangePicker.value && (
+          <>
+            <TextInput
+              label="Start date field name"
+              name="startDate"
+              value={startDateInputName}
+              onChange={setStartDateInputName}
+              error={errors.inputName}
+            />
+
+            <TextInput
+              label="End date field name"
+              name="endDate"
+              value={endDateInputName}
+              onChange={setEndDateInputName}
+              error={errors.inputName}
+            />
+          </>
+        )}
+
         <SelectInput
           label="First day of the week"
           options={WEEKDAYS}
