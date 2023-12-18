@@ -320,6 +320,36 @@ const dropdownWrapperStyle = async (): Promise<Style> => {
   return style;
 };
 
+const dateRangeWrapperStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName("form-fields-date-range-wrapper");
+  if (style) return style;
+
+  style = window._myWebflow.createStyle("form-fields-date-range-wrapper");
+  style.setProperties({
+    display: "flex",
+  });
+
+  return style;
+};
+
+const dateRangeSeparatorStyle = async (): Promise<Style> => {
+  let style = await window._myWebflow.getStyleByName("form-fields-date-range-separator");
+  if (style) return style;
+
+  style = window._myWebflow.createStyle("form-fields-date-range-separator");
+  style.setProperties({
+    display: "flex",
+    "align-items": "center",
+    "justify-content": "center",
+    "padding-left": "5px",
+    "padding-right": "5px",
+    "padding-top": "3px",
+    "padding-bottom": "3px",
+  });
+
+  return style;
+};
+
 // const dropdownSearchableInputStyle = async (): Promise<Style> => {
 //   let style = await window._myWebflow.getStyleByName(styleNames.SEARCHABLE_INPUT);
 //   if (style) return style;
@@ -620,6 +650,21 @@ const createDateInputIcon = async () => {
   return iconDiv;
 };
 
+const createDateInputAndIconInsideWrapper = async (options: DateParams & DateColorConfig) => {
+  const inputElement = createDateInputElement(options);
+  inputElement.setAttribute("form-fields-pro-date-range-picker", "true");
+  attachColorConfigAttributesToDateInput(inputElement, options);
+  inputElement.setStyles([await dropdownTogglerStyle(), await dropdownWrapperStyle(), await backgroundWhiteStyle()]);
+
+  const icon = await createDateInputIcon();
+
+  const inputWithIconWrapper = window._myWebflow.createDOM("div");
+  inputWithIconWrapper.setStyles([await fullWidthRelativePositionStyle()]);
+  inputWithIconWrapper.setChildren([inputElement, icon]);
+
+  return inputWithIconWrapper;
+};
+
 const attachColorConfigAttributesToDateInput = (inputElement: DOMElement, config: DateColorConfig) => {
   inputElement.setAttribute(
     DateColorConfigKeys.lightThemeSelectedDateTextColor,
@@ -809,22 +854,46 @@ export const insertDatePickerToForm = async (options: DateParams & DateColorConf
 };
 
 export const insertDateRangePickerToForm = async (options: DateParams & DateColorConfig) => {
-  const inputElement = createDateInputElement(options);
-  inputElement.setAttribute("form-fields-pro-date-range-picker", "true");
-  attachColorConfigAttributesToDateInput(inputElement, options);
-  inputElement.setStyles([await dropdownTogglerStyle(), await dropdownWrapperStyle(), await backgroundWhiteStyle()]);
+  const startDateInput = await createDateInputAndIconInsideWrapper({
+    ...options,
+    inputName: options.startDateInputName,
+  });
 
-  const icon = await createDateInputIcon();
+  const endDateInput = await createDateInputAndIconInsideWrapper({
+    ...options,
+    inputName: options.endDateInputName,
+  });
 
-  const inputWithIconWrapper = window._myWebflow.createDOM("div");
-  inputWithIconWrapper.setStyles([await fullWidthRelativePositionStyle()]);
-  inputWithIconWrapper.setChildren([inputElement, icon]);
+  const rangeSeparator = window._myWebflow.createDOM("div");
+  rangeSeparator.setStyles([await dateRangeSeparatorStyle()]);
+
+  const separatorText = window._myWebflow.createDOM("p");
+  separatorText.setTextContent("to");
+  rangeSeparator.setChildren([separatorText]);
+
+  const dateRangeWrapperDiv = window._myWebflow.createDOM("div");
+  dateRangeWrapperDiv.setStyles([await dateRangeWrapperStyle()]);
+
+  dateRangeWrapperDiv.setChildren([startDateInput, rangeSeparator, endDateInput]);
+  dateRangeWrapperDiv.setAttribute("form-fields-pro-date-range-picker", "true");
+
+  // const inputElement = createDateInputElement(options);
+  // inputElement.setAttribute("form-fields-pro-date-range-picker", "true");
+  // attachColorConfigAttributesToDateInput(inputElement, options);
+  // inputElement.setStyles([await dropdownTogglerStyle(), await dropdownWrapperStyle(), await backgroundWhiteStyle()]);
+
+  // const icon = await createDateInputIcon();
+
+  // const inputWithIconWrapper = window._myWebflow.createDOM("div");
+  // inputWithIconWrapper.setStyles([await fullWidthRelativePositionStyle()]);
+  // inputWithIconWrapper.setChildren([inputElement, icon]);
 
   const { label, form } = options;
   const labelElement = await createLabelElement(label);
 
   const wrapperDiv = await formFieldsWrapperDiv();
-  wrapperDiv.setChildren([labelElement, inputWithIconWrapper]);
+  wrapperDiv.setChildren([labelElement, dateRangeWrapperDiv]);
+  // wrapperDiv.setChildren([labelElement, inputWithIconWrapper]);
 
   const existingChilds = form.getChildren();
   form.setChildren([...existingChilds, wrapperDiv]);

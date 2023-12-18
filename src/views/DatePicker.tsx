@@ -110,6 +110,8 @@ export default function DatePicker() {
       form,
       label,
       inputName,
+      startDateInputName,
+      endDateInputName,
       firstDayOfWeek,
       language,
       dateFormat,
