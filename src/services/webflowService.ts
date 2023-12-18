@@ -11,7 +11,9 @@ type DropdownParams = {
 export type DateParams = {
   label: string;
   form: FormFormElement | FormWrapperElement;
-  inputName: string;
+  inputName?: string;
+  startDateInputName?: string;
+  endDateInputName?: string;
   zIndex: string;
   dateFormat: string;
   language: string;
@@ -593,7 +595,7 @@ const createDateInputElement = ({
   DateParams,
   "inputName" | "columns" | "dateFormat" | "firstDayOfWeek" | "language" | "numberOfMonthsToShow" | "zIndex"
 >) => {
-  const inputElement = createInputElement(inputName, "text");
+  const inputElement = createInputElement(inputName as string, "text");
 
   inputElement.setAttribute("data-columns", columns);
   inputElement.setAttribute("data-format", dateFormat);
