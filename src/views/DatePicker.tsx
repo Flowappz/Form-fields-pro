@@ -42,8 +42,8 @@ export default function DatePicker() {
 
   const [label, setLabel] = useState("");
   const [inputName, setInputName] = useState("");
-  const [startDateInputName, setStartDateInputName] = useState<string>("");
-  const [endDateInputName, setEndDateInputName] = useState<string>("");
+  // const [startDateInputName, setStartDateInputName] = useState<string>("");
+  // const [endDateInputName, setEndDateInputName] = useState<string>("");
 
   const [firstDayOfWeek, setFirstDayOfWeek] = useState(String(WEEKDAYS[0].value));
   const [language, setLanguage] = useState(DATE_PICKER_LANGUAGES[0].value);
@@ -69,20 +69,26 @@ export default function DatePicker() {
 
   const validateData = () => {
     try {
-      if (datePickerType === datePickerTypes.singlePicker.value) {
-        singleDateInputSchema.parse({
-          label,
-          inputName,
-          zIndex: Number(zIndex),
-        });
-      } else {
-        dateRangeInputSchema.parse({
-          label,
-          startDateInputName,
-          endDateInputName,
-          zIndex: Number(zIndex),
-        });
-      }
+      // if (datePickerType === datePickerTypes.singlePicker.value) {
+      //   singleDateInputSchema.parse({
+      //     label,
+      //     inputName,
+      //     zIndex: Number(zIndex),
+      //   });
+      // } else {
+      //   dateRangeInputSchema.parse({
+      //     label,
+      //     startDateInputName,
+      //     endDateInputName,
+      //     zIndex: Number(zIndex),
+      //   });
+      // }
+
+      singleDateInputSchema.parse({
+        label,
+        inputName,
+        zIndex: Number(zIndex),
+      });
 
       setErrors({});
 
@@ -110,8 +116,6 @@ export default function DatePicker() {
       form,
       label,
       inputName,
-      startDateInputName,
-      endDateInputName,
       firstDayOfWeek,
       language,
       dateFormat,
@@ -157,17 +161,11 @@ export default function DatePicker() {
           />
         </div>
 
-        {datePickerType === datePickerTypes.singlePicker.value && (
-          <TextInput
-            label="Field name"
-            name="input"
-            value={inputName}
-            onChange={setInputName}
-            error={errors.inputName}
-          />
-        )}
+        {/* {datePickerType === datePickerTypes.singlePicker.value && ( */}
+        <TextInput label="Field name" name="input" value={inputName} onChange={setInputName} error={errors.inputName} />
+        {/* )} */}
 
-        {datePickerType === datePickerTypes.rangePicker.value && (
+        {/* {datePickerType === datePickerTypes.rangePicker.value && (
           <>
             <TextInput
               label="Start date field name"
@@ -185,7 +183,7 @@ export default function DatePicker() {
               error={errors.endDateInputName}
             />
           </>
-        )}
+        )} */}
 
         <SelectInput
           label="First day of the week"
