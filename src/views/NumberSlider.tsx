@@ -6,6 +6,7 @@ import * as webflowService from "../services/webflowService";
 import ColorInput from "../components/form/ColorInput";
 import RadioInput, { RadioOption } from "../components/form/RadioInput";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
+import { useFocus } from "../hooks/useFocus";
 
 const singleSliderInputSchema = ({ max, min }: { max: number; min: number }) =>
   z.object({
@@ -100,6 +101,7 @@ export default function NumberSlider() {
   const [errors, setErrors] = useState<any>({});
 
   const { Banner, showBanner } = useElementInsertedBanner();
+  const { focusRef } = useFocus<HTMLDivElement>();
 
   const validateData = () => {
     try {
@@ -183,7 +185,7 @@ export default function NumberSlider() {
   };
 
   return (
-    <div className="px-20 py-10">
+    <div className="px-20 py-10" ref={focusRef} tabIndex={0}>
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
         <h3 className="font-semibold text-[0.82rem]">Number picker slider</h3>
         <p className="text-[0.77rem]  text-[#ABABAB]">Number slider that lets user select a value between a range</p>
@@ -203,21 +205,21 @@ export default function NumberSlider() {
         </div>
 
         <TextInput
-          label="Max range"
-          name="maxRange"
-          type="number"
-          value={maxRange}
-          onChange={(val) => setMaxRange(Number(val))}
-          error={errors.maxRange}
-        />
-
-        <TextInput
           label="Min range"
           name="minRange"
           type="number"
           value={minRange}
           onChange={(val) => setMinRange(Number(val))}
           error={errors.minRange}
+        />
+
+        <TextInput
+          label="Max range"
+          name="maxRange"
+          type="number"
+          value={maxRange}
+          onChange={(val) => setMaxRange(Number(val))}
+          error={errors.maxRange}
         />
 
         {sliderType === sliderTypes.singleSlider.value && (
@@ -234,21 +236,21 @@ export default function NumberSlider() {
         {sliderType === sliderTypes.rangeSlider.value && (
           <>
             <TextInput
-              label="Default max value"
-              name="defaultMaxValue"
-              type="number"
-              value={defaultMaxValue}
-              onChange={(val) => setDefaultMaxValue(Number(val))}
-              error={errors.defaultMaxValue}
-            />
-
-            <TextInput
               label="Default min value"
               name="defaultMinValue"
               type="number"
               value={defaultMinValue}
               onChange={(val) => setDefaultMinValue(Number(val))}
               error={errors.defaultMinValue}
+            />
+
+            <TextInput
+              label="Default max value"
+              name="defaultMaxValue"
+              type="number"
+              value={defaultMaxValue}
+              onChange={(val) => setDefaultMaxValue(Number(val))}
+              error={errors.defaultMaxValue}
             />
           </>
         )}

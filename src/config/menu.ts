@@ -5,12 +5,12 @@ export const MENU_ITEMS = [
     description: "Custom select input",
     available: true,
   },
-  {
-    id: "searchable_select",
-    label: "Searchable select",
-    description: "Select input with search option",
-    available: true,
-  },
+  // {
+  //   id: "searchable_select",
+  //   label: "Searchable select",
+  //   description: "Select input with search option",
+  //   available: true,
+  // },
   {
     id: "date_picker",
     label: "Date picker",

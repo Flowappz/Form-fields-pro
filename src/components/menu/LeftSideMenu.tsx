@@ -25,20 +25,24 @@ const AvailableMenuItem: React.FC<IMenuItemComponentProps> = ({item, selected, o
     const {id, label, description} = item;
 
     return (
-        <div className={`${selected && "bg-[#101010]"}`}>
+      <div className={`${selected && "bg-[#101010]"}`}>
         <div
-            className={`cursor-pointer flex justify-between items-center border-t-[1.25px] border-t-[#363636] py-3 mx-2 ${
-                selected && "bg-[#101010]"
-            }`}
-            onClick={() => onClick(id)}
+          className={`cursor-pointer flex justify-between items-center border-t-[1.25px] border-t-[#363636] py-3 mx-2 ${
+            selected && "bg-[#101010]"
+          }`}
+          onClick={() => onClick(id)}
+          tabIndex={0}
+          onKeyUp={(e) => {
+            if (e.key === " " || e.code === "Space" || e.code === "Enter") onClick(id);
+          }}
         >
-            <div className="leading-[1.15rem]">
-                <h3 className="font-semibold text-[0.80rem] text-[#d9d9d9]">{label}</h3>
-                <p className="text-[0.70rem] font-normal text-[#ABABAB]">{description}</p>
-            </div>
-            <ChevronRightIcon/>
+          <div className="leading-[1.15rem]">
+            <h3 className="font-semibold text-[0.80rem] text-[#d9d9d9]">{label}</h3>
+            <p className="text-[0.70rem] font-normal text-[#ABABAB]">{description}</p>
+          </div>
+          <ChevronRightIcon />
         </div>
-        </div>
+      </div>
     );
 };
 
