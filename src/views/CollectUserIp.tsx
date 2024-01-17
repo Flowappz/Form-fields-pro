@@ -63,6 +63,19 @@ export default function CollectUserIp() {
         </p>
       </div>
 
+      <div className="mb-2 border-b-[1.25px] border-b-[#363636] pb-2">
+        <p className="text-[#ABABAB] text-[0.77rem] italic">
+          <span className="font-bold">Important Notice:</span> This section collects user IP addresses. Please ensure
+          compliance with data protection laws, including GDPR, in your respective region when utilizing this feature.
+          Obtaining explicit consent from individuals whose IP addresses may be collected and processed is crucial. For
+          detailed information on our data handling and user data protection practices, kindly refer to our{" "}
+          <a href="https://flowappz.com/privacy-policy.html" className="underline">
+            Privacy Policy
+          </a>
+          .
+        </p>
+      </div>
+
       <div className="border-b-[#363636] border-b-[1.25px]">
         <TextInput label="Field name" name="input" value={inputName} onChange={setInputName} error={errors.inputName} />
       </div>
