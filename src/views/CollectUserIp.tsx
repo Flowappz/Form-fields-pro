@@ -69,7 +69,7 @@ export default function CollectUserIp() {
           compliance with data protection laws, including GDPR, in your respective region when utilizing this feature.
           Obtaining explicit consent from individuals whose IP addresses may be collected and processed is crucial. For
           detailed information on our data handling and user data protection practices, kindly refer to our{" "}
-          <a href="https://flowappz.com/privacy-policy.html" className="underline">
+          <a href="https://flowappz.com/privacy-policy.html" target="_blank" className="underline">
             Privacy Policy
           </a>
           .
