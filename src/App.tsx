@@ -13,6 +13,7 @@ import NumberSlider from "./views/NumberSlider";
 import DatePicker from "./views/DatePicker";
 // import DateRangePicker from "./views/DateRangePicker";
 import CollectUserIp from "./views/CollectUserIp";
+import PhoneNumberInput from "./views/PhoneNumberInput.tsx";
 
 declare global {
   interface Window {
@@ -46,6 +47,7 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
   select: Select,
   searchable_select: SearchableSelect,
   number_picker_slider: NumberSlider,
+  phone_number_input: PhoneNumberInput,
   // number_range_picker: NumberRangePicker,
   date_picker: DatePicker,
   // date_range_picker: DateRangePicker,
