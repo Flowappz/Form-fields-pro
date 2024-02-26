@@ -35,6 +35,12 @@ export const MENU_ITEMS = [
     description: "Phone number input field with country code",
     available: true,
   },
+  {
+    id: "color_picker_input",
+    label: "Color Picker Input",
+    description: "An stylish color picker input",
+    available: true,
+  },
   // {
   //   id: "number_range_picker",
   //   label: "Number range picker",

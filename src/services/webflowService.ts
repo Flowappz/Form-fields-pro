@@ -28,6 +28,14 @@ export type NumberInputParams = {
 
 }
 
+export type ColorPickerParams = {
+    label: string;
+    form: FormFormElement | FormWrapperElement;
+    inputName: string;
+    defaultColor: string;
+
+}
+
 
 const sliderColorConfigKeys = {
     lightThemeMaxMinValueTextColor: "data-light-theme-max-min-text-color",
@@ -98,7 +106,9 @@ enum styleNames {
     NUMBER_INPUT = "number-input-field",
     NUMBER_INPUT_DROPDOWN = "number-input-dropdown",
     NUMBER_INPUT_SEARCH_FIELD = "number-input-search-field",
-    NUMBER_INPUT_DROPDOWN_LIST='number-input-dropdown-list'
+    NUMBER_INPUT_DROPDOWN_LIST = 'number-input-dropdown-list',
+    COLOR_PICKER_CONTAINER='color-picker-container',
+    COLOR_PICKER_BUTTON = 'color-picker-button'
 }
 
 const positionAbsoluteStyle = async (): Promise<Style> => {
@@ -390,7 +400,7 @@ const numberInputIconWrapperStyle = async (): Promise<Style> => {
     style.setProperties({
         display: "flex",
         "align-items": "center",
-        "column-gap":"5px",
+        "column-gap": "5px",
 
         "cursor": "pointer",
 
@@ -452,7 +462,7 @@ const numberInputDropdownStyle = async (): Promise<Style> => {
         top: "38px",
         width: "100%",
 
-        "z-index":"999",
+        "z-index": "999",
 
         "background-color": "#fff",
 
@@ -472,7 +482,7 @@ const numberInputDropdownStyle = async (): Promise<Style> => {
         "border-left-style": "solid",
         "border-left-width": "1px",
 
-        display:"none"
+        display: "none"
     })
 
     return style
@@ -499,17 +509,17 @@ const numberInputSearchFieldStyle = async (): Promise<Style> => {
 
 }
 
-const numberInputDropdownListStyle = async ():Promise<Style> =>{
+const numberInputDropdownListStyle = async (): Promise<Style> => {
     let style = await window._myWebflow.getStyleByName(styleNames.NUMBER_INPUT_DROPDOWN_LIST)
-    if (style) return  style
+    if (style) return style
 
     style = window._myWebflow.createStyle(styleNames.NUMBER_INPUT_DROPDOWN_LIST)
     style.setProperties({
-        "list-style-type":"none",
-        "max-height":"23rem",
-        "overflow-y":'overlay',
+        "list-style-type": "none",
+        "max-height": "23rem",
+        "overflow-y": 'overlay',
 
-        "padding-left":"0"
+        "padding-left": "0"
     })
 
     return style
@@ -517,6 +527,23 @@ const numberInputDropdownListStyle = async ():Promise<Style> =>{
 
 
 // Number Input Field Style End
+
+// Color Picker Field Style Start
+
+const colorPickerContainerStyle = async (): Promise<Style> => {
+    let style = await window._myWebflow.getStyleByName(styleNames.COLOR_PICKER_CONTAINER);
+    if (style) return style;
+
+    style = window._myWebflow.createStyle(styleNames.COLOR_PICKER_CONTAINER);
+    style.setProperties({
+        width:"fit-content",
+        position:"relative"
+    });
+
+    return style;
+};
+
+// Color Picker Field Style end
 
 
 const formFieldsWrapperDiv = async (withMargin = true): Promise<DOMElement> => {
@@ -1013,7 +1040,7 @@ export const insertNumberInputToForm = async ({form, label, inputName, placehold
     const orderList = window._myWebflow.createDOM("ol")
     orderList.setStyles([await numberInputDropdownListStyle()])
 
-    const searchInput =window._myWebflow.createDOM("input")
+    const searchInput = window._myWebflow.createDOM("input")
     searchInput.setAttribute('placeholder', 'search country code')
     searchInput.setStyles([await dropdownSearchableInputStyle(), await numberInputSearchFieldStyle()])
 
@@ -1033,4 +1060,28 @@ export const insertNumberInputToForm = async ({form, label, inputName, placehold
     const existingChilds = form.getChildren();
     form.setChildren([...existingChilds, wrapperDiv]);
     await form.save();
+}
+
+
+// Color Picker Input
+export const insertColorPickerToForm = async ({label, inputName, form, defaultColor}: ColorPickerParams) => {
+
+    const inputElement = createInputElement(inputName, "text");
+    inputElement.setAttribute('data-field','color-input-field')
+    inputElement.setAttribute('class' , 'color-input')
+    inputElement.setAttribute('value', defaultColor)
+
+    const colorPickerContainer = window._myWebflow.createDOM('div')
+    colorPickerContainer.setStyles([await  colorPickerContainerStyle()])
+    colorPickerContainer.setChildren([inputElement])
+
+    const labelElement = await createLabelElement(label);
+
+    const wrapperDiv = await formFieldsWrapperDiv();
+    wrapperDiv.setChildren([labelElement, colorPickerContainer]);
+
+    const existingChilds = form.getChildren();
+    form.setChildren([...existingChilds, wrapperDiv]);
+    await form.save();
+
 }
