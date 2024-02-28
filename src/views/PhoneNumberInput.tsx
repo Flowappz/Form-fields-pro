@@ -1,6 +1,6 @@
 import TextInput from "../components/form/TextInput.tsx";
 import ColorInput from "../components/form/ColorInput.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {z, ZodError} from "zod";
 import {useAppContext} from "../contexts/AppContext.tsx";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner.tsx";
@@ -61,6 +61,11 @@ export default function PhoneNumberInput() {
         }
     };
 
+
+    // auto generate field name
+    useEffect(() => {
+        setInputFieldName(numberInputLabel.replace(/\s+/g, '-').toLowerCase());
+    }, [numberInputLabel])
 
     const handleNumberInputInsert = async () => {
         if (validateDate() && form) {

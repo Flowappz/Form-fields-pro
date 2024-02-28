@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from "react";
+import {PropsWithChildren, useEffect, useState} from "react";
 import * as webflowService from "../services/webflowService";
 
 export default function CustomDropdown({ form }: PropsWithChildren<{ form: FormFormElement | FormWrapperElement | null }>) {
@@ -11,6 +11,11 @@ export default function CustomDropdown({ form }: PropsWithChildren<{ form: FormF
     setItems([item, ...items]);
     setItem("");
   };
+
+    // auto generate field name
+    useEffect(() => {
+        setFieldName(dropdownLabel.replace(/\s+/g, '-').toLowerCase());
+    }, [dropdownLabel])
 
   const handleInsert = async () => {
     if (form) {

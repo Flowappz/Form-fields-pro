@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import TextInput from "../components/form/TextInput";
 import RemovableTextInput from "../components/form/RemovableTextInput";
 import { ZodError, z } from "zod";
@@ -21,7 +21,7 @@ export default function Select() {
   const { form } = useAppContext();
 
   const [dropdownLabel, setDropdownLabel] = useState("");
-  const [inputFieldName, setInputFieldName] = useState("");
+  const [inputFieldName, setInputFieldName] = useState(dropdownLabel.replace(/\s+/g, '-').toLowerCase());
   const [dropdownItems, setDropdownItems] = useState<string[]>(
     new Array(3).fill("")
   );
@@ -78,6 +78,13 @@ export default function Select() {
       }
     }
   };
+
+
+
+  // auto generate field name
+  useEffect(() => {
+    setInputFieldName(dropdownLabel.replace(/\s+/g, '-').toLowerCase());
+  }, [dropdownLabel])
 
   const handleDropdownInsert = async () => {
     if (validateDate() && form) {

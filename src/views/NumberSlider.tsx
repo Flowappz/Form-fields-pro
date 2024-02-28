@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import TextInput from "../components/form/TextInput";
 import { ZodError, z } from "zod";
 import { useAppContext } from "../contexts/AppContext";
@@ -140,6 +140,11 @@ export default function NumberSlider() {
       }
     }
   };
+
+  // auto generate field name
+  useEffect(() => {
+    setInputName(label.replace(/\s+/g, '-').toLowerCase());
+  }, [label])
 
   const handleInsert = async () => {
     if (!validateData() || !form) {

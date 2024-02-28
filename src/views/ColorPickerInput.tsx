@@ -1,6 +1,6 @@
 import TextInput from "../components/form/TextInput.tsx";
 import ColorInput from "../components/form/ColorInput.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner.tsx";
 import {z, ZodError} from "zod";
 import {useAppContext} from "../contexts/AppContext.tsx";
@@ -60,6 +60,12 @@ export default function ColorPickerInput() {
             }
         }
     };
+
+    // auto generate field name
+    useEffect(() => {
+        setInputFieldName(colorPickerLabel.replace(/\s+/g, '-').toLowerCase());
+    }, [colorPickerLabel])
+
 
     const handleColorPickerInsert =async () => {
         if (validateDate() && form) {
