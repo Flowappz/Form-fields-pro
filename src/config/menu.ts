@@ -29,6 +29,18 @@ export const MENU_ITEMS = [
     description: "Slider to select a value between a range",
     available: true,
   },
+  {
+    id: "phone_number_input",
+    label: "Phone Number Input",
+    description: "Phone number input field with country code",
+    available: true,
+  },
+  {
+    id: "color_picker_input",
+    label: "Color Picker Input",
+    description: "An stylish color picker input",
+    available: true,
+  },
   // {
   //   id: "number_range_picker",
   //   label: "Number range picker",

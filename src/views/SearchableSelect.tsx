@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import TextInput from "../components/form/TextInput";
 import RemovableTextInput from "../components/form/RemovableTextInput";
 import { ZodError, z } from "zod";
@@ -85,6 +85,14 @@ export default function SearchableSelect() {
       }
     }
   };
+
+
+
+  // auto generate field name
+  useEffect(() => {
+    setInputFieldName(dropdownLabel.replace(/\s+/g, '-').toLowerCase());
+  }, [dropdownLabel])
+
 
   const handleDropdownInsert = async () => {
     if (validateDate() && form) {
