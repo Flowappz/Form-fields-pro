@@ -14,7 +14,7 @@ export default function CustomDropdown({ form }: PropsWithChildren<{ form: FormF
 
     // auto generate field name
     useEffect(() => {
-        setFieldName(dropdownLabel.replace(/\s+/g, '-').toLowerCase());
+        setFieldName(dropdownLabel.replace(/[\s,.]+/g, "-").toLowerCase());
     }, [dropdownLabel])
 
   const handleInsert = async () => {

@@ -15,6 +15,7 @@ import DatePicker from "./views/DatePicker";
 import CollectUserIp from "./views/CollectUserIp";
 import PhoneNumberInput from "./views/PhoneNumberInput.tsx";
 import ColorPickerInput from "./views/ColorPickerInput.tsx";
+import FileUploader from "./views/FileUploader.tsx";
 
 declare global {
     interface Window {
@@ -54,6 +55,7 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
     // date_range_picker: DateRangePicker,
     collect_user_ip: CollectUserIp,
     color_picker_input: ColorPickerInput,
+    file_uploader_input:FileUploader
 };
 
 function App() {

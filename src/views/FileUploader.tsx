@@ -2,24 +2,44 @@ import TextInput from "../components/form/TextInput.tsx";
 import ColorInput from "../components/form/ColorInput.tsx";
 import {useEffect, useState} from "react";
 import {z, ZodError} from "zod";
-import {useAppContext} from "../contexts/AppContext.tsx";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner.tsx";
 import * as webflowService from "../services/webflowService.ts";
+import {useAppContext} from "../contexts/AppContext.tsx";
+import SelectInput from "../components/form/SelectInput.tsx";
 
+
+export const BORDER_STYLE: { value: string; content: string }[] = [
+    {
+        content: "Solid",
+        value: "solid",
+    },
+    {
+        content: "Dotted",
+        value: "dotted",
+    },
+    {
+        content: "Dashed",
+        value: "dashed",
+    },
+];
 
 const inputSchema = z.object({
-    numberInputLabel: z.string().min(1, "Please enter a label"),
+    fileInputLabel: z.string().min(1, "Please enter a label"),
     inputFieldName: z.string().min(1, "Please enter the input name"),
 })
 
+export default function FileUploader() {
 
-export default function PhoneNumberInput() {
 
     const {form} = useAppContext();
 
-    const [numberInputLabel, setNumberInputLabel] = useState("");
+    const [fileInputLabel, setFileInputLabel] = useState("");
     const [inputFieldName, setInputFieldName] = useState("");
-    const [inputFieldPlaceholder, setInputFieldPlaceholder] = useState("");
+    const [acceptedFiles ,setAcceptedFiles ] = useState("")
+    const [maxFileSize ,setMaxFileSize ] = useState("")
+    const [maxFiles ,setMaxFiles ] = useState("")
+    const [borderColor , setBorderColor] = useState('rgb(0, 0, 0)')
+    const [borderStyle , setBorderStyle] = useState('solid')
 
     const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] =
         useState("rgb(0, 0, 0)");
@@ -30,15 +50,19 @@ export default function PhoneNumberInput() {
     const [darkThemeHoverTextColor, setDarkThemeHoverTextColor] =
         useState("rgb(255, 255, 255)");
 
-
     const {Banner, showBanner} = useElementInsertedBanner();
     const [errors, setErrors] = useState<any>({});
 
 
+    // auto generate field name
+    useEffect(() => {
+        setInputFieldName(fileInputLabel.replace(/[\s,.]+/g, "-").toLowerCase());
+    }, [fileInputLabel])
+
     const validateDate = () => {
         try {
             inputSchema.parse({
-                numberInputLabel,
+                fileInputLabel,
                 inputFieldName,
             });
 
@@ -61,40 +85,37 @@ export default function PhoneNumberInput() {
         }
     };
 
-
-    // auto generate field name
-    useEffect(() => {
-        setInputFieldName(numberInputLabel.replace(/[\s,.]+/g, "-").toLowerCase());
-    }, [numberInputLabel])
-
-    const handleNumberInputInsert = async () => {
+    const handleFileInputInsert = async () => {
         if (validateDate() && form) {
 
-            await webflowService.insertNumberInputToForm({
+            webflowService.insertFileUploaderToForm({
                 form,
-                label: numberInputLabel,
-                inputName: inputFieldName,
-                placeholderText: inputFieldPlaceholder
-            })
-
+                label:fileInputLabel,
+                inputName:inputFieldName,
+                acceptedFiles,
+                maxFileSize,
+                maxFiles,
+                borderColor,
+                borderStyle,})
             showBanner();
         }
     };
 
-
     return (
         <div className="h-full px-20 pt-10">
             <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
-                <h3 className="font-semibold text-[#D9D9D9] text-[0.80rem]">Phone Number Input</h3>
-                <p className="text-[0.70rem]  text-[#ABABAB]">Phone Number Input With Country Code</p>
+                <h3 className="font-semibold text-[#D9D9D9] text-[0.80rem]">File Upload field</h3>
+                <p className="text-[0.70rem]  text-[#ABABAB]">Custom file upload field with customization options</p>
             </div>
+
+
             <div className="border-b-[#363636] border-b-[1.25px]">
                 <TextInput
                     label="Label"
-                    value={numberInputLabel}
+                    value={fileInputLabel}
                     name="label"
-                    onChange={setNumberInputLabel}
-                    error={errors.numberInputLabel}
+                    onChange={setFileInputLabel}
+                    error={errors.fileInputLabel}
                 />
                 <TextInput
                     label="Field name"
@@ -103,15 +124,36 @@ export default function PhoneNumberInput() {
                     onChange={setInputFieldName}
                     error={errors.inputFieldName}
                 />
-
                 <TextInput
-                    label="Field Placeholder"
+                    label="Accepted files(file extension with comma)"
                     name="input"
-                    value={inputFieldPlaceholder}
-                    onChange={setInputFieldPlaceholder}
-                    error={errors.inputFieldName}
+                    value={acceptedFiles}
+                    onChange={setAcceptedFiles}
+
+                />
+                <TextInput
+                    label="Maximum file size(MB)"
+                    name="input"
+                    value={maxFileSize}
+                    onChange={setMaxFileSize}
+
+                />
+                <TextInput
+                    label="Maximum files"
+                    name="input"
+                    value={maxFiles}
+                    onChange={setMaxFiles}
+
                 />
 
+                <SelectInput label="Border style" options={BORDER_STYLE} selectedValue={borderStyle} onChange={setBorderStyle} />
+
+
+                <ColorInput
+                    label="Border color"
+                    value={borderColor}
+                    onChange={setBorderColor}
+                />
                 <ColorInput
                     label="Hover text color (Light theme)"
                     value={lightThemeHoverTextColor}
@@ -140,13 +182,11 @@ export default function PhoneNumberInput() {
                 <Banner/>
                 <button
                     className="boxShadows-action-colored mb-[60px] w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
-                    onClick={handleNumberInputInsert}
+                    onClick={handleFileInputInsert}
                 >
                     Insert field
                 </button>
             </div>
-
-
         </div>
     )
 }

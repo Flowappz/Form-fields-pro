@@ -83,7 +83,7 @@ export default function Select() {
 
   // auto generate field name
   useEffect(() => {
-    setInputFieldName(dropdownLabel.replace(/\s+/g, '-').toLowerCase());
+    setInputFieldName(dropdownLabel.replace(/[\s,.]+/g, "-").toLowerCase());
   }, [dropdownLabel])
 
   const handleDropdownInsert = async () => {

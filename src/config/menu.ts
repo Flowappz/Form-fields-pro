@@ -41,6 +41,12 @@ export const MENU_ITEMS = [
     description: "An stylish color picker input",
     available: true,
   },
+  {
+    id: "file_uploader_input",
+    label: "File Uploader Field",
+    description: "An stylish file uploader field",
+    available: true,
+  },
   // {
   //   id: "number_range_picker",
   //   label: "Number range picker",

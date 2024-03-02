@@ -63,7 +63,7 @@ export default function ColorPickerInput() {
 
     // auto generate field name
     useEffect(() => {
-        setInputFieldName(colorPickerLabel.replace(/\s+/g, '-').toLowerCase());
+        setInputFieldName(colorPickerLabel.replace(/[\s,.]+/g, "-").toLowerCase());
     }, [colorPickerLabel])
 
 

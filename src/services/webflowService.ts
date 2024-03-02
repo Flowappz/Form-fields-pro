@@ -35,6 +35,22 @@ export type ColorPickerParams = {
     defaultColor: string;
 
 }
+export type FileUploaderParams = {
+    label: string;
+    form: FormFormElement | FormWrapperElement;
+    inputName: string;
+    borderColor: string;
+    borderStyle: string;
+}
+
+const fileUploaderConfigKeys = {
+    acceptedFiles: 'data-accepted-files',
+    maxFileSize: 'data-max-file-size',
+    maxFiles: 'data-max-files',
+
+}
+
+type FileUploaderConfigKeys = { [x in keyof typeof fileUploaderConfigKeys]?: string }
 
 
 const sliderColorConfigKeys = {
@@ -107,8 +123,9 @@ enum styleNames {
     NUMBER_INPUT_DROPDOWN = "number-input-dropdown",
     NUMBER_INPUT_SEARCH_FIELD = "number-input-search-field",
     NUMBER_INPUT_DROPDOWN_LIST = 'number-input-dropdown-list',
-    COLOR_PICKER_CONTAINER='color-picker-container',
-    COLOR_PICKER_BUTTON = 'color-picker-button'
+    COLOR_PICKER_CONTAINER = 'color-picker-container',
+    COLOR_PICKER_BUTTON = 'color-picker-button',
+    DROPZONE = 'dropzone'
 }
 
 const positionAbsoluteStyle = async (): Promise<Style> => {
@@ -536,14 +553,52 @@ const colorPickerContainerStyle = async (): Promise<Style> => {
 
     style = window._myWebflow.createStyle(styleNames.COLOR_PICKER_CONTAINER);
     style.setProperties({
-        width:"fit-content",
-        position:"relative"
+        width: "fit-content",
+        position: "relative"
     });
 
     return style;
 };
 
 // Color Picker Field Style end
+
+// File Uploader Field Style start
+
+const dropzoneStyle = async (borderColor: string, borderStyle: string): Promise<Style> => {
+    let style = await window._myWebflow.getStyleByName(styleNames.DROPZONE);
+    if (style) return style;
+
+    style = window._myWebflow.createStyle(styleNames.DROPZONE);
+    style.setProperties({
+        "min-height": "auto !important",
+
+        "border-top-color": `${borderColor} !important`,
+        "border-top-style": `${borderStyle} !important`,
+        "border-top-width": "1px",
+
+        "border-right-color": `${borderColor} !important`,
+        "border-right-style": `${borderStyle} !important`,
+        "border-right-width": "1px",
+
+        "border-bottom-color": `${borderColor} !important`,
+        "border-bottom-style": `${borderStyle} !important`,
+        "border-bottom-width": "1px",
+
+        "border-left-color": `${borderColor} !important`,
+        "border-left-style": `${borderStyle} !important`,
+        "border-left-width": "1px",
+
+        "padding-top": "20px",
+        "padding-left": "20px",
+        "padding-right": "20px",
+        "padding-bottom": "20px"
+
+    });
+
+    return style;
+}
+
+// File Uploader Field Style end
 
 
 const formFieldsWrapperDiv = async (withMargin = true): Promise<DOMElement> => {
@@ -1067,12 +1122,12 @@ export const insertNumberInputToForm = async ({form, label, inputName, placehold
 export const insertColorPickerToForm = async ({label, inputName, form, defaultColor}: ColorPickerParams) => {
 
     const inputElement = createInputElement(inputName, "text");
-    inputElement.setAttribute('data-field','color-input-field')
-    inputElement.setAttribute('class' , 'color-input')
+    inputElement.setAttribute('data-field', 'color-input-field')
+    inputElement.setAttribute('class', 'color-input')
     inputElement.setAttribute('value', defaultColor)
 
     const colorPickerContainer = window._myWebflow.createDOM('div')
-    colorPickerContainer.setStyles([await  colorPickerContainerStyle()])
+    colorPickerContainer.setStyles([await colorPickerContainerStyle()])
     colorPickerContainer.setChildren([inputElement])
 
     const labelElement = await createLabelElement(label);
@@ -1084,4 +1139,37 @@ export const insertColorPickerToForm = async ({label, inputName, form, defaultCo
     form.setChildren([...existingChilds, wrapperDiv]);
     await form.save();
 
+}
+
+// File Uploader Field
+export const insertFileUploaderToForm = async ({
+                                                   form,
+                                                   label,
+                                                   inputName,
+                                                   borderColor,
+                                                   borderStyle,
+                                                   ...config
+                                               }: FileUploaderParams & FileUploaderConfigKeys) => {
+
+    const inputElement = createInputElement(inputName, "hidden");
+
+    const labelElement = await createLabelElement(label);
+
+    const dropzone = window._myWebflow.createDOM('div')
+    dropzone.setStyles([await dropzoneStyle(borderColor, borderStyle)])
+    dropzone.setAttribute(fileUploaderConfigKeys.acceptedFiles, config.acceptedFiles || '')
+    dropzone.setAttribute(fileUploaderConfigKeys.maxFiles, config.maxFiles || '')
+    dropzone.setAttribute(fileUploaderConfigKeys.maxFileSize, config.maxFileSize || '')
+    dropzone.setAttribute('data-color', borderColor || '')
+    dropzone.setAttribute('id', inputName + Date.now())
+    dropzone.setChildren([inputElement])
+
+    const wrapperDiv = await formFieldsWrapperDiv();
+    wrapperDiv.setChildren([labelElement, dropzone]);
+
+    console.log(borderStyle)
+
+    const existingChilds = form.getChildren();
+    form.setChildren([...existingChilds, wrapperDiv]);
+    await form.save();
 }

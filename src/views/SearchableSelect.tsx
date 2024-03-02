@@ -90,7 +90,7 @@ export default function SearchableSelect() {
 
   // auto generate field name
   useEffect(() => {
-    setInputFieldName(dropdownLabel.replace(/\s+/g, '-').toLowerCase());
+    setInputFieldName(dropdownLabel.replace(/[\s,.]+/g, "-").toLowerCase());
   }, [dropdownLabel])
 
 

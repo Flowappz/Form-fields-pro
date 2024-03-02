@@ -15,7 +15,10 @@ export default function ColorInput({ label, placeholder, name, value, onChange, 
 
   return (
     <div className="pb-2 m-0 flex flex-col gap-1">
-      {label ? <span className="text-[0.77rem] box-border inline-block text-[#ABABAB] m-0 p-0">{label}</span> : null}
+     <div className='flex items-center gap-2'>
+       {label ? <span className="text-[0.77rem] box-border inline-block text-[#ABABAB] m-0 p-0">{label}</span> : null}
+       <div className='w-4 h-4 border border-white rounded-full' style={{backgroundColor:`${value}`}}></div>
+     </div>
       <div className="relative" tabIndex={-1} onFocus={() => setShowPicker(true)} onBlur={() => setShowPicker(false)}>
         <div className="absolute bottom-0 right-[-70px] z-[3]">
           {showPicker && <RgbStringColorPicker color={value} onChange={onChange} />}

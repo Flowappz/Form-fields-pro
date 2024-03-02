@@ -84,7 +84,7 @@ export default function DatePicker() {
 
   // auto generate field name
   useEffect(() => {
-    setInputName(label.replace(/\s+/g, '-').toLowerCase());
+    setInputName(label.replace(/[\s,.]+/g, "-").toLowerCase());
   }, [label])
 
   const handleInsert = async () => {
