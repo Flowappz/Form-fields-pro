@@ -16,6 +16,8 @@ import CollectUserIp from "./views/CollectUserIp";
 import PhoneNumberInput from "./views/PhoneNumberInput.tsx";
 import ColorPickerInput from "./views/ColorPickerInput.tsx";
 import FileUploader from "./views/FileUploader.tsx";
+// import AdvancedEmailField from "./views/AdvancedEmailField.tsx";
+import NetPromoterScore from "./views/NetPromoterScore.tsx";
 
 declare global {
     interface Window {
@@ -55,7 +57,9 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
     // date_range_picker: DateRangePicker,
     collect_user_ip: CollectUserIp,
     color_picker_input: ColorPickerInput,
-    file_uploader_input:FileUploader
+    file_uploader_input:FileUploader,
+    // advanced_email_input:AdvancedEmailField
+    net_promoter_score:NetPromoterScore
 };
 
 function App() {

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import TextInput from "../components/form/TextInput";
 import RemovableTextInput from "../components/form/RemovableTextInput";
 import { ZodError, z } from "zod";
@@ -6,6 +6,9 @@ import { useAppContext } from "../contexts/AppContext";
 import * as webflowService from "../services/webflowService";
 import ColorInput from "../components/form/ColorInput";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
+import {DropdownItem} from "./Select.tsx";
+import {DndContext, DragOverEvent, DragStartEvent} from "@dnd-kit/core";
+import {arrayMove, SortableContext} from "@dnd-kit/sortable";
 
 const inputSchema = z.object({
   dropdownLabel: z.string().min(1, "Please enter a label"),
@@ -26,8 +29,8 @@ export default function SearchableSelect() {
   const [dropdownLabel, setDropdownLabel] = useState("");
   const [inputFieldName, setInputFieldName] = useState("");
   const [noDataMessage, setNoDataMessage] = useState("");
-  const [dropdownItems, setDropdownItems] = useState<string[]>(
-    new Array(3).fill("")
+  const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>(
+      new Array(3).fill("").map((value) => ({ id:`${Date.now()}-form-field-pro-` + Math.random(), value }))
   );
 
   const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] =
@@ -45,7 +48,7 @@ export default function SearchableSelect() {
 
   const handleDropdownItemChange = (idx: number, val: string) => {
     const items = [...dropdownItems];
-    items[idx] = val;
+    items[idx].value = val;
 
     setDropdownItems(items);
   };
@@ -63,7 +66,7 @@ export default function SearchableSelect() {
       inputSchema.parse({
         dropdownLabel,
         inputFieldName,
-        dropdownItems,
+        dropdownItems:dropdownItems.map((i)=>i.value),
         noDataMessage,
       });
 
@@ -100,7 +103,7 @@ export default function SearchableSelect() {
         form,
         label: dropdownLabel,
         inputName: inputFieldName,
-        items: dropdownItems,
+        items: dropdownItems.map((i)=>i.value),
         noItemFoundMessage: noDataMessage,
         lightThemeHoverTextColor,
         darkThemeHoverTextColor,
@@ -111,6 +114,36 @@ export default function SearchableSelect() {
       showBanner();
     }
   };
+
+  // Sub items make sortable
+  const itemId = useMemo(() => dropdownItems.map((item) => item.id), [dropdownItems])
+  const [activeItem , setActiveItem] = useState<DropdownItem | null>(null)
+
+  function onDragStart(event: DragStartEvent) {
+    setActiveItem(event.active.data.current?.item)
+  }
+
+  function onDragEnd (){
+    setActiveItem(null)
+    console.log(activeItem)
+  }
+
+  function onDragOver(event:DragOverEvent){
+
+    const { active, over } = event;
+    if (!over) return;
+
+    const activeId = active.id;
+    const overId = over.id;
+    if (activeId === overId) return;
+
+    setDropdownItems((items)=>{
+      const activeIndex = items.findIndex((t) => t.id === activeId);
+      const overIndex = items.findIndex((t) => t.id === overId);
+
+      return arrayMove(items, activeIndex, overIndex);
+    })
+  }
 
   return (
     <div className="h-full px-20 pt-10">
@@ -164,25 +197,26 @@ export default function SearchableSelect() {
           onChange={setDarkThemeHoverBackgroundColor}
         />
       </div>
-
+<DndContext onDragStart={onDragStart} onDragEnd={onDragEnd} onDragOver={onDragOver}>
       <div className="mt-[0.3rem]">
         <p className="text-[0.77rem] box-border inline-block  text-[#ABABAB]">Select Options</p>
-
+<SortableContext items={itemId}>
         {dropdownItems.map((item, idx) => (
           <RemovableTextInput
+              item={item}
             key={idx}
-            value={item}
+            value={item.value}
             onChange={(val) => handleDropdownItemChange(idx, val)}
             onRemove={() => handleDropdownItemRemove(idx)}
             error={errors[`dropdownItems.${idx}`]}
             placeholder={`Option ${idx + 1}`}
           />
         ))}
-
+</SortableContext>
         <div className="border-b-[1.25px] border-b-[#363636] pb-[0.5rem]">
           <button
             className="action-secondary-background boxShadows-action-secondary w-full bg-[#5E5E5E] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
-            onClick={() => setDropdownItems([...dropdownItems, ""])}
+            onClick={() => setDropdownItems([...dropdownItems, {id:`${Date.now()}`,value:''}])}
           >
             Add item
           </button>
@@ -199,6 +233,7 @@ export default function SearchableSelect() {
           </button>
         </div>
       </div>
+</DndContext>
     </div>
   );
 }

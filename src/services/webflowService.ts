@@ -52,6 +52,27 @@ const fileUploaderConfigKeys = {
 
 type FileUploaderConfigKeys = { [x in keyof typeof fileUploaderConfigKeys]?: string }
 
+export type EmailParams = {
+    form: FormFormElement | FormWrapperElement;
+    emailLabel: string;
+    emailFieldName: string;
+    placeholder: string;
+    emptyErrorMessage: string;
+    invalidErrorMessage: string
+}
+
+export type NetPromoterScoreParams = {
+    form: FormFormElement | FormWrapperElement;
+    label: string
+    description: string
+    scoreFieldName: string,
+    lowScoreLabel: string
+    heightScoreLabel: string
+
+    extraFieldLabel: string
+    extraFieldName: string
+
+}
 
 const sliderColorConfigKeys = {
     lightThemeMaxMinValueTextColor: "data-light-theme-max-min-text-color",
@@ -100,6 +121,22 @@ type NumberSliderParams = {
     form: FormFormElement | FormWrapperElement;
 };
 
+const NetPromoterConfigKeys = {
+    lightThemeHoverTextColor: "data-light-theme-score-text-color",
+    darkThemeHoverTextColor: "data-dark-theme-score-text-color",
+
+    lightThemeHoverBackgroundColor: "data-light-theme-score-background-color",
+    darkThemeHoverBackgroundColor: "data-dark-theme-score-background-color",
+
+    errorMessage: "data-error-message",
+
+    extraFeedbackCollection: "data-extra-feedback-collection"
+
+}
+
+export type NetPromoterConfig = { [x in keyof typeof NetPromoterConfigKeys]?: string }
+
+
 enum styleNames {
     DROPDOWN_LABEL = "dropdown-label",
     DROPDOWN_WRAPPER = "dropdown-wrapper",
@@ -125,7 +162,14 @@ enum styleNames {
     NUMBER_INPUT_DROPDOWN_LIST = 'number-input-dropdown-list',
     COLOR_PICKER_CONTAINER = 'color-picker-container',
     COLOR_PICKER_BUTTON = 'color-picker-button',
-    DROPZONE = 'dropzone'
+    DROPZONE = 'dropzone',
+    EMAIL_ERROR_MESSAGE = "email-error-message",
+    NET_PROMOTER_SMALL_LABEL = "net-promoter-small-label",
+    NET_PROMOTER_LABEL_WRAPPER = "net-promoter-label-wrapper",
+    NET_PROMOTER_EXTRA_FIELD = "net-promoter-extra-field",
+    NET_PROMOTER_SCORE_WRAPPER = "net-promoter-score-wrapper",
+    NET_PROMOTER_SCORE = "net-promoter-score"
+
 }
 
 const positionAbsoluteStyle = async (): Promise<Style> => {
@@ -600,6 +644,154 @@ const dropzoneStyle = async (borderColor: string, borderStyle: string): Promise<
 
 // File Uploader Field Style end
 
+// Email style Start
+
+const emailErrorMessageStyle = async (): Promise<Style> => {
+    let style = await window._myWebflow.getStyleByName(styleNames.EMAIL_ERROR_MESSAGE);
+    if (style) return style;
+
+    style = window._myWebflow.createStyle(styleNames.EMAIL_ERROR_MESSAGE);
+
+    style.setProperties({
+        "font-size": "11px",
+        color: "#FF2626"
+    })
+    return style
+}
+
+
+// Email style End
+
+
+//Net Promoter Score style start
+
+const netPromoterSmallStyle = async (): Promise<Style> => {
+    let style = await window._myWebflow.getStyleByName(styleNames.NET_PROMOTER_SMALL_LABEL);
+    if (style) return style;
+
+    style = window._myWebflow.createStyle(styleNames.NET_PROMOTER_SMALL_LABEL);
+
+    style.setProperties({
+        "font-size": "11px",
+        color: "#676767"
+    })
+    return style
+}
+const netPromoterLabelWrapperStyle = async (): Promise<Style> => {
+    let style = await window._myWebflow.getStyleByName(styleNames.NET_PROMOTER_LABEL_WRAPPER);
+    if (style) return style;
+
+    style = window._myWebflow.createStyle(styleNames.NET_PROMOTER_LABEL_WRAPPER);
+
+    style.setProperties({
+        display: "flex",
+        "align-items": "center",
+        "justify-content": "space-between"
+
+    })
+    return style
+}
+
+const netPromoterExtraInputStyle = async (): Promise<Style> => {
+    let style = await window._myWebflow.getStyleByName(styleNames.NET_PROMOTER_EXTRA_FIELD);
+    if (style) return style;
+
+    style = window._myWebflow.createStyle(styleNames.NET_PROMOTER_EXTRA_FIELD);
+
+    style.setProperties({
+        width: "100%",
+        height: "64px",
+
+        resize: "none",
+
+        "background-color": "transparent",
+
+        "border-top-color": "#ccc",
+        "border-top-style": "solid",
+        "border-top-width": "1px",
+
+        "border-right-color": "#ccc",
+        "border-right-style": "solid",
+        "border-right-width": "1px",
+
+        "border-bottom-color": "#ccc",
+        "border-bottom-style": "solid",
+        "border-bottom-width": "1px",
+
+        "border-left-color": "#ccc",
+        "border-left-style": "solid",
+        "border-left-width": "1px",
+
+    })
+    return style
+}
+
+const netPromoterScoreWrapperStyle = async (): Promise<Style> => {
+    let style = await window._myWebflow.getStyleByName(styleNames.NET_PROMOTER_SCORE_WRAPPER);
+    if (style) return style;
+
+    style = window._myWebflow.createStyle(styleNames.NET_PROMOTER_SCORE_WRAPPER);
+    style.setProperties({
+        display: "flex",
+        "align-items": "center",
+        "flex-wrap": "nowrap",
+
+        width: "100%",
+
+        "border-top-color": "#ccc",
+        "border-top-style": "solid",
+        "border-top-width": "1px",
+
+        "border-right-color": "#ccc",
+        "border-right-style": "solid",
+        "border-right-width": "0px",
+
+        "border-bottom-color": "#ccc",
+        "border-bottom-style": "solid",
+        "border-bottom-width": "1px",
+
+        "border-left-color": "#ccc",
+        "border-left-style": "solid",
+        "border-left-width": "1px",
+    })
+
+    return style
+}
+
+const netPromoterScoreStyle = async (): Promise<Style> => {
+    let style = await window._myWebflow.getStyleByName(styleNames.NET_PROMOTER_SCORE);
+    if (style) return style;
+
+    style = window._myWebflow.createStyle(styleNames.NET_PROMOTER_SCORE);
+    style.setProperties({
+        width: "45px",
+        height: "36px",
+
+        display: "flex",
+        "flex-grow": "1",
+        "align-items": "center",
+        "justify-content": "center",
+
+        "font-size": "16px",
+        "font-weight": "600",
+
+        "border-right-color": "#ccc",
+        "border-right-style": "solid",
+        "border-right-width": "1px",
+
+        cursor: "pointer"
+    })
+
+    style.setProperties({
+        "background-color": "#000000",
+        color: "#ffffff"
+    }, {pseudo: "hover"})
+
+    return style
+}
+
+//Net Promoter Score style End
+
 
 const formFieldsWrapperDiv = async (withMargin = true): Promise<DOMElement> => {
     const div = window._myWebflow.createDOM("div");
@@ -788,7 +980,7 @@ const createDropdown = async ({
     return dropdownWrapper;
 };
 
-const createInputElement = (name: string, type: "text" | "hidden" | "number"): DOMElement => {
+const createInputElement = (name: string, type: "text" | "hidden" | "number" | "email"): DOMElement => {
     const input = window._myWebflow.createDOM("input");
     input.setAttribute("type", type);
     input.setAttribute("name", name);
@@ -1172,4 +1364,152 @@ export const insertFileUploaderToForm = async ({
     const existingChilds = form.getChildren();
     form.setChildren([...existingChilds, wrapperDiv]);
     await form.save();
+}
+
+
+// Email Field
+export const insertEmailToForm = async ({
+                                            emailLabel,
+                                            emailFieldName,
+                                            placeholder,
+                                            invalidErrorMessage,
+                                            emptyErrorMessage,
+                                            form
+                                        }: EmailParams) => {
+
+    const labelElement = await createLabelElement(emailLabel);
+
+    const inputElement = createInputElement(emailFieldName, "email")
+    inputElement.setAttribute('id', 'form-field-pro-email')
+    inputElement.setAttribute('placeholder', placeholder)
+    // inputElement.setAttribute('required', 'true')
+    inputElement.setAttribute('data-email', 'form-field-pro-email')
+    inputElement.setAttribute('data-empty-error-msg', emptyErrorMessage)
+    inputElement.setAttribute('data-invalid-error-msg', invalidErrorMessage)
+    inputElement.setStyles([await dropdownTogglerStyle(), await dropdownWrapperStyle(), await backgroundWhiteStyle()])
+
+    const errorMessage = window._myWebflow.createDOM('span')
+    errorMessage.setAttribute('id', 'email-error-message')
+    errorMessage.setStyles([await emailErrorMessageStyle()])
+
+    const wrapperDiv = await formFieldsWrapperDiv();
+    wrapperDiv.setChildren([labelElement, inputElement, errorMessage]);
+
+    const existingChilds = form.getChildren();
+    form.setChildren([...existingChilds, wrapperDiv]);
+    await form.save();
+
+}
+
+// net promoter score field
+
+const createNetPromoterSmallLabel = async (label: string): Promise<DOMElement> => {
+    const element = window._myWebflow.createDOM("span");
+    element.setTextContent(label);
+
+    const style = await netPromoterSmallStyle()
+
+    element.setStyles([style]);
+
+    return element;
+}
+
+const createNetPromoterListItems = async (): Promise<DOMElement[]> => {
+
+    const listItems: DOMElement[] = []
+
+    const items = Array.from({length: 11}, (_, index) => index.toString());
+
+    const style = await netPromoterScoreStyle()
+
+    for (const item of items) {
+        const el = window._myWebflow.createDOM("span");
+        el.setAttribute('data-name', 'net-promoter-score-value')
+        el.setStyles([style]);
+        el.setTextContent(item);
+
+        listItems.push(el)
+    }
+
+    return listItems
+
+}
+
+const attachConfigAttributesToNetPromoterInput = (element: DOMElement, config: NetPromoterConfig) => {
+
+    element.setAttribute(NetPromoterConfigKeys.lightThemeHoverTextColor, config.lightThemeHoverTextColor || '')
+    element.setAttribute(NetPromoterConfigKeys.lightThemeHoverBackgroundColor, config.lightThemeHoverBackgroundColor || '')
+
+    element.setAttribute(NetPromoterConfigKeys.darkThemeHoverTextColor, config.darkThemeHoverTextColor || '')
+    element.setAttribute(NetPromoterConfigKeys.darkThemeHoverBackgroundColor, config.darkThemeHoverBackgroundColor || '')
+
+    element.setAttribute(NetPromoterConfigKeys.extraFeedbackCollection, config.extraFeedbackCollection || '')
+
+    element.setAttribute(NetPromoterConfigKeys.errorMessage, config.errorMessage || '')
+
+    element.setAttribute('data-field-name', 'net-promoter-score')
+
+}
+
+
+export const insertNetPromoterScoreToForm = async ({
+                                                       lowScoreLabel,
+                                                       label,
+                                                       heightScoreLabel,
+                                                       form,
+                                                       extraFieldLabel,
+                                                       extraFieldName,
+                                                       scoreFieldName,
+                                                       ...config
+                                                   }: NetPromoterScoreParams & NetPromoterConfig) => {
+
+    const labelElement = await createLabelElement(label);
+
+    const inputElement = createInputElement(scoreFieldName, 'hidden')
+    inputElement.setAttribute('data-input', 'net-promoter-score')
+
+    const lowScoreLabelElement = await createNetPromoterSmallLabel(lowScoreLabel)
+    const heighScoreLabelElement = await createNetPromoterSmallLabel(heightScoreLabel)
+
+    const labelWrapper = window._myWebflow.createDOM('div')
+    labelWrapper.setStyles([await netPromoterLabelWrapperStyle()])
+    labelWrapper.setChildren([lowScoreLabelElement, heighScoreLabelElement])
+
+    const errorMessage = window._myWebflow.createDOM('span')
+    errorMessage.setStyles([await emailErrorMessageStyle()])
+
+    const listItems = await createNetPromoterListItems()
+
+    const listItemWrapper = window._myWebflow.createDOM('div')
+    listItemWrapper.setStyles([await netPromoterScoreWrapperStyle()])
+    listItemWrapper.setChildren(listItems)
+
+    const inputWrapper = window._myWebflow.createDOM('div')
+    inputWrapper.setStyles([await formFieldsMarginBottomStyle()])
+    inputWrapper.setChildren([labelWrapper, inputElement, errorMessage, listItemWrapper])
+
+    const extraFieldLabelElement = await createLabelElement(extraFieldLabel);
+
+    const extraField = window._myWebflow.createDOM('textarea')
+    extraField.setAttribute('name', extraFieldName)
+    extraField.setStyles([await netPromoterExtraInputStyle()])
+
+    const extraFieldWrapper = window._myWebflow.createDOM('div')
+    extraFieldWrapper.setAttribute('data-field', 'extra-feedback-collection')
+    extraFieldWrapper.setChildren([extraFieldLabelElement, extraField])
+
+    const wrapperDivRoot = await formFieldsWrapperDiv();
+    attachConfigAttributesToNetPromoterInput(wrapperDivRoot, config)
+
+    if (config.extraFeedbackCollection === 'never') {
+        wrapperDivRoot.setChildren([labelElement, inputWrapper]);
+    } else {
+        wrapperDivRoot.setChildren([labelElement, inputWrapper, extraFieldWrapper]);
+    }
+
+    const existingChilds = form.getChildren();
+    form.setChildren([...existingChilds, wrapperDivRoot]);
+    await form.save();
+
+
 }

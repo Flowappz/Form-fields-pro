@@ -48,6 +48,18 @@ export const MENU_ITEMS = [
     available: true,
   },
   // {
+  //   id: "advanced_email_input",
+  //   label: "Email - Advanced",
+  //   description: "Email field with custom error message",
+  //   available: false,
+  // },
+  {
+    id: "net_promoter_score",
+    label: "Net Promoter Score",
+    description: "Collect feedback from visitors",
+    available: true,
+  },
+  // {
   //   id: "number_range_picker",
   //   label: "Number range picker",
   //   description: "Select between two ranges",
