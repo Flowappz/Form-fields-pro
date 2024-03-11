@@ -59,6 +59,12 @@ export const MENU_ITEMS = [
     description: "Collect feedback from visitors",
     available: true,
   },
+  {
+    id: "url_input",
+    label: "URL",
+    description: "Website url with validation",
+    available: true,
+  },
   // {
   //   id: "number_range_picker",
   //   label: "Number range picker",

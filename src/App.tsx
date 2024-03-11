@@ -18,6 +18,7 @@ import ColorPickerInput from "./views/ColorPickerInput.tsx";
 import FileUploader from "./views/FileUploader.tsx";
 // import AdvancedEmailField from "./views/AdvancedEmailField.tsx";
 import NetPromoterScore from "./views/NetPromoterScore.tsx";
+import Url from "./views/Url/Url.tsx";
 
 declare global {
     interface Window {
@@ -59,7 +60,8 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
     color_picker_input: ColorPickerInput,
     file_uploader_input:FileUploader,
     // advanced_email_input:AdvancedEmailField
-    net_promoter_score:NetPromoterScore
+    net_promoter_score:NetPromoterScore,
+    url_input:Url
 };
 
 function App() {
@@ -123,7 +125,7 @@ function App() {
                 <AppContext.Provider value={{form: formElement}}>
                     <NoFormSelectedState/>
                     {SelectedView && (
-                        <div className="h-full p-2 overflow-y-auto" ref={viewSectionRef}>
+                        <div className="h-full overflow-y-auto" ref={viewSectionRef}>
                             <SelectedView/>
                         </div>
                     )}

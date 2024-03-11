@@ -136,6 +136,18 @@ const NetPromoterConfigKeys = {
 
 export type NetPromoterConfig = { [x in keyof typeof NetPromoterConfigKeys]?: string }
 
+// Url field params
+type UrlFieldParams = {
+    form: FormFormElement | FormWrapperElement;
+    label: string;
+    inputFieldName: string;
+    placeholder: string;
+    required: boolean;
+    autofocus: boolean
+
+
+}
+
 
 enum styleNames {
     DROPDOWN_LABEL = "dropdown-label",
@@ -980,7 +992,7 @@ const createDropdown = async ({
     return dropdownWrapper;
 };
 
-const createInputElement = (name: string, type: "text" | "hidden" | "number" | "email"): DOMElement => {
+const createInputElement = (name: string, type: "text" | "hidden" | "number" | "email" | "url"): DOMElement => {
     const input = window._myWebflow.createDOM("input");
     input.setAttribute("type", type);
     input.setAttribute("name", name);
@@ -1512,4 +1524,42 @@ export const insertNetPromoterScoreToForm = async ({
     await form.save();
 
 
+}
+
+
+// URL Field
+
+export const insertUrlFieldToForm = async ({
+                                               form,
+                                               label,
+                                               inputFieldName,
+                                               autofocus,
+                                               required,
+                                               placeholder
+                                           }: UrlFieldParams) => {
+
+    const labelElement = await createLabelElement(label)
+
+    const inputElement = createInputElement(inputFieldName, "url")
+
+    if (required) {
+        inputElement.setAttribute('required', `${required}`)
+    }
+
+    if (autofocus) {
+        inputElement.setAttribute('autofocus', `${autofocus}`)
+    }
+
+    inputElement.setAttribute('placeholder', placeholder)
+    inputElement.setStyles([await dropdownTogglerStyle(), await dropdownWrapperStyle(), await backgroundWhiteStyle()])
+
+    const errorMessage = window._myWebflow.createDOM('span')
+    errorMessage.setStyles([await emailErrorMessageStyle()])
+
+    const wrapperDiv = await formFieldsWrapperDiv();
+    wrapperDiv.setChildren([labelElement, inputElement, errorMessage])
+
+    const existingChilds = form.getChildren();
+    form.setChildren([...existingChilds, wrapperDiv]);
+    await form.save();
 }
