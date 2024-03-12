@@ -21,7 +21,7 @@ export const General = ({label, placeholder, autofocus, required, inputFieldName
     const [inputAutofocus, setAutofocus] = autofocus
 
     return (
-        <div>
+        <div className="border-b-[#363636] border-b-[1.25px]">
             <TextInput
                 label="Label"
                 value={InputLabel}

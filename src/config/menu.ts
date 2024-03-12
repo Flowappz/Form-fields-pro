@@ -47,12 +47,12 @@ export const MENU_ITEMS = [
     description: "An stylish file uploader field",
     available: true,
   },
-  // {
-  //   id: "advanced_email_input",
-  //   label: "Email - Advanced",
-  //   description: "Email field with custom error message",
-  //   available: false,
-  // },
+  {
+    id: "advanced_email_input",
+    label: "Email - Advanced",
+    description: "Email field with custom error message",
+    available: true,
+  },
   {
     id: "net_promoter_score",
     label: "Net Promoter Score",

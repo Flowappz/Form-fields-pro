@@ -8,6 +8,7 @@ import {z, ZodError} from "zod";
 import * as webflowService from "./../../services/webflowService.ts"
 import {Tabs} from "../../components/Tabs.tsx";
 import {Button} from "../../components/Button.tsx";
+import {TabHeader} from "../../components/TabHeader.tsx";
 
 const inputSchema = z.object({
     label: z.string().min(1, "Please enter a label"),
@@ -93,10 +94,7 @@ export default function Url() {
                 {menuItem: "Conditional logic", render: () => <ConditionalLogic/>},
             ]}>
 
-                <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
-                    <h3 className="font-semibold text-[#D9D9D9] text-[0.80rem]">URL</h3>
-                    <p className="text-[0.70rem]  text-[#ABABAB]">Collect website url with validation</p>
-                </div>
+               <TabHeader title={'URL'} description={'Collect website url with validation'}/>
 
             </Tabs>
 

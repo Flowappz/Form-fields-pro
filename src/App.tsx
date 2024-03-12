@@ -13,12 +13,13 @@ import NumberSlider from "./views/NumberSlider";
 import DatePicker from "./views/DatePicker";
 // import DateRangePicker from "./views/DateRangePicker";
 import CollectUserIp from "./views/CollectUserIp";
-import PhoneNumberInput from "./views/PhoneNumberInput.tsx";
-import ColorPickerInput from "./views/ColorPickerInput.tsx";
-import FileUploader from "./views/FileUploader.tsx";
+import PhoneNumberInput from "./views/PhoneNumberInput/PhoneNumberInput.tsx";
+import ColorPickerInput from "./views/ColorPickerInput/ColorPickerInput.tsx";
+import FileUploader from "./views/FileUploader/FileUploader.tsx";
 // import AdvancedEmailField from "./views/AdvancedEmailField.tsx";
-import NetPromoterScore from "./views/NetPromoterScore.tsx";
+import NetPromoterScore from "./views/NetPromoterScore/NetPromoterScore.tsx";
 import Url from "./views/Url/Url.tsx";
+import AdvancedEmailField from "./views/Email/AdvancedEmailField.tsx";
 
 declare global {
     interface Window {
@@ -59,7 +60,7 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
     collect_user_ip: CollectUserIp,
     color_picker_input: ColorPickerInput,
     file_uploader_input:FileUploader,
-    // advanced_email_input:AdvancedEmailField
+    advanced_email_input:AdvancedEmailField,
     net_promoter_score:NetPromoterScore,
     url_input:Url
 };
