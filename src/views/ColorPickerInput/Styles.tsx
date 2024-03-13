@@ -29,7 +29,7 @@ export const Styles = ({
     const [PickerDefaultColor, setDefaultColor] = defaultColor
 
     return (
-        <div>
+        <div className="border-b-[#363636] border-b-[1.25px]">
             <ColorInput
                 label="Default Color"
                 value={PickerDefaultColor}

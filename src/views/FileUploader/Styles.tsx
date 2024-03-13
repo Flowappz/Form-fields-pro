@@ -44,7 +44,7 @@ export const Styles = ({
 
 
     return (
-        <div>
+        <div className="border-b-[#363636] border-b-[1.25px]">
 
             <SelectInput label="Border style" options={BORDER_STYLE} selectedValue={inputBorderStyle}
                          onChange={setInputBorderStyle}/>

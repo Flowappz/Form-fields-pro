@@ -8,6 +8,9 @@ import ColorInput from "../components/form/ColorInput";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
 import {arrayMove, SortableContext} from "@dnd-kit/sortable";
 import {DndContext, DragOverEvent, DragStartEvent} from "@dnd-kit/core";
+import {Tabs} from "../components/Tabs.tsx";
+import {TabHeader} from "../components/TabHeader.tsx";
+import {Button} from "../components/Button.tsx";
 
 const inputSchema = z.object({
     dropdownLabel: z.string().min(1, "Please enter a label"),
@@ -19,18 +22,19 @@ const inputSchema = z.object({
         .min(1, "Please add at least one option to select from!"),
 });
 
-export type DropdownItem= {
-    id:string;
-    value:string;
+export type DropdownItem = {
+    id: string;
+    value: string;
 }
 
 export default function Select() {
     const {form} = useAppContext();
+    const [isLoading, setIsLoading] = useState(false)
 
     const [dropdownLabel, setDropdownLabel] = useState("");
     const [inputFieldName, setInputFieldName] = useState(dropdownLabel.replace(/\s+/g, '-').toLowerCase());
     const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>(
-        new Array(3).fill("").map((value) => ({ id:`${Date.now()}-form-field-pro-` + Math.random(), value }))
+        new Array(3).fill("").map((value) => ({id: `${Date.now()}-form-field-pro-` + Math.random(), value}))
     );
     const [lightThemeHoverBackgroundColor, setLightThemeHoverBackgroundColor] =
         useState("rgb(0, 0, 0)");
@@ -64,7 +68,7 @@ export default function Select() {
             inputSchema.parse({
                 dropdownLabel,
                 inputFieldName,
-                dropdownItems:dropdownItems.map((i)=>i.value),
+                dropdownItems: dropdownItems.map((i) => i.value),
             });
 
             setErrors({});
@@ -93,136 +97,144 @@ export default function Select() {
 
     const handleDropdownInsert = async () => {
         if (validateDate() && form) {
+            setIsLoading(true)
             await webflowService.insertDropdownToForm({
                 form,
                 label: dropdownLabel,
                 inputName: inputFieldName,
-                items: dropdownItems.map((i)=>i.value),
+                items: dropdownItems.map((i) => i.value),
                 lightThemeHoverTextColor,
                 darkThemeHoverTextColor,
                 lightThemeHoverBackgroundColor,
                 darkThemeHoverBackgroundColor,
             });
-
+            setIsLoading(false)
             showBanner();
         }
     };
 
     // Sub items make sortable
     const itemId = useMemo(() => dropdownItems.map((item) => item.id), [dropdownItems])
-    const [activeItem , setActiveItem] = useState<DropdownItem | null>(null)
+    const [activeItem, setActiveItem] = useState<DropdownItem | null>(null)
 
     function onDragStart(event: DragStartEvent) {
         setActiveItem(event.active.data.current?.item)
     }
 
-    function onDragEnd (){
+    function onDragEnd() {
         setActiveItem(null)
         console.log(activeItem)
     }
 
-    function onDragOver(event:DragOverEvent){
+    function onDragOver(event: DragOverEvent) {
 
-        const { active, over } = event;
+        const {active, over} = event;
         if (!over) return;
 
         const activeId = active.id;
         const overId = over.id;
         if (activeId === overId) return;
 
-        setDropdownItems((items)=>{
+        setDropdownItems((items) => {
             const activeIndex = items.findIndex((t) => t.id === activeId);
             const overIndex = items.findIndex((t) => t.id === overId);
 
-        return arrayMove(items, activeIndex, overIndex);
+            return arrayMove(items, activeIndex, overIndex);
         })
     }
 
     return (
+        <div>
+            <Tabs tabs={[
+                {
+                    menuItem: "General", render: () => <div>
+                        <div className="border-b-[#363636] border-b-[1.25px]">
+                            <TextInput
+                                label="Label"
+                                value={dropdownLabel}
+                                name="label"
+                                onChange={setDropdownLabel}
+                                error={errors.dropdownLabel}
+                            />
+                            <TextInput
+                                label="Field name"
+                                name="input"
+                                value={inputFieldName}
+                                onChange={setInputFieldName}
+                                error={errors.inputFieldName}
+                            />
+                        </div>
 
-        <div className="h-full px-20 pt-10">
-            <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
-                <h3 className="font-semibold text-[#D9D9D9] text-[0.80rem]">Select Input</h3>
-                <p className="text-[0.70rem]  text-[#ABABAB]">Custom select input with customization options</p>
-            </div>
+                        <DndContext onDragStart={onDragStart} onDragEnd={onDragEnd} onDragOver={onDragOver}>
+                            <div className="mt-[0.3rem]">
+                                <p className="text-[0.77rem] box-border inline-block  text-[#ABABAB]">Select Options</p>
+                                <SortableContext items={itemId}>
+                                    {dropdownItems.map((item, idx: number) => (
+                                        <RemovableTextInput
+                                            item={item}
+                                            key={item.id}
+                                            value={item.value}
+                                            onChange={(val) => handleDropdownItemChange(idx, val)}
+                                            onRemove={() => handleDropdownItemRemove(idx)}
+                                            error={errors[`dropdownItems.${idx}`]}
+                                            placeholder={`Option ${idx + 1}`}
+                                        />
+                                    ))}
+                                </SortableContext>
+                                <div className="border-b-[1.25px] border-b-[#363636] pb-[0.5rem]">
+                                    <button
+                                        className="boxShadows-action-secondary action-secondary-background w-full bg-[#5E5E5E] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
+                                        onClick={() => setDropdownItems([...dropdownItems, {
+                                            id: `${Date.now()}`,
+                                            value: ''
+                                        }])}
+                                    >
+                                        Add item
+                                    </button>
+                                    {errors.dropdownItems &&
+                                        <span className="text-red-400 text-[0.74rem]">{errors.dropdownItems}</span>}
+                                </div>
 
-            <div className="border-b-[#363636] border-b-[1.25px]">
-                <TextInput
-                    label="Label"
-                    value={dropdownLabel}
-                    name="label"
-                    onChange={setDropdownLabel}
-                    error={errors.dropdownLabel}
-                />
-                <TextInput
-                    label="Field name"
-                    name="input"
-                    value={inputFieldName}
-                    onChange={setInputFieldName}
-                    error={errors.inputFieldName}
-                />
 
-                <ColorInput
-                    label="Hover text color (Light theme)"
-                    value={lightThemeHoverTextColor}
-                    onChange={setLightThemeHoverTextColor}
-                />
-                <ColorInput
-                    label="Hover text color (Dark theme)"
-                    value={darkThemeHoverTextColor}
-                    onChange={setDarkThemeHoverTextColor}
-                />
+                            </div>
+                        </DndContext>
+                    </div>
+                },
+                {
+                    menuItem: "Styles", render: () => <div className="border-b-[#363636] border-b-[1.25px]">
 
-                <ColorInput
-                    label="Hover background color (Light theme)"
-                    value={lightThemeHoverBackgroundColor}
-                    onChange={setLightThemeHoverBackgroundColor}
-                />
-                <ColorInput
-                    label="Hover background color (Dark theme)"
-                    value={darkThemeHoverBackgroundColor}
-                    onChange={setDarkThemeHoverBackgroundColor}
-                />
-            </div>
-
-            <DndContext onDragStart={onDragStart} onDragEnd={onDragEnd} onDragOver={onDragOver}>
-            <div className="mt-[0.3rem]">
-                <p className="text-[0.77rem] box-border inline-block  text-[#ABABAB]">Select Options</p>
-                <SortableContext items={itemId}>
-                    {dropdownItems.map((item, idx:number) => (
-                        <RemovableTextInput
-                            item={item}
-                            key={item.id}
-                            value={item.value}
-                            onChange={(val) => handleDropdownItemChange(idx, val)}
-                            onRemove={() => handleDropdownItemRemove(idx)}
-                            error={errors[`dropdownItems.${idx}`]}
-                            placeholder={`Option ${idx + 1}`}
+                        <ColorInput
+                            label="Hover text color (Light theme)"
+                            value={lightThemeHoverTextColor}
+                            onChange={setLightThemeHoverTextColor}
                         />
-                    ))}
-                </SortableContext>
-                <div className="border-b-[1.25px] border-b-[#363636] pb-[0.5rem]">
-                    <button
-                        className="boxShadows-action-secondary action-secondary-background w-full bg-[#5E5E5E] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
-                        onClick={() => setDropdownItems([...dropdownItems, {id:`${Date.now()}`,value:''}])}
-                    >
-                        Add item
-                    </button>
-                    {errors.dropdownItems &&
-                        <span className="text-red-400 text-[0.74rem]">{errors.dropdownItems}</span>}
-                </div>
+                        <ColorInput
+                            label="Hover text color (Dark theme)"
+                            value={darkThemeHoverTextColor}
+                            onChange={setDarkThemeHoverTextColor}
+                        />
 
-                <div className="mt-2">
-                    <Banner/>
-                    <button
-                        className="boxShadows-action-colored mb-[60px] w-full bg-[#0073E6] text-center text-[0.77rem] py-1 border-[#363636] border-[1px] rounded-[4px]"
-                        onClick={handleDropdownInsert}
-                    >
-                        Insert field
-                    </button>
-                </div>
+                        <ColorInput
+                            label="Hover background color (Light theme)"
+                            value={lightThemeHoverBackgroundColor}
+                            onChange={setLightThemeHoverBackgroundColor}
+                        />
+                        <ColorInput
+                            label="Hover background color (Dark theme)"
+                            value={darkThemeHoverBackgroundColor}
+                            onChange={setDarkThemeHoverBackgroundColor}
+                        />
+                    </div>
+                },
+                {menuItem: "Conditional logic", render: () => <p>Conditional logic</p>},
+            ]}>
+                <TabHeader title={'Select Input'} description={'Custom select input with customization options'}/>
+            </Tabs>
+
+            <div className="mt-2 px-[18px]">
+                <Banner/>
+                <Button func={handleDropdownInsert} isLoading={isLoading}/>
             </div>
-        </DndContext>
         </div>
 
     );
