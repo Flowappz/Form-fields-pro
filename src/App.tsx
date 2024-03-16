@@ -20,6 +20,7 @@ import FileUploader from "./views/FileUploader/FileUploader.tsx";
 import NetPromoterScore from "./views/NetPromoterScore/NetPromoterScore.tsx";
 import Url from "./views/Url/Url.tsx";
 import AdvancedEmailField from "./views/Email/AdvancedEmailField.tsx";
+import {LikertScale} from "./views/LikertScale/LikertScale.tsx";
 
 declare global {
     interface Window {
@@ -62,7 +63,8 @@ const VIEWS: { [id in MenuId]?: React.FC } = {
     file_uploader_input:FileUploader,
     advanced_email_input:AdvancedEmailField,
     net_promoter_score:NetPromoterScore,
-    url_input:Url
+    url_input:Url,
+    likert_scale_field:LikertScale
 };
 
 function App() {

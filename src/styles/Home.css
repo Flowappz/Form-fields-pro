@@ -1,6 +1,11 @@
 
 .home-container {
-  display: flex;
-  min-width: 100%;
-  min-height: 100vh;
+    display: flex;
+    min-width: 100%;
+    min-height: 100vh;
+}
+
+input[data-input='switch']:checked ~ div[data-switch='dot'] {
+    transform: translateX(100%);
+    background-color: #48bb78;
 }

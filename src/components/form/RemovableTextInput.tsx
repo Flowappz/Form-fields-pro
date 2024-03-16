@@ -8,6 +8,7 @@ import {DropdownItem} from "../../views/Select.tsx";
 interface RemovableTextInputProps extends TextInputProps {
     item:DropdownItem
     onRemove: () => void;
+    itemType?:string
 }
 
 export default function RemovableTextInput({
@@ -20,11 +21,13 @@ export default function RemovableTextInput({
                                                },
                                                onRemove,
                                                error,
+    itemType=''
                                            }: RemovableTextInputProps) {
 
     const {attributes, setNodeRef, listeners, transform, transition} = useSortable({
         id: item.id,
         data: {
+            type:itemType,
             item
         }
     })

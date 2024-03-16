@@ -65,6 +65,12 @@ export const MENU_ITEMS = [
     description: "Website url with validation",
     available: true,
   },
+  {
+    id: "likert_scale_field",
+    label: "Likert Scale Field",
+    description: "Let your users choose from a scale of options",
+    available: true,
+  },
   // {
   //   id: "number_range_picker",
   //   label: "Number range picker",

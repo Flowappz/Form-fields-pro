@@ -7,7 +7,7 @@ import * as webflowService from "../services/webflowService";
 import ColorInput from "../components/form/ColorInput";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
 import {arrayMove, SortableContext} from "@dnd-kit/sortable";
-import {DndContext, DragOverEvent, DragStartEvent} from "@dnd-kit/core";
+import {DndContext, DragOverEvent} from "@dnd-kit/core";
 import {Tabs} from "../components/Tabs.tsx";
 import {TabHeader} from "../components/TabHeader.tsx";
 import {Button} from "../components/Button.tsx";
@@ -115,16 +115,6 @@ export default function Select() {
 
     // Sub items make sortable
     const itemId = useMemo(() => dropdownItems.map((item) => item.id), [dropdownItems])
-    const [activeItem, setActiveItem] = useState<DropdownItem | null>(null)
-
-    function onDragStart(event: DragStartEvent) {
-        setActiveItem(event.active.data.current?.item)
-    }
-
-    function onDragEnd() {
-        setActiveItem(null)
-        console.log(activeItem)
-    }
 
     function onDragOver(event: DragOverEvent) {
 
@@ -165,7 +155,7 @@ export default function Select() {
                             />
                         </div>
 
-                        <DndContext onDragStart={onDragStart} onDragEnd={onDragEnd} onDragOver={onDragOver}>
+                        <DndContext onDragOver={onDragOver}>
                             <div className="mt-[0.3rem]">
                                 <p className="text-[0.77rem] box-border inline-block  text-[#ABABAB]">Select Options</p>
                                 <SortableContext items={itemId}>
