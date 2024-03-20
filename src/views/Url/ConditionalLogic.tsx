@@ -1,9 +1,79 @@
 import TextInput from "../../components/form/TextInput.tsx";
+import {useState} from "react";
 
+type FieldInfo = {
+    label: string
+    inputName: string
+}
 export const ConditionalLogic = () => {
 
+    const [selectedElement, setSelectedElement] = useState<AnyElement | null>(null)
 
 
+    const handleSelectedElement = async () => {
+        const element = await window._myWebflow.getSelectedElement()
+        setSelectedElement(element)
+
+    }
+
+    handleSelectedElement().then()
+
+    const inputs: FieldInfo[] = []
+
+    const inputWrappers: DOMElement[] = []
+
+    if (selectedElement?.type === 'FormForm' || selectedElement?.type === 'FormWrapper') {
+
+        if (selectedElement?.children) {
+
+            const children = selectedElement.getChildren()
+
+            const getAllInputWrappers = (children: AnyElement[]) => {
+                children.forEach(async (child) => {
+
+                    if (child.type === "DOM") {
+
+                        const styles = await child.getStyles()
+
+                        if (styles.find((s) => s.getName() === 'form-fields-wrapper')) {
+                            inputWrappers.push(child)
+                            const children = child.getChildren()
+                            const getInputAndLabel = (children: AnyElement[]) => {
+                                children.forEach(async (el) => {
+
+                                    if (el.type === "DOM" && el.getTag() === 'input') {
+
+                                        inputs.push({
+                                            inputName: el.getAttribute('name') ?? '',
+                                            label: '' ?? ''
+                                        })
+
+                                    }
+
+                                    if (el.children && el.getChildren().length > 0) {
+                                        getInputAndLabel(el.getChildren())
+                                    }
+
+                                })
+                            }
+
+                            getInputAndLabel(children)
+
+                        }
+
+                    }
+
+                    if (child.children && child.getChildren().length > 0) {
+                        getAllInputWrappers(child.getChildren());
+                    }
+                });
+            };
+
+            getAllInputWrappers(children);
+
+        }
+
+    }
 
 
     return (

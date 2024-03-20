@@ -6,6 +6,7 @@ import useElementInsertedBanner from "../../hooks/useElementInsertedBanner.tsx";
 import {General, QuestionAndAnswer} from "./General.tsx";
 import {z, ZodError} from "zod";
 import {useAppContext} from "../../contexts/AppContext.tsx";
+import * as webflowServices from "../../services/webflowService.ts"
 
 
 const inputSchema = z.object({
@@ -95,11 +96,20 @@ export const LikertScale = () => {
 
         if (validateDate() && form) {
             setIsLoading(true)
-            showBanner()
+            await webflowServices.insertLikertScaleFieldToForm({
+                form,
+                label,
+                answers: answers.map((i) => i.value),
+                name,
+                questions: questions.map((i) => i.value),
+                autofocus,
+                multipleResponses,
+                required
+            })
             setIsLoading(false)
+            showBanner()
         }
     }
-
     return (
         <>
 

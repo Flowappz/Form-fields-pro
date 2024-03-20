@@ -148,6 +148,18 @@ type UrlFieldParams = {
 
 }
 
+// Likert Scale Field
+type LikertScaleFieldParams = {
+    label: string;
+    name: string
+    form: FormFormElement | FormWrapperElement;
+    questions: string[]
+    answers: string[]
+    required: boolean
+    autofocus: boolean
+    multipleResponses: boolean
+
+}
 
 enum styleNames {
     DROPDOWN_LABEL = "dropdown-label",
@@ -1541,6 +1553,7 @@ export const insertUrlFieldToForm = async ({
     const labelElement = await createLabelElement(label)
 
     const inputElement = createInputElement(inputFieldName, "url")
+    inputElement.setAttribute('data-label' , label)
 
     if (required) {
         inputElement.setAttribute('required', `${required}`)
@@ -1558,6 +1571,60 @@ export const insertUrlFieldToForm = async ({
 
     const wrapperDiv = await formFieldsWrapperDiv();
     wrapperDiv.setChildren([labelElement, inputElement, errorMessage])
+
+    const existingChilds = form.getChildren();
+    form.setChildren([...existingChilds, wrapperDiv]);
+    await form.save();
+}
+
+
+// Likert Scale Field
+
+const createQuestionAndAnswer = (questions: string[], answers: string[]) => {
+
+    const tableElement = window._myWebflow.createDOM('table')
+    const tableHeader = window._myWebflow.createDOM('tr')
+    const th = window._myWebflow.createDOM('th')
+
+    const ModifyArray = questions.map((i) => {
+        return [i, ...answers]
+    })
+
+
+
+    const tableHeaderElements = answers.map((i) => {
+        const th = window._myWebflow.createDOM('th')
+        th.setTextContent(i)
+        return th
+    })
+
+    tableHeader.setChildren([th , ...tableHeaderElements])
+
+    const tableData = ModifyArray.map((item) => {
+        const tr = window._myWebflow.createDOM('tr')
+
+        const td = item.map((i) => {
+            const td = window._myWebflow.createDOM('td')
+            td.setTextContent(i)
+            return td
+        })
+        tr.setChildren(td)
+        return tr
+    })
+
+    tableElement.setChildren([tableHeader, ...tableData])
+
+    return tableElement
+}
+
+export const insertLikertScaleFieldToForm = async ({form, label, answers, questions}: LikertScaleFieldParams) => {
+
+    const labelElement = await createLabelElement(label)
+
+    const queAndAns = createQuestionAndAnswer(questions, answers)
+
+    const wrapperDiv = await formFieldsWrapperDiv();
+    wrapperDiv.setChildren([labelElement, queAndAns])
 
     const existingChilds = form.getChildren();
     form.setChildren([...existingChilds, wrapperDiv]);
