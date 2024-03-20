@@ -1,13 +1,17 @@
 import TextInput from "../../components/form/TextInput.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import SelectInput from "../../components/form/SelectInput.tsx";
 
-type FieldInfo = {
-    label: string
-    inputName: string
+
+type Options = {
+    content: string
+    value: string
 }
 export const ConditionalLogic = () => {
 
     const [selectedElement, setSelectedElement] = useState<AnyElement | null>(null)
+    const [options, setOptions] = useState<Options[]>([])
+    const [selectValue, setSelectValue] = useState(options[0]?.value)
 
 
     const handleSelectedElement = async () => {
@@ -18,71 +22,68 @@ export const ConditionalLogic = () => {
 
     handleSelectedElement().then()
 
-    const inputs: FieldInfo[] = []
 
-    const inputWrappers: DOMElement[] = []
+    useEffect(() => {
+        if (selectedElement?.type === 'FormForm' || selectedElement?.type === 'FormWrapper') {
 
-    if (selectedElement?.type === 'FormForm' || selectedElement?.type === 'FormWrapper') {
+            if (selectedElement?.children) {
 
-        if (selectedElement?.children) {
+                const children = selectedElement.getChildren()
 
-            const children = selectedElement.getChildren()
+                const getAllInputWrappers = (children: AnyElement[]) => {
+                    children.forEach(async (child) => {
 
-            const getAllInputWrappers = (children: AnyElement[]) => {
-                children.forEach(async (child) => {
+                        if (child.type === "DOM") {
 
-                    if (child.type === "DOM") {
+                            const styles = await child.getStyles()
 
-                        const styles = await child.getStyles()
+                            if (styles.find((s) => s.getName() === 'form-fields-wrapper')) {
 
-                        if (styles.find((s) => s.getName() === 'form-fields-wrapper')) {
-                            inputWrappers.push(child)
-                            const children = child.getChildren()
-                            const getInputAndLabel = (children: AnyElement[]) => {
-                                children.forEach(async (el) => {
+                                const children = child.getChildren()
+                                const getInputAndLabel = (children: AnyElement[]) => {
+                                    children.forEach(async (el) => {
+                                        if (el.type === "DOM" && el.getTag() === 'input') {
 
-                                    if (el.type === "DOM" && el.getTag() === 'input') {
+                                            setOptions((prevOptions) => [
+                                                ...prevOptions,
+                                                {
+                                                    value: el.getAttribute('name') ?? '',
+                                                    content: el.getAttribute('data-label') ?? ''
+                                                }
+                                            ])
+                                        }
+                                        if (el.children && el.getChildren().length > 0) {
+                                            getInputAndLabel(el.getChildren())
+                                        }
 
-                                        inputs.push({
-                                            inputName: el.getAttribute('name') ?? '',
-                                            label: '' ?? ''
-                                        })
-
-                                    }
-
-                                    if (el.children && el.getChildren().length > 0) {
-                                        getInputAndLabel(el.getChildren())
-                                    }
-
-                                })
+                                    })
+                                }
+                                getInputAndLabel(children)
                             }
-
-                            getInputAndLabel(children)
-
                         }
 
-                    }
+                        if (child.children && child.getChildren().length > 0) {
+                            getAllInputWrappers(child.getChildren());
+                        }
+                    });
+                };
 
-                    if (child.children && child.getChildren().length > 0) {
-                        getAllInputWrappers(child.getChildren());
-                    }
-                });
-            };
-
-            getAllInputWrappers(children);
-
+                getAllInputWrappers(children);
+            }
         }
-
-    }
-
+    }, [selectedElement]);
 
     return (
         <div className='border-b-[#363636] border-b-[1.25px] pb-2'>
             <span className="text-[0.70rem] box-border inline-block text-[#ABABAB] m-0 p-0">label</span>
             <div className='flex items-center gap-2'>
+                <SelectInput label={''} selectedValue={selectValue}
+                             options={options}
+                             onChange={(e) => setSelectValue(e)}/>
+
                 <TextInput/>
                 <TextInput/>
-                <TextInput/>
+
                 <div
                     className="action-secondary-background boxShadows-action-colored box-border mb-2 px-1 border-[#363636] border-[1px] rounded-[4px] cursor-pointer"
                 >
