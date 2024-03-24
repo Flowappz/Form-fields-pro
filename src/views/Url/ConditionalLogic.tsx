@@ -49,6 +49,8 @@ export const ConditionalLogic = () => {
     const [selectedElement, setSelectedElement] = useState<AnyElement | null>(null)
     const [options, setOptions] = useState<Options[]>([])
 
+    // const [label, setLabel] = useState<string>('')
+
     // Get input info
     const handleSelectedElement = async () => {
         const element = await window._myWebflow.getSelectedElement()
@@ -58,6 +60,7 @@ export const ConditionalLogic = () => {
 
     handleSelectedElement().then()
 
+    let label: string = ''
     useEffect(() => {
         if (selectedElement?.type === 'FormForm' || selectedElement?.type === 'FormWrapper') {
 
@@ -72,20 +75,32 @@ export const ConditionalLogic = () => {
 
                             const styles = await child.getStyles()
 
+
                             if (styles.find((s) => s.getName() === 'form-fields-wrapper')) {
 
                                 const children = child.getChildren()
+
+
                                 const getInputAndLabel = (children: AnyElement[]) => {
                                     children.forEach(async (el) => {
-                                        if (el.type === "DOM" && el.getTag() === 'input') {
+                                        // console.log(el.getTag)
+                                        if (el.type === "String" ) {
 
-                                            setOptions((prevOptions) => [
-                                                ...prevOptions,
-                                                {
-                                                    value: el.getAttribute('name') ?? '',
-                                                    content: el.getAttribute('data-label') ?? ''
-                                                }
-                                            ])
+                                            label = el.getText()
+
+                                        }
+
+                                        if (el.type === "DOM" && el.getTag() === 'input') {
+                                            if (label !== '') {
+                                                setOptions((prevOptions) => [
+                                                    ...prevOptions,
+                                                    {
+                                                        value: el.getAttribute('name') ?? '',
+                                                        content: label ?? ''
+                                                    }
+                                                ])
+                                            }
+
                                         }
                                         if (el.children && el.getChildren().length > 0) {
                                             getInputAndLabel(el.getChildren())
@@ -106,7 +121,8 @@ export const ConditionalLogic = () => {
                 getAllInputWrappers(children);
             }
         }
-    }, [selectedElement]);
+    }, [label, selectedElement]);
+
 
     const [rules, setRules] = useState<RuleItem[]>([
         {
@@ -166,7 +182,8 @@ export const ConditionalLogic = () => {
 
     }
 
-    console.log(rules, ruleGroup)
+
+    console.log(options, rules)
 
     return (
         <div className='pb-2'>
