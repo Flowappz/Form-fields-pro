@@ -2,10 +2,11 @@ import CloseDefaultIcon from "../../icons/CloseDefault.tsx";
 import {FormEvent, useState} from "react";
 import {z, ZodError} from "zod";
 import {CheckMarkIcon} from "../../icons/CheckMarkIcon.tsx";
-
+import axios from "axios";
 
 const messageSchema = z.object({
-    message: z.string().min(1, 'Feedback should not be empty')
+    message: z.string().min(1, 'Feedback should not be empty'),
+    email: z.string().email().min(1, 'Email should not be empty')
 })
 
 type UserFeedbackParams = {
@@ -13,19 +14,36 @@ type UserFeedbackParams = {
     setIsFeedbackPopupOpen: (val: boolean) => void
 
 }
+
+type FeedbackResponse = {
+    message: string;
+    feedback: {
+        app_name: string;
+        feedback_message: string;
+        updated_at: string;
+        created_at: string;
+        id: number;
+    };
+};
 export const UserFeedback = ({isFeedbackPopupOpen, setIsFeedbackPopupOpen}: UserFeedbackParams) => {
 
     const [message, setMessage] = useState<string>("")
+    const [email, setEmail] = useState<string>("")
 
     const [errors, setErrors] = useState<any>({})
 
     const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
+    const [response, setResponse] = useState<FeedbackResponse>()
+
 
     const validate = () => {
         try {
             messageSchema.parse({
-                message
+                message,
+                email
             })
 
             setErrors({})
@@ -47,13 +65,33 @@ export const UserFeedback = ({isFeedbackPopupOpen, setIsFeedbackPopupOpen}: User
         }
     }
 
-    const handleFeedbackSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleFeedbackSubmit = async (e: FormEvent<HTMLFormElement>) => {
+
         e.preventDefault()
+
+        const {siteId} = await window._myWebflow.getSiteInfo()
+
         if (validate()) {
-            console.log(message)
+            setIsLoading(true)
+            const res = await axios({
+                method: 'post',
+                url: import.meta.env.VITE_FEEDBACK_API,
+                data: {
+                    app_name: 'form-fields-pro',
+                    feedback_message: message,
+                    email: email,
+                    site_id: siteId
+                },
+                headers: {"Content-Type": "multipart/form-data"}
+            }).then((res) => res.data).catch((err) => console.log(err))
+
+            setResponse(res)
             setMessage('')
+            setIsLoading(false)
             setIsSuccess(true)
+
         }
+
 
     }
 
@@ -76,17 +114,32 @@ export const UserFeedback = ({isFeedbackPopupOpen, setIsFeedbackPopupOpen}: User
                         <div className={'flex flex-col gap-1'}>
                             <h5 className={'text-[11.5px] font-[600] leading-[16px] tracking-small-letter-spacing'}>Success</h5>
                             <span
-                                className={`text-text2 w-[178px]  text-[11.5px] leading-[16px] tracking-small-letter-spacing`}>Thank you for your valuable feedback. We will use this to improve the app for everyone.</span>
+                                className={`text-text2 w-[178px]  text-[11.5px] leading-[16px] tracking-small-letter-spacing`}>{response?.message}</span>
 
                         </div>
                     </div>
                     <button
-                        onClick={() => setIsSuccess(false)}
+                        onClick={() => {
+                            setIsSuccess(false);
+                            setIsFeedbackPopupOpen(false)
+                        }}
                         className="bg-transparent w-[80px] mx-auto mt-5 flex items-center justify-center gap-1 text-center text-[0.77rem] py-1 px-5 border-[#363636] border-[1px] rounded-[4px]"
                         type='button'>Ok
                     </button>
 
                 </div> : <form className='w-full' onSubmit={(e) => handleFeedbackSubmit(e)}>
+                    <div className='mb-2'>
+                        <p className="text-[0.77rem] box-border inline-block text-[#ABABAB]">Email</p>
+                        <input type='email' placeholder='Email'
+                               onChange={(e) => setEmail(e.target.value)}
+                               className='input-inner-shadow rounded-[4px] bg-[#00000015] border-[1px] border-[#ffffff24] shadow-xl text-[#f5f5f5] placeholder:text-[#ffffff66] w-full px-[0.3rem] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none'
+                        />
+
+                        {errors.email &&
+                            <span className="text-red-400 text-[0.74rem]">{errors.email}</span>}
+
+                    </div>
+                    <p className="text-[0.77rem] box-border inline-block  text-[#ABABAB] mb-1">Share your feedback</p>
                     <textarea value={message} onChange={(e) => setMessage(e.target.value)}
                               placeholder='Your feedback...'
                               className='w-full h-[210px] resize-none input-inner-shadow rounded-[4px] bg-[#00000015] border-[1px] border-[#ffffff24] shadow-xl text-[#D9D9D9] placeholder:text-[#ffffff66] px-[0.3rem] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none'></textarea>
@@ -99,10 +152,13 @@ export const UserFeedback = ({isFeedbackPopupOpen, setIsFeedbackPopupOpen}: User
                         </button>
                         <button
                             className="boxShadows-action-colored bg-[#0073E6] flex items-center justify-center gap-1 text-center text-[0.77rem] py-1 px-5 border-[#363636] border-[1px] rounded-[4px]"
-                            type='submit'>Submit
+                            type='submit'>
+                            {isLoading ? 'Loading...' : 'Submit'}
+
                         </button>
                     </div>
-                </form>}
+                </form>
+                }
 
 
             </div>
