@@ -26,7 +26,7 @@ export default function TextInput({
         name={name}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="input-inner-shadow rounded-[4px] bg-[#00000015] border-[1px] border-[#ffffff24] shadow-xl text-[#f5f5f5] placeholder:text-[#ffffff66] w-full px-[0.3rem] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none"
+        className="input-inner-shadow rounded-[4px] bg-[#00000015] border-[1px] border-[#ffffff24] shadow-xl text-[#f5f5f5] placeholder:text-[#ffffff66] w-full px-[0.3rem] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none focus-visible:outline-none"
       />
       {error && <span className="text-red-400 text-[0.74rem]">{error}</span>}
     </div>

@@ -26,7 +26,7 @@ export default function ColorInput({ label, placeholder, name, value, onChange, 
           name={name}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="rounded-[4px] w-full px-[0.3rem] bg-[#2B2B2B] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none"
+          className="rounded-[4px] w-full px-[0.3rem] bg-[#2B2B2B] text-[0.7rem] leading-[1.1rem] p-1 focus:outline-none focus-visible:outline-none"
         />
         {error && <span className="text-red-400 text-[0.74rem]">{error}</span>}
       </div>

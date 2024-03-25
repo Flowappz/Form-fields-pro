@@ -9,10 +9,18 @@ import SliderInput from "../components/form/SliderInput";
 import ColorInput from "../components/form/ColorInput";
 import RadioInput, { RadioOption } from "../components/form/RadioInput";
 import useElementInsertedBanner from "../hooks/useElementInsertedBanner";
+import { useFocus } from "../hooks/useFocus";
 
-const inputSchema = z.object({
+const singleDateInputSchema = z.object({
   label: z.string().min(1, "Please enter a label"),
   inputName: z.string().min(1, "Please enter the input name"),
+  zIndex: z.number().min(0),
+});
+
+const dateRangeInputSchema = z.object({
+  label: z.string().min(1, "Please enter a label"),
+  startDateInputName: z.string().min(1, "Please enter the start date input name"),
+  endDateInputName: z.string().min(1, "Please enter the end date input name"),
   zIndex: z.number().min(0),
 });
 
@@ -34,6 +42,9 @@ export default function DatePicker() {
 
   const [label, setLabel] = useState("");
   const [inputName, setInputName] = useState("");
+  // const [startDateInputName, setStartDateInputName] = useState<string>("");
+  // const [endDateInputName, setEndDateInputName] = useState<string>("");
+
   const [firstDayOfWeek, setFirstDayOfWeek] = useState(String(WEEKDAYS[0].value));
   const [language, setLanguage] = useState(DATE_PICKER_LANGUAGES[0].value);
   const [dateFormat, setDateFormat] = useState(DATE_FORMATS[0].value);
@@ -54,10 +65,26 @@ export default function DatePicker() {
 
   const [errors, setErrors] = useState<any>({});
   const { Banner, showBanner } = useElementInsertedBanner();
+  const { focusRef } = useFocus<HTMLDivElement>();
 
   const validateData = () => {
     try {
-      inputSchema.parse({
+      // if (datePickerType === datePickerTypes.singlePicker.value) {
+      //   singleDateInputSchema.parse({
+      //     label,
+      //     inputName,
+      //     zIndex: Number(zIndex),
+      //   });
+      // } else {
+      //   dateRangeInputSchema.parse({
+      //     label,
+      //     startDateInputName,
+      //     endDateInputName,
+      //     zIndex: Number(zIndex),
+      //   });
+      // }
+
+      singleDateInputSchema.parse({
         label,
         inputName,
         zIndex: Number(zIndex),
@@ -116,7 +143,7 @@ export default function DatePicker() {
   };
 
   return (
-    <div className="h-full px-20 py-10">
+    <div className="h-full px-20 py-10" ref={focusRef} tabIndex={0}>
       <div className="leading-[1.15rem] border-b-[1.25px] border-b-[#363636] pb-[0.35rem] mb-2">
         <h3 className="font-semibold text-[0.82rem]">Date picker</h3>
         <p className="text-[0.77rem]  text-[#ABABAB]">A beautiful date picker</p>
@@ -124,7 +151,6 @@ export default function DatePicker() {
 
       <div className="border-b-[#363636] border-b-[1.25px]">
         <TextInput label="Label" value={label} name="label" onChange={setLabel} error={errors.label} />
-        <TextInput label="Field name" name="input" value={inputName} onChange={setInputName} error={errors.inputName} />
 
         <div className="border-y-[1.25px] border-y-[#363636] py-1 my-3">
           <RadioInput
@@ -134,6 +160,31 @@ export default function DatePicker() {
             onChange={setDatePickerType}
           />
         </div>
+
+        {/* {datePickerType === datePickerTypes.singlePicker.value && ( */}
+        <TextInput label="Field name" name="input" value={inputName} onChange={setInputName} error={errors.inputName} />
+        {/* )} */}
+
+        {/* {datePickerType === datePickerTypes.rangePicker.value && (
+          <>
+            <TextInput
+              label="Start date field name"
+              name="startDate"
+              value={startDateInputName}
+              onChange={setStartDateInputName}
+              error={errors.startDateInputName}
+            />
+
+            <TextInput
+              label="End date field name"
+              name="endDate"
+              value={endDateInputName}
+              onChange={setEndDateInputName}
+              error={errors.endDateInputName}
+            />
+          </>
+        )} */}
+
         <SelectInput
           label="First day of the week"
           options={WEEKDAYS}
@@ -148,14 +199,14 @@ export default function DatePicker() {
         />
         <SelectInput label="Date format" options={DATE_FORMATS} selectedValue={dateFormat} onChange={setDateFormat} />
 
-        <SliderInput
+        {/* <SliderInput
           label="How many months to show by default"
           max={12}
           min={1}
           value={numberOfMonthsToShow}
           onChange={setNumberOfMonthsToShow}
         />
-        <SliderInput label="Number of columns" max={12} min={1} value={columns} onChange={setColumns} />
+        <SliderInput label="Number of columns" max={12} min={1} value={columns} onChange={setColumns} /> */}
 
         <TextInput
           label="Z-index"
@@ -188,7 +239,7 @@ export default function DatePicker() {
           onChange={setDarkThemeSelectedDateBackgroundColor}
         />
 
-        <ColorInput
+        {/* <ColorInput
           label="Today date color (Light theme)"
           value={lightThemeTodayColor}
           onChange={setLightThemeTodayColor}
@@ -197,7 +248,7 @@ export default function DatePicker() {
           label="Today date color (Dark theme)"
           value={darkThemeTodayColor}
           onChange={setDarkThemeTodayColor}
-        />
+        /> */}
       </div>
 
       <div className="mt-[0.3rem]">

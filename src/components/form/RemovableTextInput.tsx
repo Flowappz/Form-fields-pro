@@ -29,6 +29,10 @@ export default function RemovableTextInput({
       <div
         className="action-secondary-background boxShadows-action-colored box-border mb-2 p-1 border-[#363636] border-[1px] rounded-[4px] cursor-pointer"
         onClick={onRemove}
+        tabIndex={0}
+        onKeyUp={(e) => {
+          if (e.key === " " || e.code === "Space" || e.code === "Enter") onRemove();
+        }}
       >
         <CloseDefaultIcon />
       </div>
